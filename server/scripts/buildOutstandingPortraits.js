@@ -108,8 +108,6 @@ const QUERIES = [
   ['Ondo Chapter', 'QS Gbadebo Bunmi, MNIQS (Assistant General Secretary) came as a 413px-wide image '
     + 'already cut out onto white, with the edge of a chair left in it. Her card is softer than the '
     + 'rest of the chapter as a result — the full-size original photograph would fix it.'],
-  ['YQSF', 'What does NAQSS stand for in full? The page currently prints the acronym, where every '
-    + 'other body on the site is spelt out.'],
 ];
 
 const CSS = `

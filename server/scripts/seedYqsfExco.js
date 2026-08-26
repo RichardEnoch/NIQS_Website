@@ -38,8 +38,19 @@ if (!portraitsDir) {
    NEC card in the secretariat's go-live package, and the North West coordinator
    from Kaduna's own senate pack, where he is also a co-opted member.
 
-   "NAQSS" is left as the pack wrote it. The forum should be asked to spell it
-   out, the way WAQSN's full name was settled before it went on the site. */
+   WARNING: changing a title in this list is not a text edit. Exco is keyed on
+   (scope, title), so a renamed seat is written as a new record and the old one is
+   deleted with its `image` field, orphaning the portrait on Cloudinary with no
+   way back to its URL from the database. That happened to this very entry on
+   2026-08-26 and the asset had to be recovered by elimination through the
+   Cloudinary Admin API -- the one file in the batch that no record referenced.
+   Re-run with the portraits directory, not --no-photos, after any title change.
+
+   NAQSS is spelt out in full -- National Association of Quantity Surveying
+   Students -- confirmed by the operator on 2026-08-26. It was the one body on the
+   site printed as a bare acronym, which a reader outside the profession cannot
+   decode. Supplied as "Student"; pluralised here, since the body is an
+   association of students and the singular reads as a slip. */
 const COUNCIL = [
   ['abubakar-ahmed-maigatari', 'QS Abubakar Ahmed Maigatari, MNIQS', 'Chairman', 1],
   ['khalifa-faruk-sanusi', 'Khalifa Faruk Sanusi', 'Deputy Chairman, Finance & Sponsorship', 2],
@@ -51,7 +62,7 @@ const COUNCIL = [
   ['ojeaga-samuel-wade', 'Ojeaga Samuel Wade', 'Regional Coordinator, South South', 8],
   ['tolu-samuel-agboola', 'Tolu Samuel Agboola', 'Regional Coordinator, South West', 9],
   ['zulfat-o-muhammad', 'Zulfat O. Muhammad', 'Ex-Officio, Student Affairs', 10],
-  ['ahmad-yakubu', 'Ahmad Yakubu', 'National President, NAQSS', 11],
+  ['ahmad-yakubu', 'Ahmad Yakubu', 'National President, National Association of Quantity Surveying Students', 11],
   ['abdulrafiu-ibrahim', 'Abdulrafiu Ibrahim', 'Co-opted Member — FCT YQSF', 12],
   ['faith-ozichi-nwuzor', 'Faith Ozichi Nwuzor', 'Co-opted Member — Lagos YQSF', 13],
 ];
