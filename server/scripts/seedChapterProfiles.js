@@ -1354,6 +1354,140 @@ const CHAPTERS = [
       ['lydia-jonathan', 'QS Lydia Jonathan, MNIQS', 'WAQSN Representative II', 10],
     ],
   },
+  {
+    key: 'anambra',
+    chapterName: 'Anambra Chapter',
+    state: 'Anambra',
+    stateLabel: 'Anambra State',
+    chairperson: 'QS Oduenyi Donatus Chidi, MNIQS',
+    secretary: 'QS Akudoro Nnaemeka, MNIQS',
+    about:
+      'The Anambra State Chapter of the Nigerian Institute of Quantity Surveyors '
+      + 'serves registered quantity surveyors practising across Anambra State in the '
+      + 'South East geopolitical zone. An eight-member executive committee leads the '
+      + 'chapter across administration, finance and public relations, working with '
+      + 'the National Secretariat to deliver continuing professional development, '
+      + 'uphold professional standards in construction cost management, and represent '
+      + 'the profession before government and industry in the state.',
+    heroPortrait: 'oduenyi-donatus-chidi',
+    /* Captions arrived in capitals and are set in title case here; the names
+       themselves are the chapter's, unchanged.
+
+       The Deputy Chairman is a substitution, not a spelling. The stub seeded from
+       the committee's list names QS Emmanuel Okechukwu Nwankwo; this pack names
+       QS Chukwuemerie Emmanuel Okechukwu. The given names match and the surname
+       does not, so it is either a different person or a correction the list never
+       received. The seed overwrites silently, so it is recorded in QUERIES.
+       CONFIRM WITH THE CHAPTER.
+
+       The chairman is the same man either way, surname-first as the chapter
+       writes him. "PRO" is expanded to Public Relations Officer. */
+    roster: [
+      ['oduenyi-donatus-chidi', 'QS Oduenyi Donatus Chidi, MNIQS', 'Chapter Chairman', 1],
+      ['chukwuemerie-emmanuel-okechukwu', 'QS Chukwuemerie Emmanuel Okechukwu, MNIQS', 'Deputy Chairman', 2],
+      ['akudoro-nnaemeka', 'QS Akudoro Nnaemeka, MNIQS', 'General Secretary', 3],
+      ['nwobu-ifeanyi', 'QS Nwobu Ifeanyi, MNIQS', 'Assistant General Secretary', 4],
+      ['anosike-ifeoma', 'QS Anosike Ifeoma, MNIQS', 'Treasurer', 5],
+      ['onwuvunka-emmanuel', 'QS Onwuvunka Emmanuel, MNIQS', 'Financial Secretary', 6],
+      ['obiano-vivian-chikaodili', 'QS Obiano Vivian Chikaodili, MNIQS', 'Public Relations Officer', 7],
+      ['madueke-chiedu', 'QS Madueke Chiedu, MNIQS', 'Ex-Officio', 8],
+    ],
+  },
+  {
+    key: 'plateau',
+    chapterName: 'Plateau Chapter',
+    state: 'Plateau',
+    stateLabel: 'Plateau State',
+    chairperson: 'QS Nuhu Machunga, MNIQS',
+    secretary: 'QS Samuel Dawam, MNIQS',
+    about:
+      'The Plateau State Chapter of the Nigerian Institute of Quantity Surveyors '
+      + 'serves registered quantity surveyors practising across Plateau State in the '
+      + 'North Central geopolitical zone. A seven-member executive committee leads '
+      + 'the chapter across administration, finance and public relations, working '
+      + 'with the National Secretariat to deliver continuing professional '
+      + 'development, uphold professional standards in construction cost management, '
+      + 'and represent the profession before government and industry in the state.',
+    heroPortrait: 'nuhu-machunga',
+    /* Two portraits are deliberately absent, under the placeholder rule the
+       secretariat set on 2026-08-05.
+
+       The Public Relations Officer's source is a photograph of a printed
+       photograph: it mattes as a rectangular slab with the original's green
+       background band still attached, and re-running it under u2net rather than
+       u2net_human_seg removed the band but not the straight cut edges. The
+       Treasurer's is a good likeness whose patterned top smears into vivid red,
+       blue and yellow streaks where the matte fades out; both models produce it,
+       so it is the source, not the model. Replacements are requested in QUERIES.
+
+       The Financial Secretary arrived as a PDF rather than an image -- a phone
+       scan, 2448x3264, extracted from it. His caption is the one file in the pack
+       carrying neither QS nor a post-nominal, where every other member has both.
+       Under the convention settled on 2026-08-04 that reads as a probationer, and
+       he publishes exactly as supplied rather than being tidied into house style.
+
+       The chairman is "QS Nuhu Machunga" here against the committee list's
+       "QS Nuhu Zawa Machunga"; the chapter's shorter version wins, as it has in
+       every pack that disagreed with the list. */
+    roster: [
+      ['nuhu-machunga', 'QS Nuhu Machunga, MNIQS', 'Chapter Chairman', 1],
+      ['abdulrazak-mohammed', 'QS Abdulrazak Mohammed, MNIQS', 'Deputy Chairman', 2],
+      ['samuel-dawam', 'QS Samuel Dawam, MNIQS', 'General Secretary', 3],
+      ['luka-agwom', 'QS Luka Agwom, MNIQS', 'Assistant General Secretary', 4],
+      ['panmwa-gupai', 'QS Panmwa Gupai, MNIQS', 'Treasurer', 5],
+      ['abdulwahab-nasirdeen-garba', 'Abdulwahab Nasirdeen Garba', 'Financial Secretary', 6],
+      ['nentawe-gobur', 'QS Nentawe Gobur, MNIQS', 'Public Relations Officer', 7],
+    ],
+  },
+  {
+    key: 'imo',
+    chapterName: 'Imo Chapter',
+    state: 'Imo',
+    stateLabel: 'Imo State',
+    chairperson: 'QS Dr. Amuda Ogochukwu, FNIQS',
+    secretary: 'QS Dr. Ejekwu Tobechi, MNIQS',
+    about:
+      'The Imo State Chapter of the Nigerian Institute of Quantity Surveyors '
+      + 'serves registered quantity surveyors practising across Imo State in the '
+      + 'South East geopolitical zone. A nine-member executive committee leads the '
+      + 'chapter across administration, finance, welfare and professional '
+      + 'development, working with the National Secretariat to deliver continuing '
+      + 'professional development, uphold professional standards in construction '
+      + 'cost management, and represent the profession before government and '
+      + 'industry in the state. The chapter is led by a Fellow of the Institute and '
+      + 'carries its own Young Quantity Surveyors Forum coordination.',
+    /* Roster text only -- no heroPortrait, and run with --no-photos.
+
+       The pack is a single .docx with nine photographs embedded in it, and two
+       separate problems make them unpublishable as they stand.
+
+       They are 213x284 to 290x398, about a quarter of what the cards need, the
+       same as the Ekiti pack.
+
+       More seriously, the document does not say which photograph belongs to whom.
+       Word lays them out in groups of one, two, four and two, while the captions
+       name people in groups of three, so the two sequences cannot be aligned.
+       Guessing would put a real person's face under another person's name, so
+       none is used. Individually named, full-size files would settle both -- see
+       QUERIES.
+
+       "QS." is regularised to "QS" and a comma restored before each post-nominal;
+       "Cordinator" is corrected. Names are otherwise verbatim, including the
+       Treasurer's "MNQIS", which is a post-nominal and so not mine to correct, and
+       the YQSF Coordinator's bare name. "SPDL" is the chapter's own title for the
+       sixth seat and is published as given -- it is queried, not guessed at. */
+    roster: [
+      ['amuda-ogochukwu', 'QS Dr. Amuda Ogochukwu, FNIQS', 'Chapter Chairman', 1],
+      ['ihezie-dennis-n', 'QS Ihezie Dennis N., MNIQS', 'Deputy Chairman', 2],
+      ['ejekwu-tobechi', 'QS Dr. Ejekwu Tobechi, MNIQS', 'Secretary General', 3],
+      ['ohamma-victor', 'QS Dr. Ohamma Victor, MNIQS', 'Welfare Secretary', 4],
+      ['victor-agbasonu', 'QS Victor Agbasonu, MNIQS', 'Financial Secretary', 5],
+      ['rex-ugulu', 'QS Dr. Rex Ugulu, MNIQS', 'SPDL', 6],
+      ['egbujor-jane', 'QS Egbujor Jane, MNQIS', 'Treasurer', 7],
+      ['newton-i-j-onwusonye', 'QS Newton I.J Onwusonye, MNIQS', 'Public Relations Officer', 8],
+      ['mbamaonyeukwu-prisca-chiamaka', 'Mbamaonyeukwu Prisca Chiamaka', 'State YQSF Coordinator', 9],
+    ],
+  },
 ];
 
 (async () => {

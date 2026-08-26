@@ -38,6 +38,32 @@ const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June',
    Kept here rather than derived, because each one is a question someone asked
    and nobody has answered yet. Delete an entry once it is settled. */
 const QUERIES = [
+  ['Anambra Chapter', 'The Deputy Chairman is published as the chapter wrote him, '
+    + 'QS Chukwuemerie Emmanuel Okechukwu, MNIQS. The Chapter Chairmen List on file names '
+    + 'QS Emmanuel Okechukwu Nwankwo for that seat: the given names match but the surname does '
+    + 'not, so this is either a different person or a correction the list never received. '
+    + 'Please confirm which is right.'],
+  ['Plateau Chapter', 'Two portraits are on the site as initials rather than photographs. '
+    + 'The Public Relations Officer, QS Nentawe Gobur, MNIQS, was sent as a photograph of a '
+    + 'printed photograph and cannot be separated from its background - it comes out as a '
+    + 'rectangle with the original backing still attached. The Treasurer, QS Panmwa Gupai, '
+    + 'MNIQS, is a good likeness, but the pattern on her top breaks up badly along the bottom '
+    + 'edge. Original photographs for both would let them match the rest of the chapter.'],
+  ['Plateau Chapter', 'The Financial Secretary is published as Abdulwahab Nasirdeen Garba, '
+    + 'exactly as the pack captioned him - the only member of the roster carrying neither QS '
+    + 'nor a post-nominal, where every other officer has both. Please confirm whether that is '
+    + 'correct or whether they were omitted in error. His photograph also arrived as a PDF '
+    + 'scan rather than an image file; it has been used, but a plain photograph is easier.'],
+  ['Imo Chapter', 'The executive list is published, but none of the nine photographs could be '
+    + 'used, for two reasons. They are about 250 x 320 pixels, roughly a quarter of the size '
+    + 'the cards need. More importantly, the Word document does not say which photograph '
+    + 'belongs to which officer - the pictures are grouped in ones, twos and fours while the '
+    + 'names are listed in threes, so they cannot be matched up with any confidence, and we '
+    + 'will not guess at whose face is whose. Please resend the photographs as separate files, '
+    + 'each named for the officer, at full size.'],
+  ['Imo Chapter', 'Two entries are published exactly as supplied and may need correcting: the '
+    + 'Treasurer as QS Egbujor Jane, MNQIS (MNIQS?), and the sixth seat titled SPDL, which we '
+    + 'have left as written rather than guess at the full title. Please confirm both.'],
   ['Ekiti Chapter', 'The eight photographs in the chapter pack are between 204x286 and 386x386 '
     + 'pixels, which is roughly a quarter of the resolution the cards need — every face would have '
     + 'to be enlarged three to four times and would look soft beside the other chapters. The roster '
