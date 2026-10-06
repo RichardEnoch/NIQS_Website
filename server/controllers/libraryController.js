@@ -65,15 +65,17 @@ exports.list = async (req, res) => {
 // GET /api/library/facets — categories and types with counts, plus featured shelf
 exports.facets = async (req, res) => {
   try {
-    const [categories, types, featured, total] = await Promise.all([
+    const [categories, types, featured, total, free] = await Promise.all([
       LibraryItem.aggregate([{ $match: { isPublished: true } }, { $group: { _id: '$category', count: { $sum: 1 } } }, { $sort: { _id: 1 } }]),
       LibraryItem.aggregate([{ $match: { isPublished: true } }, { $group: { _id: '$type', count: { $sum: 1 } } }, { $sort: { _id: 1 } }]),
       LibraryItem.find({ isPublished: true, isFeatured: true }).sort({ sortOrder: 1, createdAt: -1 }).limit(8),
       LibraryItem.countDocuments({ isPublished: true }),
+      LibraryItem.countDocuments({ isPublished: true, access: 'public' }),
     ]);
     const isMember = Boolean(req.user || req.admin);
     res.json({
       total,
+      free,
       categories: categories.map((c) => ({ name: c._id, count: c.count })),
       types: types.map((t) => ({ name: t._id, count: t.count })),
       featured: featured.map((i) => toPublic(i, isMember)),

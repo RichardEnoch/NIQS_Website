@@ -83,6 +83,7 @@ const Footer = () => {
               <li><Link to="/exams">Examinations</Link></li>
               <li><Link to="/research">CPD &amp; Webinars</Link></li>
               <li><Link to="/research">QS Journal</Link></li>
+              <li><Link to="/library">Digital Library</Link></li>
               {/* /brand does not exist — the route is /brand-materials. This
                   link had been landing on the 404 page. */}
               <li><Link to="/brand-materials">Brand Materials</Link></li>

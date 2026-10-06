@@ -101,6 +101,7 @@ export function getAdminSidebarItems(role) {
     { label: 'Webinars',          path: '/admin/webinars',           icon: 'video' },
     { label: 'Workshop Materials',path: '/admin/workshop-materials', icon: 'folderOpen'   },
     { label: 'Journal of QS',     path: '/admin/journal',            icon: 'library' },
+    { label: 'Digital Library',   path: '/admin/library',            icon: 'book' },
     { label: 'Contact Info',     path: '/admin/contact-info',    icon: 'phone'      },
     { label: 'Site Settings',    path: '/admin/site-settings',   icon: 'link'              },
   );

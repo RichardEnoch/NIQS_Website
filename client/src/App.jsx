@@ -187,6 +187,8 @@ export default function App() {
           <Route path="/workshop-materials" element={<PublicPage element={<Pages.WorkshopMaterials />} />} />
           <Route path="/exams" element={<PublicPage element={<Pages.Exams />} />} />
           <Route path="/research" element={<PublicPage element={<Pages.Research />} />} />
+          <Route path="/library" element={<PublicPage element={<Pages.Library />} />} />
+          <Route path="/library/:slug" element={<PublicPage element={<Pages.LibraryItem />} />} />
           <Route path="/news" element={<PublicPage element={<Pages.News />} />} />
           <Route path="/news/:slug" element={<PublicPage element={<Pages.NewsArticle />} />} />
           <Route path="/events" element={<PublicPage element={<Pages.Events />} />} />
@@ -219,6 +221,7 @@ export default function App() {
           >
             <Route index element={<Pages.PortalDashboard />} />
             <Route path="profile" element={<Pages.PortalProfile />} />
+            <Route path="library" element={<Pages.PortalLibrary />} />
           </Route>
 
           {/* ══════ ADMIN PANEL ══════ */}
@@ -262,6 +265,7 @@ export default function App() {
             <Route path="webinars"            element={<Pages.ManageWebinars />} />
             <Route path="workshop-materials"  element={<Pages.ManageWorkshopMaterials />} />
             <Route path="journal"             element={<Pages.ManageJournal />} />
+            <Route path="library"             element={<Pages.ManageLibrary />} />
             <Route path="messages"            element={<Pages.ManageMessages />} />
             <Route path="profile"             element={<Pages.ManageProfile />} />
           </Route>

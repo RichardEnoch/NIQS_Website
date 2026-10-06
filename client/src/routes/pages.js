@@ -35,6 +35,8 @@ const load = {
   WorkshopMaterials:() => import('../pages/public/WorkshopMaterials'),
   Exams:            () => import('../pages/public/Exams'),
   Research:         () => import('../pages/public/Research'),
+  Library:          () => import('../pages/public/Library'),
+  LibraryItem:      () => import('../pages/public/LibraryItem'),
   News:             () => import('../pages/public/News'),
   NewsArticle:      () => import('../pages/public/NewsArticle'),
   Events:           () => import('../pages/public/Events'),
@@ -59,6 +61,7 @@ const load = {
   PortalLayout:     () => import('../pages/portal/PortalLayout'),
   PortalDashboard:  () => import('../pages/portal/PortalDashboard'),
   PortalProfile:    () => import('../pages/portal/PortalProfile'),
+  PortalLibrary:    () => import('../pages/portal/PortalLibrary'),
 
   /* ── Admin ──
      The heaviest group by far. FlyerStudio alone pulls jspdf, html2canvas and
@@ -90,6 +93,7 @@ const load = {
   ManageWebinars:         () => import('../pages/admin/ManageWebinars'),
   ManageWorkshopMaterials:() => import('../pages/admin/ManageWorkshopMaterials'),
   ManageJournal:          () => import('../pages/admin/ManageJournal'),
+  ManageLibrary:          () => import('../pages/admin/ManageLibrary'),
   ManageMessages:         () => import('../pages/admin/ManageMessages'),
   ManageProfile:          () => import('../pages/admin/ManageProfile'),
 };
@@ -122,6 +126,7 @@ const byPath = {
   '/workshop-materials': load.WorkshopMaterials,
   '/exams': load.Exams,
   '/research': load.Research,
+  '/library': load.Library,
   '/news': load.News,
   '/events': load.Events,
   '/jobs': load.Jobs,
@@ -143,6 +148,7 @@ const byPath = {
  */
 const byPrefix = [
   ['/news/', load.NewsArticle],
+  ['/library/', load.LibraryItem],
   ['/chapters/', load.ChapterDetail],
   ['/partnership/', load.PartnerDetail],
   ['/flyer-request/', load.FlyerRequest],

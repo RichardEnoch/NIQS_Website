@@ -22,6 +22,7 @@ const PortalLayout = () => {
   const navItems = [
     { to: '/portal', label: 'Dashboard', icon: '\u2302', end: true },
     { to: '/portal/profile', label: 'My Profile', icon: 'account' },
+    { to: '/portal/library', label: 'My Library', icon: 'library' },
     { label: 'My Results', icon: 'award', comingSoon: true },
     { label: 'ID Card', icon: 'idCard', comingSoon: true },
     { label: 'Payments', icon: '\u20A6', comingSoon: true },

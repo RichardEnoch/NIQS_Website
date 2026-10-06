@@ -3,6 +3,14 @@ import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import { useAuth } from '../../context/AuthContext';
 
+/* ?next= brings a member back to the page that sent them here (a members-only
+   library title, say). Same-site paths only: a full or protocol-relative URL
+   would make this page an open redirect. */
+const safeNext = () => {
+  const next = new URLSearchParams(window.location.search).get('next') || '';
+  return next.startsWith('/') && !next.startsWith('//') && !next.startsWith('/\\') ? next : '';
+};
+
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -25,7 +33,7 @@ const Login = () => {
       // Hard redirect so the app re-mounts with a fresh auth check —
       // avoids race conditions between React Router navigation and
       // the AuthContext state update settling.
-      window.location.href = isAdmin ? '/admin' : '/portal';
+      window.location.href = isAdmin ? '/admin' : (safeNext() || '/portal');
     } catch (err) {
       const msg =
         err.response?.data?.message ||

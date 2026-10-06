@@ -47,6 +47,7 @@ const TITLES = {
   '/workshop-materials': 'Workshop Materials',
   '/exams': 'Examinations',
   '/research': 'Research & Publications',
+  '/library': 'Digital Library',
   '/news': 'News',
   '/events': 'Events',
   '/jobs': 'Jobs',
