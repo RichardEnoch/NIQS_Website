@@ -66,7 +66,6 @@ const STATIC_ROUTES = [
   ['/past-presidents',     0.7, 'yearly'],
   ['/exams',               0.8, 'monthly'],
   ['/research',            0.7, 'monthly'],
-  ['/webinars',            0.7, 'weekly'],
   ['/workshop-materials',  0.6, 'monthly'],
   ['/search-qs-firms',     0.8, 'weekly'],
   ['/jobs',                0.8, 'weekly'],

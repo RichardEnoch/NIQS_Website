@@ -161,7 +161,7 @@ export default function WorkshopMaterials() {
             <p>Workshop facilitators can submit materials to be published in this library. Contact the secretariat.</p>
             <div className="ctarow">
               <a href="/contact" className="btn bg">Submit Materials</a>
-              <Link to="/webinars" className="btn bo" style={{ color: '#fff', borderColor: 'rgba(255,255,255,.3)' }}>View Webinars</Link>
+              <Link to="/events" className="btn bo" style={{ color: '#fff', borderColor: 'rgba(255,255,255,.3)' }}>Upcoming Events</Link>
             </div>
           </div>
         </div>

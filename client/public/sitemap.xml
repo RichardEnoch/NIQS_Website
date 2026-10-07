@@ -76,11 +76,6 @@
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://niqs.org.ng/webinars</loc>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
     <loc>https://niqs.org.ng/workshop-materials</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -165,7 +160,7 @@
   </url>
   <url>
     <loc>https://niqs.org.ng/chapters/anambra-chapter</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -219,7 +214,7 @@
   </url>
   <url>
     <loc>https://niqs.org.ng/chapters/ekiti-chapter</loc>
-    <lastmod>2026-07-25</lastmod>
+    <lastmod>2026-08-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -243,7 +238,7 @@
   </url>
   <url>
     <loc>https://niqs.org.ng/chapters/imo-chapter</loc>
-    <lastmod>2026-07-09</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -333,7 +328,7 @@
   </url>
   <url>
     <loc>https://niqs.org.ng/chapters/plateau-chapter</loc>
-    <lastmod>2026-07-25</lastmod>
+    <lastmod>2026-08-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -345,7 +340,7 @@
   </url>
   <url>
     <loc>https://niqs.org.ng/chapters/sokoto-chapter</loc>
-    <lastmod>2026-07-25</lastmod>
+    <lastmod>2026-08-18</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

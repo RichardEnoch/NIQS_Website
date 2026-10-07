@@ -27,11 +27,12 @@ const RES_CARDS = [
     btnLabel: 'Access Certificates', btnCls: 'bo',
   },
   {
-    to: '/webinars', locked: false,
+    // Webinars are listed with every other event now (October 2026 review).
+    to: '/events', locked: false,
     img: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=700&q=80&fit=crop',
-    h4: 'Webinar Series',
-    p: 'Recordings and upcoming sessions from NIQS CPD webinars covering cost management, procurement, sustainability, and professional practice.',
-    btnLabel: 'Browse Webinars', btnCls: 'bp',
+    h4: 'Webinars & Events',
+    p: 'Upcoming NIQS CPD webinars, workshops and conferences covering cost management, procurement, sustainability, and professional practice.',
+    btnLabel: 'Browse Events', btnCls: 'bp',
   },
   {
     to: '/workshop-materials', locked: false,

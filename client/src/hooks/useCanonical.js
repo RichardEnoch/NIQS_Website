@@ -43,7 +43,6 @@ const TITLES = {
   '/brand-materials': 'Brand Materials',
   '/membership': 'Membership',
   '/search-qs-firms': 'Find a QS Firm',
-  '/webinars': 'Webinars',
   '/workshop-materials': 'Workshop Materials',
   '/exams': 'Examinations',
   '/research': 'Research & Publications',
