@@ -2,13 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../api/axios';
 import PageHero from '../../components/common/PageHero';
-import MembershipStats from '../../components/stats/MembershipStats';
-import { useMemberCopy } from '../../hooks/useMembershipStats';
 import { AGREEMENT_COUNT } from '../../data/reciprocity';
 import Icon from '../../components/common/Icon';
 
 export default function About() {
-  const memberCopy = useMemberCopy();
   const [partners, setPartners]   = useState([]);
   const [loadingP, setLoadingP]   = useState(true);
 
@@ -69,17 +66,93 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── THE REGISTER TODAY ──
-          Placed straight after the founding story: the numbers are the evidence
-          for it. Renders nothing when the statistics endpoint is unavailable, so
-          the page simply reads as it did before. */}
-      <MembershipStats
-        background="var(--off)"
-        flushBottom
-        eyebrow="The Institute Today"
-        intro="From that founding group in 1969 to the register as it stands now — aggregate figures drawn live from NIQS membership records. Counts only; no personal details are published here."
-      />
+      {/* Membership statistics (MembershipStats) used to sit here. At the October
+          2026 review NIQS asked that the figures be shown to members only, so
+          they now live on the portal dashboard. */}
 
+      {/* ── STRATEGIC PARTNERS ──
+          Straight after the founding story since the October 2026 review, where
+          NIQS asked for partnership to be more visible in position as well as in
+          look. It used to sit last, below Why NIQS. */}
+      <section style={{ background: 'var(--off)' }}>
+        <div className="ct">
+          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
+            <div>
+              <div className="ey">Strategic Partners</div>
+              <h2 className="sh" style={{ marginBottom: 0 }}>Partners in <em>Excellence</em></h2>
+            </div>
+          </div>
+          <p className="sd" style={{ marginBottom: '2rem' }}>
+            NIQS works alongside organisations committed to raising the bar in Nigeria's construction industry.
+          </p>
+
+          {loadingP ? (
+            <div style={{ padding: '2rem 0', color: 'var(--color-txt-3)', fontSize: '.85rem' }}>Loading partners…</div>
+          ) : noPartnersYet ? (
+            <div style={{
+              background: 'linear-gradient(135deg, #000066 0%, #12306e 100%)',
+              borderRadius: 16, padding: '3rem 2.5rem', textAlign: 'center',
+            }}>
+              <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.4rem', color: '#fff', marginBottom: '.6rem', letterSpacing: '-.02em' }}>
+                Become a Foundation Partner of the New NIQS
+              </h3>
+              <p style={{ fontSize: '.88rem', color: 'rgba(255,255,255,.75)', maxWidth: 620, margin: '0 auto 1.5rem', lineHeight: 1.8 }}>
+                We are inviting organisations that share our commitment to excellence in the built
+                environment to partner with the Institute, and reach quantity surveying
+                professionals across all 36 states and the FCT.
+              </p>
+              <div style={{ display: 'flex', gap: '.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                <Link to="/partnership" className="btn bp">Explore Partnership Tiers</Link>
+                <Link to="/contact" className="btn bo" style={{ borderColor: 'rgba(255,255,255,.4)', color: '#fff' }}>Contact the Secretariat</Link>
+              </div>
+            </div>
+          ) : (
+            featured.map(p => {
+              const tierLabel = p.tier ? p.tier.charAt(0).toUpperCase() + p.tier.slice(1) + ' Partner' : 'Partner';
+              /* A label rendered as JSX rather than a string, so the icon is an icon.
+                 It was a plain string when the marker was an emoji. */
+              const badgeLabel = p.tier === 'platinum'
+                ? <><Icon name="diamond" size="sm" /> Platinum Partner</>
+                : p.tier === 'gold'
+                  ? <><Icon name="trophy" size="sm" /> Gold Partner</>
+                  : tierLabel;
+
+              const cardInner = (
+                <div className="gpc" style={{ position: 'relative', cursor: 'pointer' }}>
+                  {/* Logo / initial panel */}
+                  {p.logo ? (
+                    <img className="gpimg" src={p.logo} alt={p.name} style={{ objectFit: 'contain', background: '#fff', padding: '1.5rem' }} />
+                  ) : (
+                    <div className="gpimg" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '.5rem', background: 'linear-gradient(135deg,#f0f4fb,#e8edf6)' }}>
+                      <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '2.8rem', color: 'var(--color-navy)', opacity: .18 }}>{p.name[0]}</span>
+                      <span style={{ fontSize: '.62rem', fontWeight: 600, color: 'var(--color-txt-3)', textTransform: 'uppercase', letterSpacing: '.08em' }}>Logo</span>
+                    </div>
+                  )}
+
+                  {/* Content */}
+                  <div>
+                    <div className="gpbadge">{badgeLabel}</div>
+                    <h4>{p.name}</h4>
+                    {p.industry && (
+                      <div style={{ fontSize: '.76rem', color: 'var(--color-txt-3)', fontWeight: 600, marginBottom: '.5rem', letterSpacing: '.02em' }}>{p.industry}</div>
+                    )}
+                    {p.description && <p>{p.description}</p>}
+                    <span className="gpl">View partner profile →</span>
+                  </div>
+                </div>
+              );
+
+              return (
+                <Link key={p._id} to={`/partnership/${p._id}`} style={{ textDecoration: 'none', display: 'block' }}>{cardInner}</Link>
+              );
+            })
+          )}
+
+          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
+            <Link to="/partnership" className="btn bp">Explore All Partnership Opportunities →</Link>
+          </div>
+        </div>
+      </section>
       {/* ── VISION / MISSION / VALUE ── */}
       <section style={{ background: 'var(--off)', paddingTop: 0 }}>
         <div className="ct" style={{ paddingTop: '5rem' }}>
@@ -147,86 +220,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── STRATEGIC PARTNERS ── */}
-      <section style={{ background: 'var(--off)' }}>
-        <div className="ct">
-          <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
-            <div>
-              <div className="ey">Strategic Partners</div>
-              <h2 className="sh" style={{ marginBottom: 0 }}>Partners in <em>Excellence</em></h2>
-            </div>
-          </div>
-          <p className="sd" style={{ marginBottom: '2rem' }}>
-            NIQS works alongside organisations committed to raising the bar in Nigeria's construction industry.
-          </p>
-
-          {loadingP ? (
-            <div style={{ padding: '2rem 0', color: 'var(--color-txt-3)', fontSize: '.85rem' }}>Loading partners…</div>
-          ) : noPartnersYet ? (
-            <div style={{
-              background: 'linear-gradient(135deg, #000066 0%, #12306e 100%)',
-              borderRadius: 16, padding: '3rem 2.5rem', textAlign: 'center',
-            }}>
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.4rem', color: '#fff', marginBottom: '.6rem', letterSpacing: '-.02em' }}>
-                Become a Foundation Partner of the New NIQS
-              </h3>
-              <p style={{ fontSize: '.88rem', color: 'rgba(255,255,255,.75)', maxWidth: 620, margin: '0 auto 1.5rem', lineHeight: 1.8 }}>
-                We are inviting organisations that share our commitment to excellence in the built
-                environment to partner with the Institute. Reach {memberCopy} quantity surveying
-                professionals across all 36 states and the FCT.
-              </p>
-              <div style={{ display: 'flex', gap: '.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link to="/partnership" className="btn bp">Explore Partnership Tiers</Link>
-                <Link to="/contact" className="btn bo" style={{ borderColor: 'rgba(255,255,255,.4)', color: '#fff' }}>Contact the Secretariat</Link>
-              </div>
-            </div>
-          ) : (
-            featured.map(p => {
-              const tierLabel = p.tier ? p.tier.charAt(0).toUpperCase() + p.tier.slice(1) + ' Partner' : 'Partner';
-              /* A label rendered as JSX rather than a string, so the icon is an icon.
-                 It was a plain string when the marker was an emoji. */
-              const badgeLabel = p.tier === 'platinum'
-                ? <><Icon name="diamond" size="sm" /> Platinum Partner</>
-                : p.tier === 'gold'
-                  ? <><Icon name="trophy" size="sm" /> Gold Partner</>
-                  : tierLabel;
-
-              const cardInner = (
-                <div className="gpc" style={{ position: 'relative', cursor: 'pointer' }}>
-                  {/* Logo / initial panel */}
-                  {p.logo ? (
-                    <img className="gpimg" src={p.logo} alt={p.name} style={{ objectFit: 'contain', background: '#fff', padding: '1.5rem' }} />
-                  ) : (
-                    <div className="gpimg" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', flexDirection: 'column', gap: '.5rem', background: 'linear-gradient(135deg,#f0f4fb,#e8edf6)' }}>
-                      <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '2.8rem', color: 'var(--color-navy)', opacity: .18 }}>{p.name[0]}</span>
-                      <span style={{ fontSize: '.62rem', fontWeight: 600, color: 'var(--color-txt-3)', textTransform: 'uppercase', letterSpacing: '.08em' }}>Logo</span>
-                    </div>
-                  )}
-
-                  {/* Content */}
-                  <div>
-                    <div className="gpbadge">{badgeLabel}</div>
-                    <h4>{p.name}</h4>
-                    {p.industry && (
-                      <div style={{ fontSize: '.76rem', color: 'var(--color-txt-3)', fontWeight: 600, marginBottom: '.5rem', letterSpacing: '.02em' }}>{p.industry}</div>
-                    )}
-                    {p.description && <p>{p.description}</p>}
-                    <span className="gpl">View partner profile →</span>
-                  </div>
-                </div>
-              );
-
-              return (
-                <Link key={p._id} to={`/partnership/${p._id}`} style={{ textDecoration: 'none', display: 'block' }}>{cardInner}</Link>
-              );
-            })
-          )}
-
-          <div style={{ textAlign: 'center', marginTop: '2.5rem' }}>
-            <Link to="/partnership" className="btn bp">Explore All Partnership Opportunities →</Link>
-          </div>
-        </div>
-      </section>
     </>
   );
 }

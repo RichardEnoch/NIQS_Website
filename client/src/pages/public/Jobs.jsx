@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import API from '../../api/axios';
 import PageHero from '../../components/common/PageHero';
 import { useAuth } from '../../context/AuthContext';
-import { useMemberCopy } from '../../hooks/useMembershipStats';
 import Icon from '../../components/common/Icon';
 
 const TYPE_COLORS = {
@@ -287,7 +286,6 @@ function JobDetail({ job, onClose, isLoggedIn }) {
 }
 
 export default function Jobs() {
-  const memberCopy = useMemberCopy();
   const [jobs, setJobs]       = useState([]);
   const [status, setStatus]   = useState('loading');
   const [selected, setSelected] = useState(null);
@@ -448,7 +446,7 @@ export default function Jobs() {
               Are you an employer?
             </div>
             <p style={{ fontSize: '.82rem', color: 'var(--color-txt-2)', marginBottom: '1.5rem' }}>
-              Reach {memberCopy} qualified quantity surveyors across Nigeria. Post your vacancy on the NIQS job board.
+              Reach qualified quantity surveyors in every state of Nigeria. Post your vacancy on the NIQS job board.
             </p>
             <Link to="/contact" className="btn bg">Post a Job Listing</Link>
           </div>
