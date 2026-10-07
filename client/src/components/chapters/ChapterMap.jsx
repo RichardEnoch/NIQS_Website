@@ -29,7 +29,7 @@ const ZONE_CLASS = {
  * Chapter records store "Abia State"; the map data uses "Abia". FCT is bare in
  * both. Getting this wrong silently matched almost nothing the first time round.
  */
-function normaliseState(value) {
+export function normaliseState(value) {
   return String(value || '')
     .replace(/\s+state$/i, '')
     .replace(/^federal capital territory$/i, 'FCT')

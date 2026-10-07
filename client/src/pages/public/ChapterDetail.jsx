@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PageHero from '../../components/common/PageHero';
 import LeaderCard from '../../components/common/LeaderCard';
+import StateMap from '../../components/chapters/StateMap';
 import API from '../../api/axios';
 import Icon from '../../components/common/Icon';
 
@@ -75,7 +76,7 @@ export default function ChapterDetail() {
         <PageHero
           label="State Chapter"
           title="Loading…"
-          backgroundImage="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1400&q=80&fit=crop"
+          backgroundImage="/backgrounds/hero-crest.webp"
         />
         <div className="ct" style={{ padding: '4rem 0', textAlign: 'center', color: 'var(--color-txt-3)' }}>
           Loading chapter information…
@@ -84,7 +85,10 @@ export default function ChapterDetail() {
     );
   }
 
-  const heroImg = chapter?.image || 'https://images.unsplash.com/photo-1524661135-423995f22d0b?w=1400&q=80&fit=crop';
+  /* The hero is the institute's crest, not chapter.image: that field holds the
+     chairman's portrait, which the executive list below already shows. Using it
+     here as well put the same face on the page three times (review, Oct 2026). */
+  const heroImg = '/backgrounds/hero-crest.webp';
 
   const stats = [
     chapter?.memberCount > 0 && { label: 'Registered QS', value: chapter.memberCount.toLocaleString() },
@@ -115,10 +119,11 @@ export default function ChapterDetail() {
             {/* Left: description + contact */}
             <div className="rl">
               <div className="ey">About This Chapter</div>
-              <h2 className="sh">{chapter?.name || `${stateName} Chapter`}</h2>
-              <p style={{ fontSize: '.9rem', lineHeight: 1.85, color: 'var(--color-txt-2)', marginBottom: '1.5rem' }}>
-                {chapter?.about || `The ${stateName} State Chapter of the Nigerian Institute of Quantity Surveyors coordinates professional activities, organises CPD events, and supports member welfare within the state.`}
-              </p>
+              {/* No write-up under the name (review, Oct 2026). chapter.about is
+                  still kept in the data: ChapterMap and the chapters list read
+                  it as the "full profile" flag, so clearing it would unmark
+                  every published chapter. */}
+              <h2 className="sh" style={{ marginBottom: '1.5rem' }}>{chapter?.name || `${stateName} Chapter`}</h2>
 
               {/* Stats row — only figures we actually hold are shown, so a chapter
                   whose counts the secretariat has not supplied never renders a
@@ -168,15 +173,9 @@ export default function ChapterDetail() {
               </div>
             </div>
 
-            {/* Right: chapter image */}
+            {/* Right: where the chapter is */}
             <div className="rr">
-              <img
-                src={chapter?.image || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=700&q=80&fit=crop'}
-                alt={chapter?.name}
-                /* Chapter images are chairman portraits — anchor near the face so a
-                   landscape crop never cuts the head off. */
-                style={{ width: '100%', height: 340, objectFit: 'cover', objectPosition: 'center 22%', borderRadius: 14, boxShadow: 'var(--sh)' }}
-              />
+              <StateMap state={chapter?.state || stateName} zone={chapter?.zone || ZONE_MAP[stateSlug]} />
             </div>
           </div>
         </div>
