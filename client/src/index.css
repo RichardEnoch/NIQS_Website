@@ -1478,3 +1478,8 @@
   .ptn-cta { padding: 1.8rem 1.4rem; }
   .ptn-logos { grid-template-columns: repeat(2, 1fr); }
 }
+
+/* Hero strip centre frame while the Secretariat building photo is pending:
+   the crest on navy, so the frame still belongs to the Institute. */
+.hstrip-img--crest { background: radial-gradient(circle at 50% 40%, #1a1a8a, var(--color-navy)); display: flex; align-items: center; justify-content: center; }
+.hstrip-img--crest img { width: 58% !important; height: auto !important; object-fit: contain !important; }

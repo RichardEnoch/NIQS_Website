@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import API from '../../api/axios';
 import { AGREEMENT_COUNT } from '../../data/reciprocity';
 import useChapterCount, { CHAPTERS_FALLBACK } from '../../hooks/useChapterCount';
+import { useMemberCopy } from '../../hooks/useMembershipStats';
 import Icon from '../../components/common/Icon';
 
 /* Founding year, for the "years of excellence" tile — computed rather than typed
@@ -49,12 +50,19 @@ const defaultTickerItems = [
   'Brand Materials — Download the official NIQS brand kit',
 ];
 
+/* The hero strip reads left to right as the story of the profession, as NIQS
+   asked at the October 2026 review: the tools it started with, the Institute's
+   home today at the centre (the largest frame), and where the built environment
+   is heading. The centre frame has no photograph yet — until the Secretariat
+   supplies one of the National Secretariat building, it renders as a crest card
+   rather than a stock picture standing in for the Institute's own house. Drop
+   the photo in /public/hero/ and set `src` to switch it over. */
 const heroImages = [
-  { src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80&fit=crop', alt: 'Construction site cost survey' },
-  { src: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80&fit=crop', alt: 'Architectural plans & take-off' },
-  { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&fit=crop', alt: 'Quantity surveying practice' },
-  { src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80&fit=crop', alt: 'Built infrastructure' },
-  { src: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&fit=crop', alt: 'Cost analysis & estimation' },
+  { src: 'https://images.unsplash.com/photo-1559819614-8e87b90b8e9b?w=600&q=80&fit=crop', alt: 'Slide rule — measurement before the calculator' },
+  { src: 'https://images.unsplash.com/photo-1648201637025-1c77b9be3013?w=600&q=80&fit=crop', alt: 'Calculator and handwritten workings' },
+  { src: null, alt: 'QS J. Segun Ajanlekoko House, NIQS National Secretariat, Abuja', badge: 'NIQS National Secretariat' },
+  { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&fit=crop', alt: 'Digital cost planning on screen' },
+  { src: 'https://images.unsplash.com/photo-1713643957213-4a6acc242563?w=600&q=80&fit=crop', alt: 'Twisting high-rise towers — the built environment ahead' },
 ];
 
 /* ── helpers ── */
@@ -117,10 +125,11 @@ export default function Home() {
   const [partners, setPartners] = useState([]);
   const [tickerItems, setTickerItems] = useState(defaultTickerItems);
 
-  /* Membership figures are no longer quoted on public pages. At the October 2026
-     review NIQS asked that member counts (and the Fellows count) appear only in
-     the member portal, where MembershipStats now lives. Copy that used to say
-     "14,000+ professionals" describes the Institute without a number instead. */
+  /* Public pages quote the size of the Institute only as a rounded figure
+     ("14,000+"), never the exact register count — NIQS confirmed this at the
+     October 2026 review. The detailed breakdown (and the Fellows count) is
+     members-only now, in the portal. */
+  const memberCopy = useMemberCopy();
   const chapterCount = useChapterCount();
 
   useEffect(() => {
@@ -229,7 +238,7 @@ export default function Home() {
             Advancing Nigeria's<br />Built <em>Environment</em>
           </h1>
           <p className="hc-sub">
-            The premier professional body for quantity surveying in Nigeria — setting the gold standard for construction cost management, procurement, and contract administration in every state of the federation.
+            The premier professional body for quantity surveying in Nigeria — setting the gold standard for construction cost management, procurement, and contract administration across {memberCopy} professionals in every state.
           </p>
           {/* Order and emphasis are the mockup's, confirmed 2026-08-12: Learn More
               leads and carries the filled treatment, membership follows as the
@@ -255,22 +264,26 @@ export default function Home() {
             {/* Image strip */}
             <div className="hstrip">
               {heroImages.map((img, i) => (
-                <div className="hstrip-img" key={i}>
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading={i < 3 ? 'eager' : 'lazy'}
-                  />
-                  {i === 2 && <div className="hstrip-badge"><Icon name="chart" size="sm" /> Quantity Surveyors</div>}
+                <div className={`hstrip-img${img.src ? '' : ' hstrip-img--crest'}`} key={i}>
+                  {img.src ? (
+                    <img src={img.src} alt={img.alt} loading={i < 3 ? 'eager' : 'lazy'} />
+                  ) : (
+                    <img src="/brand/emblem-light.png" alt={img.alt} />
+                  )}
+                  {img.badge && <div className="hstrip-badge"><Icon name="institution" size="sm" /> {img.badge}</div>}
                 </div>
               ))}
             </div>
 
             {/* Stat bar. Every tile is derived — from the chapter records, the
                 reciprocity list, or the founding year. Nothing here is a number
-                typed into the markup. Total Members and Fellows were removed at the
-                October 2026 review (membership figures are portal-only now). */}
+                typed into the markup. Members shows the rounded figure only; the exact
+                count and the Fellows tile went to the portal at the October 2026 review. */}
             <div className="hstat-row">
+              <div className="hstat">
+                <div className="hstat-n">{memberCopy}</div>
+                <div className="hstat-l">Members</div>
+              </div>
               <div className="hstat">
                 <div className="hstat-n">{chapterCount ?? CHAPTERS_FALLBACK}</div>
                 <div className="hstat-l">State Chapters</div>
@@ -323,8 +336,8 @@ export default function Home() {
                 <h3>Become a Foundation Partner of the New NIQS</h3>
                 <p>
                   NIQS is opening its platform to organisations committed to raising the bar in
-                  Nigeria's construction industry. Partner with the Institute and put your brand
-                  before quantity surveyors in every state and the industry's decision-makers.
+                  Nigeria's construction industry. Partner with the home of {memberCopy} quantity
+                  surveyors and put your brand before the industry's decision-makers.
                 </p>
               </div>
               <div className="ptn-cta-btns">
@@ -497,7 +510,7 @@ export default function Home() {
         <div className="ct">
           <div className="ctaw">
             <h2>Ready to Join <em>NIQS?</em></h2>
-            <p>Join quantity surveyors across Nigeria and unlock examinations, CPD, networking, and career growth across Nigeria and beyond.</p>
+            <p>Join {memberCopy} professionals and unlock examinations, CPD, networking, and career growth across Nigeria and beyond.</p>
             <div className="ctarow">
               <Link to="/membership" className="btn bg">Apply for Membership</Link>
               <Link
