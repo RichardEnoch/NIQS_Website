@@ -81,7 +81,9 @@ const Footer = () => {
             <ul className="flinks">
               <li><Link to="/login">Member Portal</Link></li>
               <li><Link to="/exams">Examinations</Link></li>
-              <li><Link to="/research">CPD &amp; Webinars</Link></li>
+              {/* Was "CPD & Webinars" → /research. The Webinar Series page was
+                  retired in the October 2026 review; webinars are events now. */}
+              <li><Link to="/events">Upcoming Events</Link></li>
               <li><Link to="/research">QS Journal</Link></li>
               {/* /brand does not exist — the route is /brand-materials. This
                   link had been landing on the 404 page. */}
@@ -95,8 +97,19 @@ const Footer = () => {
             <ul className="flinks">
               <li><a href="tel:08028303346">08028 303 346</a></li>
               <li><a href="mailto:info@niqs.org.ng">info@niqs.org.ng</a></li>
-              <li><a href="#">Abuja Head Office</a></li>
-              <li><a href="#">Lagos Liaison Office</a></li>
+              {/* Both office links were href="#" and went nowhere. Abuja opens the
+                  Secretariat on a map. Lagos is held back until the Secretariat
+                  confirms the liaison office address — a dead link is worse
+                  than none. */}
+              <li>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=NIQS+Crescent+Mabushi+Abuja"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Abuja Head Office
+                </a>
+              </li>
             </ul>
           </div>
         </div>
@@ -111,7 +124,7 @@ const Footer = () => {
             <Link to="/terms-of-use">Terms of Use</Link>
             <Link to="/contact">Contact</Link>
           </p>
-          <p>&copy; 2025 <span className="fgold">Nigerian Institute of Quantity Surveyors</span>. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} <span className="fgold">Nigerian Institute of Quantity Surveyors</span>. All rights reserved.</p>
           <p>No. 24, NIQS Crescent, Mabushi District, Abuja, Nigeria.</p>
           <Attribution />
         </div>
