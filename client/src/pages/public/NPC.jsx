@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import PageHero from '../../components/common/PageHero';
-import LeaderCard from '../../components/common/LeaderCard';
 import API from '../../api/axios';
 import Icon from '../../components/common/Icon';
 
@@ -43,8 +42,21 @@ export default function NPC() {
               Loading committee members…
             </div>
           ) : members.length > 0 ? (
-            <div className="leader-grid">
-              {members.map(m => <LeaderCard key={m._id} member={m} />)}
+            /* Names only, no portraits: the committee is a working body, not a
+               gallery, and the review (Oct 2026) asked for a plain list. */
+            <div className="roster" role="table" aria-label="National Policy Committee members">
+              <div className="roster-row roster-head" role="row">
+                <span role="columnheader">#</span>
+                <span role="columnheader">Name</span>
+                <span className="roster-role" role="columnheader">Role</span>
+              </div>
+              {members.map((m, i) => (
+                <div className="roster-row" role="row" key={m._id}>
+                  <span className="roster-n" role="cell">{String(i + 1).padStart(2, '0')}</span>
+                  <span className="roster-name" role="cell">{m.name}</span>
+                  <span className="roster-role" role="cell">{m.title}</span>
+                </div>
+              ))}
             </div>
           ) : (
             <div style={{
