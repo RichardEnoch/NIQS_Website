@@ -4,8 +4,10 @@ import API from '../../api/axios';
 import PageHero from '../../components/common/PageHero';
 import { AGREEMENT_COUNT } from '../../data/reciprocity';
 import Icon from '../../components/common/Icon';
+import { useMemberCopy } from '../../hooks/useMembershipStats';
 
 export default function About() {
+  const memberCopy = useMemberCopy();
   const [partners, setPartners]   = useState([]);
   const [loadingP, setLoadingP]   = useState(true);
 
@@ -98,7 +100,7 @@ export default function About() {
               </h3>
               <p style={{ fontSize: '.88rem', color: 'rgba(255,255,255,.75)', maxWidth: 620, margin: '0 auto 1.5rem', lineHeight: 1.8 }}>
                 We are inviting organisations that share our commitment to excellence in the built
-                environment to partner with the Institute, and reach quantity surveying
+                environment to partner with the Institute. Reach {memberCopy} quantity surveying
                 professionals across all 36 states and the FCT.
               </p>
               <div style={{ display: 'flex', gap: '.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>

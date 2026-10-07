@@ -4,6 +4,7 @@ import API from '../../api/axios';
 import PageHero from '../../components/common/PageHero';
 import { SkeletonGrid, SkeletonText } from '../../components/common/Skeleton';
 import Icon from '../../components/common/Icon';
+import { useMemberCopy } from '../../hooks/useMembershipStats';
 
 const tierColors = {
   platinum: '#6b7280',
@@ -86,6 +87,7 @@ function LogoBlock({ partner, size = 'md' }) {
 }
 
 export default function Partnership() {
+  const memberCopy = useMemberCopy();
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -130,7 +132,7 @@ export default function Partnership() {
                 body in construction cost management.
               </p>
               <p className="sd" style={{ marginBottom: '1.2rem' }}>
-                With chapters in every state and the FCT, NIQS provides unparalleled access to
+                With {memberCopy} members across 37 state chapters, NIQS provides unparalleled access to
                 the quantity surveying profession in Nigeria and across West Africa.
               </p>
               <p className="sd" style={{ marginBottom: '2rem' }}>
