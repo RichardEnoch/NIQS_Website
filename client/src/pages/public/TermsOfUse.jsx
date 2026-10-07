@@ -41,7 +41,7 @@ export default function TermsOfUse() {
           <P>
             This website is published by the Nigerian Institute of Quantity
             Surveyors (“NIQS”, “the Institute”, “we”), National Secretariat, QS
-            Olusegun Ajalekoko House, No. 24, NIQS Crescent, Mabushi District,
+            Olusegun Ajanlekoko House, No. 24, NIQS Crescent, Mabushi District,
             Abuja.
           </P>
           <P style={{ margin: 0 }}>
@@ -232,7 +232,7 @@ export default function TermsOfUse() {
 
         <Clause n={15} title="Contact">
           <P style={{ margin: 0 }}>
-            NIQS National Secretariat, QS Olusegun Ajalekoko House, No. 24, NIQS
+            NIQS National Secretariat, QS Olusegun Ajanlekoko House, No. 24, NIQS
             Crescent, Mabushi District, Abuja, Nigeria —{' '}
             <a href="mailto:info@niqs.org.ng" style={link}>info@niqs.org.ng</a>
           </P>
