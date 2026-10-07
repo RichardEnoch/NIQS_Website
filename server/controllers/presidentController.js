@@ -23,7 +23,8 @@ exports.updatePresident = async (req, res) => {
       name, title, tenure, linkedIn,
       photo, backgroundImage,
       paragraph1, paragraph2, quote,
-      speechTitle, speechSubtitle, speechBody
+      speechTitle, speechSubtitle, speechBody,
+      speeches,
     } = req.body;
 
     const president = await President.findOneAndUpdate(
@@ -35,6 +36,9 @@ exports.updatePresident = async (req, res) => {
         ...(speechTitle !== undefined && { speechTitle }),
         ...(speechSubtitle !== undefined && { speechSubtitle }),
         ...(speechBody !== undefined && { speechBody }),
+        /* Untitled rows are dropped rather than rejected: the admin form adds
+           an empty row before it is filled, and saving mid-edit should not 500. */
+        ...(Array.isArray(speeches) && { speeches: speeches.filter(s => s && String(s.title || '').trim()) }),
         updatedBy: req.admin._id,
       },
       { new: true, upsert: true, runValidators: false }

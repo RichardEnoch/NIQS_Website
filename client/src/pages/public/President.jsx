@@ -27,6 +27,11 @@ export default function President() {
     );
   }
 
+  /* Newest first; undated entries sink to the end rather than jumping the queue. */
+  const speeches = [...(data.speeches || [])].sort(
+    (a, b) => (b.date ? new Date(b.date) : 0) - (a.date ? new Date(a.date) : 0)
+  );
+
   /* Name is a link if LinkedIn URL is set, otherwise plain text */
   const NameEl = data.linkedIn ? (
     <a
@@ -175,6 +180,18 @@ export default function President() {
                     Read Full Inaugural Speech
                   </a>
                 )}
+                {speeches.length > 0 && (
+                  <a
+                    href="#speeches"
+                    className="btn bo"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      document.getElementById('speeches')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                  >
+                    Speeches &amp; Addresses
+                  </a>
+                )}
                 <Link to="/council" className="btn bo">Meet the Full Council</Link>
               </div>
             </div>
@@ -182,6 +199,34 @@ export default function President() {
           </div>
         </div>
       </section>
+
+      {/* ── SPEECHES & ADDRESSES ──
+          The President's speeches on other platforms (review, Oct 2026). Only
+          drawn once there is at least one beyond the inaugural speech — a
+          "list" holding the single speech already linked above would just
+          repeat it. The inaugural speech leads when it exists. */}
+      {speeches.length > 0 && (
+        <section id="speeches" style={{ background: '#fff', padding: '4rem 0', scrollMarginTop: 90 }}>
+          <div className="ct">
+            <div className="ey">On Record</div>
+            <h2 className="sh">Speeches &amp; <em>Addresses</em></h2>
+            <p className="sd" style={{ marginBottom: '2rem' }}>
+              Keynotes, addresses and interviews the President has given across the
+              profession, government and the media.
+            </p>
+            <div className="spk-grid">
+              {data.speechBody && (
+                <SpeechCard
+                  featured
+                  speech={{ title: data.speechTitle || 'Inaugural Address', platform: data.speechSubtitle }}
+                  onRead={() => document.getElementById('inaugural-speech')?.scrollIntoView({ behavior: 'smooth' })}
+                />
+              )}
+              {speeches.map(s => <SpeechCard key={s._id || s.title} speech={s} />)}
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* ── INAUGURAL SPEECH — shown only when the admin has published one ── */}
       {data.speechBody && (
@@ -204,6 +249,36 @@ export default function President() {
         </section>
       )}
     </>
+  );
+}
+
+/* One entry in Speeches & Addresses. A speech with full text opens in place;
+   one held elsewhere links out to its PDF or video. */
+function SpeechCard({ speech: s, featured, onRead }) {
+  const [open, setOpen] = useState(false);
+  const date = s.date
+    ? new Date(s.date).toLocaleDateString('en-NG', { day: 'numeric', month: 'long', year: 'numeric' })
+    : '';
+  const meta = [s.platform, date].filter(Boolean).join(' · ');
+
+  return (
+    <article className={`spk${featured ? ' spk-ft' : ''}`}>
+      {featured && <div className="spk-tag">Inaugural Speech</div>}
+      {meta && <div className="spk-meta">{meta}</div>}
+      <h3 className="spk-title">{s.title}</h3>
+      {s.excerpt && <p className="spk-ex">{s.excerpt}</p>}
+      <div className="spk-actions">
+        {onRead && <button type="button" className="btn bp" onClick={onRead}>Read Speech</button>}
+        {!onRead && s.body && (
+          <button type="button" className="btn bp" onClick={() => setOpen(o => !o)} aria-expanded={open}>
+            {open ? 'Close' : 'Read Speech'}
+          </button>
+        )}
+        {s.pdfUrl && <a className="btn bo" href={s.pdfUrl} target="_blank" rel="noopener noreferrer">Download PDF</a>}
+        {s.videoUrl && <a className="btn bo" href={s.videoUrl} target="_blank" rel="noopener noreferrer">Watch</a>}
+      </div>
+      {open && <div className="spk-body"><SpeechBody text={s.body} /></div>}
+    </article>
   );
 }
 
