@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import API from '../../api/axios';
 import PageHero from '../../components/common/PageHero';
 import { SkeletonGrid, SkeletonText } from '../../components/common/Skeleton';
-import { useMemberCopy } from '../../hooks/useMembershipStats';
 import Icon from '../../components/common/Icon';
 
 const tierColors = {
@@ -14,44 +13,12 @@ const tierColors = {
   associate:'#2563EB',
 };
 
-const fallbackPlatinum = [
-  {
-    _id: null,
-    name: 'Julius Berger Nigeria Plc',
-    tier: 'platinum',
-    logo: null,
-    industry: 'Construction & Engineering',
-    description: 'A leading construction and engineering group operating across Nigeria\'s infrastructure, energy, and building sectors.',
-  },
-  {
-    _id: null,
-    name: 'Dangote Construction Ltd',
-    tier: 'platinum',
-    logo: null,
-    industry: 'Infrastructure Development',
-    description: 'One of Nigeria\'s foremost infrastructure conglomerates with significant investments in roads, bridges, and real estate development.',
-  },
-  {
-    _id: null,
-    name: 'CCECC Nigeria Ltd',
-    tier: 'platinum',
-    logo: null,
-    industry: 'Civil Engineering & Roads',
-    description: 'A major civil engineering contractor delivering landmark road, rail, and building projects across West Africa.',
-  },
-];
-
-const fallbackGold = [
-  { _id: null, name: 'AECOM Nigeria', tier: 'gold', logo: null, industry: 'Engineering Consultancy', description: 'A global infrastructure firm providing design, engineering, construction, and management services across Nigeria.' },
-  { _id: null, name: 'Setraco Nigeria Ltd', tier: 'gold', logo: null, industry: 'Roads & Civil Works', description: 'A leading civil engineering contractor specialising in road construction, bridges, and infrastructure development.' },
-];
-
-const fallbackOthers = [
-  { _id: null, name: 'Craneburg Construction', tier: 'silver', logo: null, industry: 'Building Construction' },
-  { _id: null, name: 'RMB Nigeria', tier: 'silver', logo: null, industry: 'Project Finance' },
-  { _id: null, name: 'Structon Group', tier: 'bronze', logo: null, industry: 'Structural Engineering' },
-  { _id: null, name: 'QSRBN', tier: 'associate', logo: null, industry: 'Regulatory Body' },
-];
+/* No sample partners. This page used to fill empty tiers with real companies
+   (Julius Berger, Dangote, CCECC, AECOM, Setraco, …) marked "Sample". At the
+   October 2026 review it was pointed out that naming real organisations as
+   partners of the Institute — however labelled — is not something NIQS can
+   publish before an agreement exists. Tiers with no partners are simply not
+   shown; the empty state below invites enquiries instead. */
 
 const tiers = [
   {
@@ -119,7 +86,6 @@ function LogoBlock({ partner, size = 'md' }) {
 }
 
 export default function Partnership() {
-  const memberCopy = useMemberCopy();
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -137,10 +103,10 @@ export default function Partnership() {
   const dbGold     = partners.filter(p => p.tier === 'gold');
   const dbOthers   = partners.filter(p => p.tier !== 'platinum' && p.tier !== 'gold');
 
-  const platinum      = dbPlatinum.length > 0 ? dbPlatinum : (!loading ? fallbackPlatinum : []);
-  const gold          = dbGold.length     > 0 ? dbGold     : (!loading ? fallbackGold     : []);
-  const others        = dbOthers.length   > 0 ? dbOthers   : (!loading ? fallbackOthers   : []);
-  const isPlaceholder = !loading && partners.length === 0;
+  const platinum = dbPlatinum;
+  const gold     = dbGold;
+  const others   = dbOthers;
+  const noPartnersYet = !loading && partners.length === 0;
 
   return (
     <>
@@ -164,8 +130,8 @@ export default function Partnership() {
                 body in construction cost management.
               </p>
               <p className="sd" style={{ marginBottom: '1.2rem' }}>
-                With {memberCopy} members across 37 state chapters, NIQS provides unparalleled
-                access to the quantity surveying profession in Nigeria and across West Africa.
+                With chapters in every state and the FCT, NIQS provides unparalleled access to
+                the quantity surveying profession in Nigeria and across West Africa.
               </p>
               <p className="sd" style={{ marginBottom: '2rem' }}>
                 Whether you are a construction firm, financial institution, technology provider,
@@ -198,6 +164,26 @@ export default function Partnership() {
         </section>
       )}
 
+      {/* ── No partners on file yet ── */}
+      {noPartnersYet && (
+        <section className="section-alt">
+          <div className="ct" style={{ paddingTop: '4.5rem', paddingBottom: '4.5rem' }}>
+            <div className="ptn-cta">
+              <div>
+                <h3>Be Among the First Partners of the New NIQS</h3>
+                <p>
+                  Partner profiles will appear here as agreements are concluded. Organisations
+                  interested in a partnership tier can speak to the National Secretariat today.
+                </p>
+              </div>
+              <div className="ptn-cta-btns">
+                <Link to="/contact" className="btn bp">Enquire Now</Link>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* ── Platinum Partners ── */}
       {!loading && platinum.length > 0 && (
         <section className="section-alt">
@@ -209,11 +195,6 @@ export default function Partnership() {
                 <div className="ey">Platinum Partners</div>
                 <h2 className="sh" style={{ marginBottom: 0 }}>Our <em>Premier Partners</em></h2>
               </div>
-              {isPlaceholder && (
-                <span style={{ fontSize: '.78rem', color: 'var(--color-txt-3)', background: 'var(--color-bdr)', padding: '4px 14px', borderRadius: 20, fontWeight: 600 }}>
-                  Sample — replaced when admin adds partners
-                </span>
-              )}
             </div>
 
             {/* Platinum cards — .stagger cascades the reveal delay across however
@@ -224,13 +205,8 @@ export default function Partnership() {
                 <div
                   className="gpc reveal"
                   key={p._id || idx}
-                  style={{ opacity: isPlaceholder ? 0.75 : 1, position: 'relative' }}
+                  style={{ position: 'relative' }}
                 >
-                  {isPlaceholder && (
-                    <span style={{ position: 'absolute', top: 10, right: 12, fontSize: '.55rem', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', background: 'rgba(217, 182, 80,.15)', color: 'var(--color-gold)', padding: '3px 8px', borderRadius: 4, zIndex: 1 }}>
-                      Sample
-                    </span>
-                  )}
                   {/* Logo panel */}
                   {p.logo ? (
                     <img src={p.logo} alt={p.name} className="gpimg" style={{ objectFit: 'contain', background: '#fff', padding: '1.5rem' }} />
@@ -270,11 +246,6 @@ export default function Partnership() {
                 <div className="ey" style={{ color: 'var(--color-gold)' }}>Gold Partners</div>
                 <h2 className="sh" style={{ marginBottom: 0 }}>Gold-Tier <em>Partners</em></h2>
               </div>
-              {isPlaceholder && (
-                <span style={{ fontSize: '.78rem', color: 'var(--color-txt-3)', background: 'var(--color-bdr)', padding: '4px 14px', borderRadius: 20, fontWeight: 600 }}>
-                  2 slots · Replace when admin adds gold partners
-                </span>
-              )}
             </div>
 
             {/* Gold cards — 2-column featured grid */}
@@ -285,7 +256,7 @@ export default function Partnership() {
                   <div
                     className="reveal"
                     style={{
-                      opacity: isPlaceholder ? 0.75 : 1,
+                      
                       border: `1.5px solid ${tc}33`,
                       borderRadius: 14, overflow: 'hidden', background: '#fff',
                       boxShadow: '0 2px 8px rgba(0,0,0,.06)',
@@ -298,11 +269,6 @@ export default function Partnership() {
                     {/* Gold top accent bar */}
                     <div style={{ height: 4, background: `linear-gradient(90deg, ${tc}, #e8c07a)` }} />
 
-                    {isPlaceholder && (
-                      <span style={{ position: 'absolute', top: 14, right: 12, fontSize: '.55rem', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', background: `${tc}18`, color: tc, padding: '3px 8px', borderRadius: 4, zIndex: 1, border: `1px solid ${tc}30` }}>
-                        Sample
-                      </span>
-                    )}
 
                     {/* Logo area */}
                     <LogoBlock partner={p} size="lg" />
@@ -353,7 +319,7 @@ export default function Partnership() {
                   <div
                     className="reveal"
                     style={{
-                      opacity: isPlaceholder ? 0.72 : 1,
+                      
                       border: '1px solid var(--color-bdr)', borderRadius: 12,
                       overflow: 'hidden', background: '#fff',
                       boxShadow: '0 1px 4px rgba(0,0,0,.05)',
@@ -363,11 +329,6 @@ export default function Partnership() {
                     onMouseEnter={e => { e.currentTarget.style.boxShadow = `0 6px 22px ${tc}22`; e.currentTarget.style.transform = 'translateY(-2px)'; }}
                     onMouseLeave={e => { e.currentTarget.style.boxShadow = '0 1px 4px rgba(0,0,0,.05)'; e.currentTarget.style.transform = ''; }}
                   >
-                    {isPlaceholder && (
-                      <span style={{ position: 'absolute', top: 8, right: 8, fontSize: '.52rem', fontWeight: 700, letterSpacing: '.05em', textTransform: 'uppercase', background: 'var(--color-bdr)', color: 'var(--color-txt-3)', padding: '2px 6px', borderRadius: 4, zIndex: 1 }}>
-                        Sample
-                      </span>
-                    )}
                     <LogoBlock partner={p} />
                     <div style={{ padding: '.9rem 1rem' }}>
                       <span style={{ display: 'inline-block', marginBottom: '.45rem', padding: '2px 10px', borderRadius: 20, fontSize: '.65rem', fontWeight: 700, background: `${tc}15`, color: tc, textTransform: 'capitalize', border: `1px solid ${tc}28` }}>
@@ -384,11 +345,6 @@ export default function Partnership() {
               })}
             </div>
 
-            {isPlaceholder && (
-              <p style={{ textAlign: 'center', marginTop: '2rem', fontSize: '.82rem', color: 'var(--color-txt-3)', lineHeight: 1.7 }}>
-                These are sample entries. Real partner profiles will appear here once added by the admin.
-              </p>
-            )}
           </div>
         </section>
       )}
