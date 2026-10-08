@@ -19,7 +19,9 @@ const DEFAULTS = {
   speeches: [],
 };
 
-const EMPTY_SPEECH = { title: '', platform: '', date: '', excerpt: '', body: '', pdfUrl: '', videoUrl: '' };
+const EMPTY_SPEECH = { title: '', platform: '', date: '', excerpt: '', body: '', pdfUrl: '', videoUrl: '', category: 'Keynote', tags: '' };
+// Same list the server normalises to; the public page builds its filter buttons from it.
+const SPEECH_CATEGORIES = ['Inaugural', 'Keynote', 'Conference', 'Lecture', 'Interview', 'Statement', 'Other'];
 
 export default function ManagePresident() {
   const [form, setForm] = useState({ ...DEFAULTS });
@@ -46,7 +48,7 @@ export default function ManagePresident() {
             speechSubtitle: d.speechSubtitle || '',
             speechBody: d.speechBody || '',
             /* <input type="date"> wants yyyy-mm-dd, the API sends a full ISO string. */
-            speeches: (d.speeches || []).map(s => ({ ...EMPTY_SPEECH, ...s, date: s.date ? s.date.slice(0, 10) : '' })),
+            speeches: (d.speeches || []).map(s => ({ ...EMPTY_SPEECH, ...s, date: s.date ? s.date.slice(0, 10) : '', tags: (s.tags || []).join(', ') })),
           });
           setLastUpdated(d.updatedAt);
         }
@@ -195,6 +197,16 @@ export default function ManagePresident() {
                 </Field>
                 <Field label="Date">
                   <input type="date" value={s.date} onChange={e => setSpeech(i, 'date', e.target.value)} style={inputStyle} />
+                </Field>
+              </div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 14, marginBottom: 14 }}>
+                <Field label="Category">
+                  <select value={s.category || 'Other'} onChange={e => setSpeech(i, 'category', e.target.value)} style={inputStyle}>
+                    {SPEECH_CATEGORIES.map(c => <option key={c} value={c}>{c}</option>)}
+                  </select>
+                </Field>
+                <Field label="Tags (comma separated, e.g. procurement, AGM 2026)">
+                  <input value={s.tags} onChange={e => setSpeech(i, 'tags', e.target.value)} style={inputStyle} placeholder="procurement, budget, AGM" />
                 </Field>
               </div>
               <Field label="Excerpt (one or two sentences shown on the card)">

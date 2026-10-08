@@ -53,6 +53,12 @@ const presidentSchema = new mongoose.Schema({
     body:     { type: String, default: '' },               // full text, same block format as speechBody
     pdfUrl:   { type: String, default: '' },
     videoUrl: { type: String, default: '' },
+    /* Category drives the filter buttons on /president (review, Oct 2026:
+       "categorised, so whichever one you want you click and it opens").
+       Kept as a plain string, not a Mongoose enum: an unknown value from an
+       older admin build should save, not 500. The controller normalises it. */
+    category: { type: String, default: 'Other', trim: true },
+    tags:     [{ type: String, trim: true }],
   }],
 
   /* Singleton sentinel — always the same value so findOne works cleanly */

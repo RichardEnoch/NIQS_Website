@@ -96,7 +96,7 @@ export default function About() {
               borderRadius: 16, padding: '3rem 2.5rem', textAlign: 'center',
             }}>
               <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.4rem', color: '#fff', marginBottom: '.6rem', letterSpacing: '-.02em' }}>
-                Become a Foundation Partner of the New NIQS
+                Become a Foundation Partner of NIQS
               </h3>
               <p style={{ fontSize: '.88rem', color: 'rgba(255,255,255,.75)', maxWidth: 620, margin: '0 auto 1.5rem', lineHeight: 1.8 }}>
                 We are inviting organisations that share our commitment to excellence in the built
@@ -174,7 +174,10 @@ export default function About() {
             <div className="val">
               <div className="vali"><Icon name="diamond" size="xl" /></div>
               <h4>Our Value</h4>
-              <p>Value for money is our watchword. NIQS members deliver comprehensive cost management services that create demonstrable financial benefit for every client in public and private sectors.</p>
+              {/* Vision, Mission and Value are the legacy site's exact words. NIQS
+                  asked at the October 2026 review to keep them verbatim until
+                  council adopts new statements, so do not paraphrase them. */}
+              <p>Quantity Surveyors have value for money as their watch word. We are trained to offer comprehensive costing and cost management services.</p>
             </div>
           </div>
         </div>

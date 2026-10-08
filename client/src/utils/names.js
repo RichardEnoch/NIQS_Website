@@ -4,8 +4,12 @@
  * The Institute asked for every name to fit on one line, title included, so a
  * card never splits "QS Dr." from the name or pushes "FNIQS" onto a line of
  * its own. Given names become initials; the surname stays whole, because the
- * surname is what a reader recognises. Titles that lead a name and the
- * post-nominals after the comma are kept exactly as the record holds them.
+ * surname is what a reader recognises. Professional and academic titles (QS,
+ * Dr., Prof., Engr., Arc., Surv., Barr.) and the post-nominals after the comma
+ * are kept exactly as the record holds them. Traditional, religious and
+ * courtesy titles ("High Chief", "Alhaji", "Mrs" ...) are left off the card:
+ * the meeting agreed to drop them so every name reads the same way and fits
+ * on one line. They stay in the record and in the hover title.
  *
  * The records were typed by different people over the years, so the order is
  * not consistent: most are given-name first ("QS Kene Christopher Nzekwe"), a
@@ -27,6 +31,10 @@ const PREFIXES = [
   'hajiya', 'hajia', 'mallam', 'malam', 'mrs', 'mr', 'ms', 'miss', 'barr', 'sir', 'hon', 'pastor',
   'rev', 'otunba', 'oba', 'hrh', 'dame', 'lady', 'elder', 'deacon', 'deaconess', 'comrade', 'amb',
 ];
+
+/* The only leading titles a card shows. Everything else in PREFIXES is
+   recognised (so it is not mistaken for a given name) but not displayed. */
+const SHOWN_TITLES = ['qs', 'surv', 'dr', 'prof', 'engr', 'arc', 'arch', 'barr'];
 
 const bare = (w) => w.replace(/\.$/, '').toLowerCase();
 
@@ -68,7 +76,8 @@ export function shortName(full, { override } = {}) {
     if (i === surnameAt || isInitial(w)) return isInitial(w) && !w.endsWith('.') ? `${w}.` : w;
     return `${w[0].toUpperCase()}.`;
   });
-  const name = [...titles, ...shown].join(' ');
+  const keptTitles = titles.filter(w => SHOWN_TITLES.includes(bare(w)));
+  const name = [...keptTitles, ...shown].join(' ');
   return postnominals.length ? `${name}, ${postnominals.join(', ')}` : name;
 }
 

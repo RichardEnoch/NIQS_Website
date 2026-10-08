@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../../components/common/PageHero';
 import MemberLookup from '../../components/qs/MemberLookup';
+import MEMBERSHIP_REQUIREMENTS from '../../data/membershipRequirements';
 
 const categories = [
   {
@@ -72,15 +73,21 @@ const categories = [
   },
 ];
 
-const steps = [
-  { n: '01', title: 'Download the Application Form', desc: 'Obtain the appropriate membership application form from the NIQS secretariat or member portal.' },
-  { n: '02', title: 'Gather Required Documents', desc: 'Prepare your academic certificates, QSRBN registration, passport photographs, and endorsement letters.' },
-  { n: '03', title: 'Submit Application', desc: 'Submit your completed form and documents to the National Secretariat or your nearest state chapter.' },
-  { n: '04', title: 'Pay Application Fee', desc: 'Make payment of the applicable registration and annual dues via the NIQS payment portal.' },
-  { n: '05', title: 'Receive Confirmation', desc: 'Upon approval, you will receive your membership certificate, ID card, and portal access credentials.' },
-];
+/* One requirement block from data/membershipRequirements.js. */
+function ReqBlock({ b }) {
+  const item = (it, i) => typeof it === 'string'
+    ? <li key={i}>{it}</li>
+    : <li key={i}>{it.text}{it.sub && <ul className="mreq-sub">{it.sub.map((s, j) => <li key={j}>{s}</li>)}</ul>}</li>;
+  if (b.h) return <h4 className="mreq-h">{b.h}</h4>;
+  if (b.pb) return <p className="mreq-p"><strong>{b.pb}</strong></p>;
+  if (b.p) return <p className="mreq-p">{b.p}</p>;
+  if (b.ol) return <ol className="mreq-list">{b.ol.map(item)}</ol>;
+  if (b.ul) return <ul className="mreq-list">{b.ul.map(item)}</ul>;
+  return null;
+}
 
 export default function Membership() {
+  const [openCat, setOpenCat] = useState(MEMBERSHIP_REQUIREMENTS[0]?.tab);
   return (
     <>
       <PageHero
@@ -140,25 +147,28 @@ export default function Membership() {
           <div className="tc2">
             <div>
               <div className="ey">Application Process</div>
-              <h2 className="sh">How to <em>Apply</em></h2>
-              <div style={{ marginTop: '2rem', display: 'flex', flexDirection: 'column', gap: '1.4rem' }}>
-                {steps.map((s, i) => (
-                  <div key={i} style={{ display: 'flex', gap: '1.2rem', alignItems: 'flex-start' }}>
-                    <div style={{
-                      width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-                      background: 'var(--color-gold-xl)', border: '1px solid var(--color-bdr-gold)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '.75rem',
-                      color: 'var(--color-gold)',
-                    }}>
-                      {s.n}
+              <h2 className="sh">Requirements by <em>Category</em></h2>
+              {/* Each grade has its own route in (review, Oct 2026), so the one
+                  generic five-step list is gone: pick a category to see what it
+                  asks for. Applications are made online now; the Secretariat's
+                  membership officer is updating these requirements. */}
+              <p className="sd" style={{ marginBottom: '1.4rem' }}>
+                Applications are made online. Select a membership category to see its requirements,
+                then <Link to="/login" style={{ color: 'var(--color-gold)', fontWeight: 600 }}>apply through the member portal</Link> or{' '}
+                <Link to="/contact" style={{ color: 'var(--color-gold)', fontWeight: 600 }}>contact the Secretariat</Link>.
+              </p>
+              <div className="mreq">
+                {MEMBERSHIP_REQUIREMENTS.map(c => {
+                  const open = openCat === c.tab;
+                  return (
+                    <div key={c.tab} className={`mreq-item${open ? ' open' : ''}`}>
+                      <button type="button" className="mreq-btn" aria-expanded={open} onClick={() => setOpenCat(open ? null : c.tab)}>
+                        <span>{c.title}</span><span className="mreq-ic" aria-hidden="true">{open ? '−' : '+'}</span>
+                      </button>
+                      {open && <div className="mreq-body">{c.blocks.map((b, i) => <ReqBlock key={i} b={b} />)}</div>}
                     </div>
-                    <div>
-                      <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '.95rem', color: 'var(--color-navy)', marginBottom: '.2rem' }}>{s.title}</div>
-                      <p style={{ fontSize: '.8rem', color: 'var(--color-txt-2)', margin: 0, lineHeight: 1.6 }}>{s.desc}</p>
-                    </div>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 

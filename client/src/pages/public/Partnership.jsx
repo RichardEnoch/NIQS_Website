@@ -172,7 +172,7 @@ export default function Partnership() {
           <div className="ct" style={{ paddingTop: '4.5rem', paddingBottom: '4.5rem' }}>
             <div className="ptn-cta">
               <div>
-                <h3>Be Among the First Partners of the New NIQS</h3>
+                <h3>Be Among the First Foundation Partners of NIQS</h3>
                 <p>
                   Partner profiles will appear here as agreements are concluded. Organisations
                   interested in a partnership tier can speak to the National Secretariat today.
