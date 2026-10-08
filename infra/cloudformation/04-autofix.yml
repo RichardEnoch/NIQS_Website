@@ -92,9 +92,15 @@ Resources:
               - Effect: Allow
                 Action: logs:FilterLogEvents
                 Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LogGroup}:*"
+              # The identity alone is not enough: adlmstudio.net has a default
+              # configuration set (the ADLM website's mail tracking), and SES
+              # authorises SendEmail against that set as well. Without it every
+              # send fails with AccessDenied on configuration-set/...
               - Effect: Allow
                 Action: ses:SendEmail
-                Resource: !Sub "arn:aws:ses:${SesRegion}:${AWS::AccountId}:identity/${SesIdentity}"
+                Resource:
+                  - !Sub "arn:aws:ses:${SesRegion}:${AWS::AccountId}:identity/${SesIdentity}"
+                  - !Sub "arn:aws:ses:${SesRegion}:${AWS::AccountId}:configuration-set/*"
 
   Function:
     Type: AWS::Lambda::Function
