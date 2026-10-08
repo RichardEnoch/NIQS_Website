@@ -60,7 +60,7 @@ const defaultTickerItems = [
 const heroImages = [
   { src: 'https://images.unsplash.com/photo-1559819614-8e87b90b8e9b?w=600&q=80&fit=crop', alt: 'Slide rule — measurement before the calculator' },
   { src: 'https://images.unsplash.com/photo-1648201637025-1c77b9be3013?w=600&q=80&fit=crop', alt: 'Calculator and handwritten workings' },
-  { src: null, alt: 'QS J. Segun Ajanlekoko House, NIQS National Secretariat, Abuja', badge: 'NIQS National Secretariat' },
+  { src: null, alt: 'QS Olusegun Ajanlekoko House, NIQS National Secretariat, Abuja', badge: 'NIQS National Secretariat' },
   { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&fit=crop', alt: 'Digital cost planning on screen' },
   { src: 'https://images.unsplash.com/photo-1713643957213-4a6acc242563?w=600&q=80&fit=crop', alt: 'Twisting high-rise towers — the built environment ahead' },
 ];
