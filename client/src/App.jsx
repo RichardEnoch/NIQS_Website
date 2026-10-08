@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider } from './context/AuthContext';
 import LaunchGate from './components/common/LaunchGate';
@@ -44,6 +44,21 @@ function useScrollReveal() {
       document.documentElement.classList.remove('js-reveal');
     };
   }, []);
+}
+
+/* ── Start each new page at the top ──
+   A single-page app keeps the window's scroll position across route changes,
+   so following a link from the bottom of one page used to land part-way down
+   the next. Keyed on pathname only: a query-string change (a filter, a page of
+   results) should leave the reader where they are. A #hash link is left alone
+   so in-page anchors still scroll to their target. Back/forward is handled by
+   the browser, which restores its own position on popstate. */
+function useScrollToTop() {
+  const { pathname, hash } = useLocation();
+  useEffect(() => {
+    if (hash) return;
+    window.scrollTo(0, 0);
+  }, [pathname, hash]);
 }
 
 /* ── Page fade wrapper ── */
@@ -136,6 +151,7 @@ function PublicPage({ element }) {
 
 export default function App() {
   useScrollReveal();
+  useScrollToTop();
   useRoutePrefetch();
   useCanonical();
   // After useCanonical, so the pageview it sends carries the page's own title
@@ -183,7 +199,10 @@ export default function App() {
           <Route path="/brand-materials" element={<PublicPage element={<Pages.BrandMaterials />} />} />
           <Route path="/membership" element={<PublicPage element={<Pages.Membership />} />} />
           <Route path="/search-qs-firms"    element={<PublicPage element={<Pages.SearchQSFirms />} />} />
-          <Route path="/webinars"           element={<PublicPage element={<Pages.Webinars />} />} />
+          {/* The Webinar Series page was retired in the October 2026 review:
+              webinars are listed with every other event under /events, filtered
+              by type. The redirect keeps old links and search results working. */}
+          <Route path="/webinars"           element={<Navigate to="/events" replace />} />
           <Route path="/workshop-materials" element={<PublicPage element={<Pages.WorkshopMaterials />} />} />
           <Route path="/exams" element={<PublicPage element={<Pages.Exams />} />} />
           <Route path="/research" element={<PublicPage element={<Pages.Research />} />} />

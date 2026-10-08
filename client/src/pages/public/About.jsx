@@ -2,10 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../api/axios';
 import PageHero from '../../components/common/PageHero';
-import MembershipStats from '../../components/stats/MembershipStats';
-import { useMemberCopy } from '../../hooks/useMembershipStats';
 import { AGREEMENT_COUNT } from '../../data/reciprocity';
 import Icon from '../../components/common/Icon';
+import { useMemberCopy } from '../../hooks/useMembershipStats';
 
 export default function About() {
   const memberCopy = useMemberCopy();
@@ -69,85 +68,14 @@ export default function About() {
         </div>
       </section>
 
-      {/* ── THE REGISTER TODAY ──
-          Placed straight after the founding story: the numbers are the evidence
-          for it. Renders nothing when the statistics endpoint is unavailable, so
-          the page simply reads as it did before. */}
-      <MembershipStats
-        background="var(--off)"
-        flushBottom
-        eyebrow="The Institute Today"
-        intro="From that founding group in 1969 to the register as it stands now — aggregate figures drawn live from NIQS membership records. Counts only; no personal details are published here."
-      />
+      {/* Membership statistics (MembershipStats) used to sit here. At the October
+          2026 review NIQS asked that the figures be shown to members only, so
+          they now live on the portal dashboard. */}
 
-      {/* ── VISION / MISSION / VALUE ── */}
-      <section style={{ background: 'var(--off)', paddingTop: 0 }}>
-        <div className="ct" style={{ paddingTop: '5rem' }}>
-          <div className="ey">Our Principles</div>
-          <h2 className="sh">Vision, Mission &amp; <em>Values</em></h2>
-          <div className="valg">
-            <div className="val">
-              <div className="vali"><Icon name="target" size="xl" /></div>
-              <h4>Our Vision</h4>
-              <p>To be the profession in Nigeria responsible for total cost and procurement management, for the achievement of client's objectives in all types of capital projects and developments, from conception to commissioning and maintenance, in all sectors of the economy, for the attainment of sustainable National development.</p>
-            </div>
-            <div className="val">
-              <div className="vali"><Icon name="rocket" size="xl" /></div>
-              <h4>Our Mission</h4>
-              <p>Contributing to sustainable development of Nigeria by promoting the patronage of our world-class construction cost services and procurement management experts that meet client needs and expectations through the development of unique and distinctive competencies of the profession.</p>
-            </div>
-            <div className="val">
-              <div className="vali"><Icon name="diamond" size="xl" /></div>
-              <h4>Our Value</h4>
-              <p>Value for money is our watchword. NIQS members deliver comprehensive cost management services that create demonstrable financial benefit for every client in public and private sectors.</p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── WHY NIQS ── */}
-      <section style={{ background: '#fff' }}>
-        <div className="ct">
-          <div className="tc2">
-            <div className="rl">
-              <img
-                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=700&q=80&fit=crop"
-                alt="QS Team"
-                style={{ borderRadius: 14, width: '100%', height: 370, objectFit: 'cover', boxShadow: 'var(--sh)' }}
-              />
-            </div>
-            <div className="rr">
-              <div className="ey">Why NIQS</div>
-              <h2 className="sh">A Professional Body You Can <em>Trust</em></h2>
-              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '.8rem', marginBottom: '1.5rem' }}>
-                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
-                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
-                  Internationally recognised qualifications and credentials
-                </li>
-                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
-                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
-                  Access to Nigeria's largest QS professional network
-                </li>
-                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
-                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
-                  Structured CPD programmes and webinar series
-                </li>
-                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
-                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
-                  Strong advocacy with government and industry stakeholders
-                </li>
-                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
-                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
-                  {AGREEMENT_COUNT} international reciprocity agreements
-                </li>
-              </ul>
-              <Link to="/contact" className="btn bp">Get In Touch</Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── STRATEGIC PARTNERS ── */}
+      {/* ── STRATEGIC PARTNERS ──
+          Straight after the founding story since the October 2026 review, where
+          NIQS asked for partnership to be more visible in position as well as in
+          look. It used to sit last, below Why NIQS. */}
       <section style={{ background: 'var(--off)' }}>
         <div className="ct">
           <div style={{ display: 'flex', alignItems: 'flex-end', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem', marginBottom: '1rem' }}>
@@ -227,6 +155,73 @@ export default function About() {
           </div>
         </div>
       </section>
+      {/* ── VISION / MISSION / VALUE ── */}
+      <section style={{ background: 'var(--off)', paddingTop: 0 }}>
+        <div className="ct" style={{ paddingTop: '5rem' }}>
+          <div className="ey">Our Principles</div>
+          <h2 className="sh">Vision, Mission &amp; <em>Values</em></h2>
+          <div className="valg">
+            <div className="val">
+              <div className="vali"><Icon name="target" size="xl" /></div>
+              <h4>Our Vision</h4>
+              <p>To be the profession in Nigeria responsible for total cost and procurement management, for the achievement of client's objectives in all types of capital projects and developments, from conception to commissioning and maintenance, in all sectors of the economy, for the attainment of sustainable National development.</p>
+            </div>
+            <div className="val">
+              <div className="vali"><Icon name="rocket" size="xl" /></div>
+              <h4>Our Mission</h4>
+              <p>Contributing to sustainable development of Nigeria by promoting the patronage of our world-class construction cost services and procurement management experts that meet client needs and expectations through the development of unique and distinctive competencies of the profession.</p>
+            </div>
+            <div className="val">
+              <div className="vali"><Icon name="diamond" size="xl" /></div>
+              <h4>Our Value</h4>
+              <p>Value for money is our watchword. NIQS members deliver comprehensive cost management services that create demonstrable financial benefit for every client in public and private sectors.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── WHY NIQS ── */}
+      <section style={{ background: '#fff' }}>
+        <div className="ct">
+          <div className="tc2">
+            <div className="rl">
+              <img
+                src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=700&q=80&fit=crop"
+                alt="QS Team"
+                style={{ borderRadius: 14, width: '100%', height: 370, objectFit: 'cover', boxShadow: 'var(--sh)' }}
+              />
+            </div>
+            <div className="rr">
+              <div className="ey">Why NIQS</div>
+              <h2 className="sh">A Professional Body You Can <em>Trust</em></h2>
+              <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '.8rem', marginBottom: '1.5rem' }}>
+                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
+                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
+                  Internationally recognised qualifications and credentials
+                </li>
+                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
+                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
+                  Access to Nigeria's largest QS professional network
+                </li>
+                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
+                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
+                  Structured CPD programmes and webinar series
+                </li>
+                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
+                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
+                  Strong advocacy with government and industry stakeholders
+                </li>
+                <li style={{ display: 'flex', gap: '.8rem', fontSize: '.86rem', color: 'var(--text2)' }}>
+                  <span style={{ color: 'var(--gold)', fontWeight: 800, flexShrink: 0 }}><Icon name="check" size="sm" /></span>
+                  {AGREEMENT_COUNT} international reciprocity agreements
+                </li>
+              </ul>
+              <Link to="/contact" className="btn bp">Get In Touch</Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
     </>
   );
 }

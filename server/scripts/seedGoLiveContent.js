@@ -105,7 +105,9 @@ const photoUrl = async (name) =>
       { name: p.name },
       {
         term: p.tenure,
-        info: 'PPNIQS',
+        // Was 'PPNIQS' on every record; the review (Oct 2026) dropped that line
+        // from the page, so a re-seed must not put it back.
+        info: '',
         // most recent first on the public page
         order: data.pastPresidents.length - p.order,
         isActive: true,

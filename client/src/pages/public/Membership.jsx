@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../../components/common/PageHero';
-import MembershipStats from '../../components/stats/MembershipStats';
 import MemberLookup from '../../components/qs/MemberLookup';
 
 const categories = [
@@ -132,9 +131,8 @@ export default function Membership() {
         </div>
       </section>
 
-      {/* Live register figures. Renders nothing when the statistics endpoint is
-          unavailable, so the page simply reads as it did before. */}
-      <MembershipStats />
+      {/* Live register figures (MembershipStats) used to sit here. Members only
+          since the October 2026 review — see the portal dashboard. */}
 
       {/* How to Apply + Search */}
       <section className="section-alt">

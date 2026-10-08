@@ -34,16 +34,18 @@ if (!photosDir) {
   process.exit(2);
 }
 
+/* The two DGs sit last (review, Oct 2026): the page is "National Body
+   Chairmen", so the chairmen lead and the directors-general follow. */
 const BODY_HEADS = [
   { order: 1, name: 'QS Kayode Osokomaiya, FNIQS', title: 'Chairman, Fellows Forum', photo: 'NATIONAL-BODY-HEADS__fellows-forum-chairman-qs-kayode-osokomiya.jpg' },
-  { order: 2, name: 'QS Dr Celestina Nkechi Eke, FNIQS', title: 'DG, NIQS Foundation', photo: 'NATIONAL-BODY-HEADS__dg-niqs-foundation-qs-dr-celestina-nkechi-eke-fniqs.jpg' },
-  { order: 3, name: 'QS Ayodele Faleye, FNIQS', title: 'DG, QS Academy', photo: 'NATIONAL-BODY-HEADS__dg-qs-academy-qs-ayodele-faleye-fniqs.jpg' },
-  { order: 4, name: 'QS Faith Ezeugoh, FNIQS', title: 'Chairman, Association of Quantity Surveyors in Contracting Organisations & Real Estate (AQSCO)', photo: 'NATIONAL-BODY-HEADS__aqsco-chairman-qs-faith-ezeugoh.jpg' },
-  { order: 5, name: 'QS Fausat Ajibade, FNIQS', title: 'Chairman, Association of Quantity Surveyors in Public Service (AQSPS)', photo: 'NATIONAL-BODY-HEADS__aqsps-chairman-qs-fausat-ajibade-fniqs.jpg' },
-  { order: 6, name: 'QS Prof. Ahmad Doko Ibrahim, FNIQS', title: 'Chairman, Association of Quantity Surveyors Lecturers/Educators (AQSLE)', photo: 'NATIONAL-BODY-HEADS__aqsle-chairman-qs-prof-ahmad-doko.jpg' },
-  { order: 7, name: 'QS Adamu Yanda Shehu, FNIQS', title: 'Chairman, Association of Consulting Quantity Surveyors (ACQS)', photo: 'NATIONAL-BODY-HEADS__acqs-chairman-qs-adamu-yanda-fniqs.jpg' },
-  { order: 8, name: 'QS Auwalu Sani Shehu, FNIQS', title: 'Chairman, Examination Board', photo: 'NATIONAL-BODY-HEADS__examination-board-chairman-auwalu-sani-shehu.jpg' },
-  { order: 9, name: 'QS Prof Rufus Ogunsemi, FNIQS', title: 'Chairman, Editorial Board — The Quantity Surveyor Journal', photo: 'NATIONAL-BODY-HEADS__chairman-editorial-board-the-quantity-surveyor-journal-qs-prof-rufus-ogunsemi.jpg' },
+  { order: 2, name: 'QS Faith Ezeugoh, FNIQS', title: 'Chairman, Association of Quantity Surveyors in Contracting Organisations & Real Estate (AQSCO)', photo: 'NATIONAL-BODY-HEADS__aqsco-chairman-qs-faith-ezeugoh.jpg' },
+  { order: 3, name: 'QS Fausat Ajibade, FNIQS', title: 'Chairman, Association of Quantity Surveyors in Public Service (AQSPS)', photo: 'NATIONAL-BODY-HEADS__aqsps-chairman-qs-fausat-ajibade-fniqs.jpg' },
+  { order: 4, name: 'QS Prof. Ahmad Doko Ibrahim, FNIQS', title: 'Chairman, Association of Quantity Surveyors Lecturers/Educators (AQSLE)', photo: 'NATIONAL-BODY-HEADS__aqsle-chairman-qs-prof-ahmad-doko.jpg' },
+  { order: 5, name: 'QS Adamu Yanda Shehu, FNIQS', title: 'Chairman, Association of Consulting Quantity Surveyors (ACQS)', photo: 'NATIONAL-BODY-HEADS__acqs-chairman-qs-adamu-yanda-fniqs.jpg' },
+  { order: 6, name: 'QS Auwalu Sani Shehu, FNIQS', title: 'Chairman, Examination Board', photo: 'NATIONAL-BODY-HEADS__examination-board-chairman-auwalu-sani-shehu.jpg' },
+  { order: 7, name: 'QS Prof Rufus Ogunsemi, FNIQS', title: 'Chairman, Editorial Board — The Quantity Surveyor Journal', photo: 'NATIONAL-BODY-HEADS__chairman-editorial-board-the-quantity-surveyor-journal-qs-prof-rufus-ogunsemi.jpg' },
+  { order: 8, name: 'QS Dr Celestina Nkechi Eke, FNIQS', title: 'DG, NIQS Foundation', photo: 'NATIONAL-BODY-HEADS__dg-niqs-foundation-qs-dr-celestina-nkechi-eke-fniqs.jpg' },
+  { order: 9, name: 'QS Ayodele Faleye, FNIQS', title: 'DG, QS Academy', photo: 'NATIONAL-BODY-HEADS__dg-qs-academy-qs-ayodele-faleye-fniqs.jpg' },
 ];
 
 const TRUSTEES = [

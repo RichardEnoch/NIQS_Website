@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import Icon from '../../components/common/Icon';
+import MembershipStats from '../../components/stats/MembershipStats';
 
 const PortalDashboard = () => {
   const { user } = useAuth();
@@ -64,6 +65,16 @@ const PortalDashboard = () => {
           </div>
         ))}
       </div>
+
+      {/* Register figures. Moved here from the public About and Membership pages
+          at the October 2026 review: NIQS wants the membership numbers seen by
+          members, not published to everyone. Renders nothing when the statistics
+          endpoint is unavailable. */}
+      <MembershipStats
+        background="transparent"
+        eyebrow="The Institute Today"
+        intro="Aggregate figures drawn live from the NIQS membership register, for members. Counts only — no personal details."
+      />
 
       {/* Quick Actions */}
       <div className="pdash-section">

@@ -835,19 +835,63 @@
   .epill { @apply text-[.6rem] font-bold tracking-wider uppercase px-3 py-1 rounded-full whitespace-nowrap; background: var(--color-gold-xl); color: var(--color-gold); border: 1px solid var(--color-bdr-gold); }
 
   /* ── LEADERS ── */
-  .leader-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.6rem; margin-top: 2rem; }
-  .lcard { background: #fff; border: 1px solid var(--color-bdr); border-radius: 14px; overflow: hidden; transition: .28s; text-align: center; }
-  .lcard:hover { transform: translateY(-4px); box-shadow: var(--sh2); border-color: var(--borderg); }
-  /* 4:4.6 portrait box, anchored 25% from the top — studio portraits carry
-     the face in the upper third, so a fixed landscape crop beheads them. */
-  .lcard-img { width: 100%; aspect-ratio: 4 / 4.6; height: auto; object-fit: cover; object-position: center 25%; display: block; transition: .35s; }
+  /* Leadership grids take the Past Presidents treatment: a 132px circular
+     portrait over the name. The full-width 4:4.6 photos made every person
+     the size of a hero image; the review (Oct 2026) asked for the smaller,
+     uniform frame across Council, Trustees, National Bodies and chapter excos. */
+  .leader-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; margin-top: 2rem; }
+  .lcard { background: #fff; border: 1px solid var(--color-bdr); border-radius: 13px; transition: .2s; text-align: center; padding: 1.5rem 1.1rem 1.3rem; }
+  .lcard:hover { transform: translateY(-4px); box-shadow: var(--shadow-sm); border-color: var(--color-bdr-gold); }
+  /* object-position 22%: studio portraits carry the head high in the frame,
+     and centring a circle on them crops the forehead. */
+  .lcard-img-wrap { width: 132px; height: 132px; border-radius: 9999px; overflow: hidden; margin: 0 auto 1rem; border: 3px solid var(--color-bdr); transition: border-color .2s; }
+  .lcard:hover .lcard-img-wrap { border-color: var(--color-bdr-gold); }
+  .lcard-img { width: 100%; height: 100%; object-fit: cover; object-position: center 22%; display: block; transition: .35s; }
   .lcard:hover .lcard-img { transform: scale(1.04); }
-  .lcard-img-wrap { overflow: hidden; }
-  .lcard .lcard-img-wrap { border-radius: 14px 14px 0 0; }
-  .lcard-body { padding: 1.4rem; }
-  .lcard-name { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: var(--color-navy); margin-bottom: .2rem; letter-spacing: -.02em; }
-  .lcard-role { font-size: .68rem; font-weight: 700; color: var(--color-gold); letter-spacing: .08em; text-transform: uppercase; }
+  .lcard-initials { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #000066 0%, #12306e 100%); font-family: var(--font-heading); font-weight: 800; font-size: 2.2rem; color: rgba(255,255,255,.85); letter-spacing: .02em; }
+  .lcard-body { padding: 0; }
+  .lcard-name { font-family: var(--font-heading); font-size: .95rem; font-weight: 700; color: var(--color-navy); margin-bottom: .1rem; letter-spacing: -.02em; line-height: 1.3; }
+  /* "QS Dr. Aminu" must never break between the prefix and the first name
+     (review item #23); the rest of the name may wrap normally. */
+  .lcard-name .nb { white-space: nowrap; }
+  .lcard-postnom { font-size: .66rem; font-weight: 700; color: var(--color-txt-3); letter-spacing: .08em; margin-bottom: .45rem; }
+  .lcard-role { font-size: .66rem; font-weight: 700; color: var(--color-gold); letter-spacing: .08em; text-transform: uppercase; line-height: 1.5; }
   .lcard-state { font-size: .72rem; color: var(--color-txt-3); margin-top: .25rem; }
+  @media (max-width: 1024px) { .leader-grid { grid-template-columns: repeat(3, 1fr); } }
+  @media (max-width: 768px)  { .leader-grid { grid-template-columns: repeat(2, 1fr); gap: .9rem; } .lcard { padding: 1.2rem .8rem 1.1rem; } .lcard-img-wrap { width: 104px; height: 104px; } }
+
+  /* ── STATE MAP (chapter page) ── */
+  .smap { margin: 0; background: #fff; border: 1px solid var(--color-bdr); border-radius: 14px; box-shadow: var(--sh); padding: 1.6rem 1.6rem 1.1rem; }
+  .smap svg { display: block; width: 100%; height: auto; }
+  .smap-others path { fill: var(--color-navy); fill-opacity: .08; stroke: #fff; stroke-width: 1.5; stroke-linejoin: round; }
+  .smap-target { fill: var(--color-gold); stroke: var(--color-navy); stroke-width: 2.5; stroke-linejoin: round; }
+  .smap figcaption { display: flex; align-items: center; gap: .45rem; margin-top: 1rem; padding-top: .9rem; border-top: 1px solid var(--color-bdr); font-size: .78rem; color: var(--color-txt-3); }
+  .smap figcaption strong { color: var(--color-navy); font-weight: 700; }
+  .smap-dot { width: 9px; height: 9px; border-radius: 3px; background: var(--color-gold); border: 1.5px solid var(--color-navy); }
+
+  /* ── PRESIDENT: SPEECHES & ADDRESSES ── */
+  .spk-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; }
+  .spk { background: #fff; border: 1px solid var(--color-bdr); border-radius: 14px; padding: 1.5rem 1.5rem 1.3rem; display: flex; flex-direction: column; transition: .2s; }
+  .spk:hover { border-color: var(--color-bdr-gold); box-shadow: var(--shadow-sm); }
+  .spk-ft { background: var(--color-navy); border-color: var(--color-navy); }
+  .spk-ft .spk-title { color: #fff; }
+  .spk-ft .spk-meta, .spk-ft .spk-ex { color: rgba(255,255,255,.7); }
+  .spk-tag { align-self: flex-start; font-size: .58rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-navy); background: var(--color-gold); border-radius: 999px; padding: .2rem .65rem; margin-bottom: .8rem; }
+  .spk-meta { font-size: .66rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--color-gold); margin-bottom: .45rem; }
+  .spk-title { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: var(--color-navy); letter-spacing: -.02em; line-height: 1.35; margin: 0 0 .5rem; }
+  .spk-ex { font-size: .82rem; line-height: 1.7; color: var(--color-txt-2); margin: 0 0 1rem; }
+  .spk-actions { margin-top: auto; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .spk-body { grid-column: 1 / -1; margin-top: 1.2rem; padding-top: 1.2rem; border-top: 1px solid var(--color-bdr); }
+
+  /* ── NAMES-ONLY ROSTER (National Policy Committee) ── */
+  .roster { margin-top: 2rem; background: #fff; border: 1px solid var(--color-bdr); border-radius: 13px; overflow: hidden; }
+  .roster-row { display: grid; grid-template-columns: 2.5rem 1fr 1fr; gap: 1rem; align-items: baseline; padding: .85rem 1.4rem; border-top: 1px solid var(--color-bdr); }
+  .roster-row:first-child { border-top: 0; }
+  .roster-head { background: var(--color-off); font-size: .62rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--color-txt-3); }
+  .roster-n { font-size: .72rem; font-weight: 700; color: var(--color-gold); }
+  .roster-name { font-family: var(--font-heading); font-weight: 700; color: var(--color-navy); font-size: .95rem; letter-spacing: -.02em; }
+  .roster-role { font-size: .78rem; color: var(--color-txt-2); }
+  @media (max-width: 640px) { .roster-row { grid-template-columns: 2rem 1fr; } .roster-role { grid-column: 2; } .roster-head .roster-role { display: none; } }
 
   /* ── PAST PRESIDENTS ── */
   .pp-grid { @apply grid grid-cols-4 gap-5 mt-8; }
@@ -1225,7 +1269,7 @@
 @media (max-width: 768px) {
   .nlinks, .ncta, .ncta-pair { display: none; }
   .ham { display: flex; }
-  .svc-grid, .tc3, .leader-grid, .memcat, .pp-grid, .chapters-grid, .recip-grid, .exam-grid, .res-grid, .pay-cats, .valg, .fg4, .grid-3, .values-grid, .offerings-grid { grid-template-columns: 1fr; }
+  .svc-grid, .tc3, .memcat, .pp-grid, .chapters-grid, .recip-grid, .exam-grid, .res-grid, .pay-cats, .valg, .fg4, .grid-3, .values-grid, .offerings-grid { grid-template-columns: 1fr; }
   .brand-grid { grid-template-columns: 1fr; }
   .art-layout, .contlay, .contact-layout, .grid-2, .two-col { grid-template-columns: 1fr; }
   .gpc { flex-direction: column; }
@@ -1385,3 +1429,57 @@
     animation-iteration-count: infinite !important;
   }
 }
+
+/* Review corrections (Oct 2026): layout & home */
+
+/* Partner strip — directly under the home hero. Logos sit greyscale and come up
+   to full colour on hover or focus, so a row of mixed brand colours does not
+   fight the navy hero above it. */
+.ptn-strip { background: var(--color-off); }
+.ptn-strip .ct { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+.ptn-strip-head {
+  display: flex; justify-content: space-between; align-items: flex-end;
+  flex-wrap: wrap; gap: 1rem; margin-bottom: 1.8rem;
+}
+.ptn-logos {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;
+}
+.ptn-logo {
+  display: flex; align-items: center; justify-content: center; height: 96px; padding: 1rem 1.2rem;
+  background: #fff; border: 1px solid var(--color-bdr); border-radius: 14px; text-decoration: none;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.ptn-logo img {
+  max-height: 56px; max-width: 100%; object-fit: contain;
+  filter: grayscale(1); opacity: .7; transition: filter .25s, opacity .25s;
+}
+.ptn-logo-name {
+  font-family: var(--font-heading); font-weight: 700; font-size: .85rem; text-align: center;
+  color: var(--color-navy); letter-spacing: -.01em;
+}
+.ptn-logo:hover, .ptn-logo:focus-visible {
+  border-color: var(--color-bdr-gold); box-shadow: var(--shadow-sm); transform: translateY(-2px);
+}
+.ptn-logo:hover img, .ptn-logo:focus-visible img { filter: none; opacity: 1; }
+
+/* The call for partners shown while no partner is on file — home strip and the
+   Partnership page's empty state share it. */
+.ptn-cta {
+  display: flex; align-items: center; justify-content: space-between; gap: 1.5rem 2.5rem; flex-wrap: wrap;
+  background: linear-gradient(135deg, #000066 0%, #12306e 100%); border-radius: 16px; padding: 2.2rem 2.5rem;
+}
+.ptn-cta h3 {
+  font-family: var(--font-heading); font-weight: 800; font-size: 1.35rem; color: #fff;
+  letter-spacing: -.02em; margin: 0 0 .5rem;
+}
+.ptn-cta p { font-size: .88rem; color: rgba(255,255,255,.75); max-width: 620px; margin: 0; line-height: 1.8; }
+.ptn-cta-btns { display: flex; gap: .8rem; flex-wrap: wrap; }
+@media (max-width: 640px) {
+  .ptn-cta { padding: 1.8rem 1.4rem; }
+  .ptn-logos { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Hero strip centre frame while the Secretariat building photo is pending:
+   the crest on navy, so the frame still belongs to the Institute. */
+.hstrip-img--crest { background: radial-gradient(circle at 50% 40%, #1a1a8a, var(--color-navy)); display: flex; align-items: center; justify-content: center; }
+.hstrip-img--crest img { width: 58% !important; height: auto !important; object-fit: contain !important; }

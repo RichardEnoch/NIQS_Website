@@ -105,8 +105,9 @@ export default function PastPresidents() {
                 {/* Term in gold */}
                 <div className="ppcard-term">{p.term}</div>
 
-                {/* Optional note */}
-                {p.info && <div className="ppcard-info">{p.info}</div>}
+                {/* p.info is deliberately not rendered: on every record it only
+                    said "PPNIQS", which the page title already says, and the
+                    review (Oct 2026) asked for it to go. */}
               </div>
             ))}
           </div>

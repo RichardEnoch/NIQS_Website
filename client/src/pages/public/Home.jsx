@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../../api/axios';
-import useMembershipStats, { formatCount, formatApprox, MEMBERS_FALLBACK } from '../../hooks/useMembershipStats';
 import { AGREEMENT_COUNT } from '../../data/reciprocity';
 import useChapterCount, { CHAPTERS_FALLBACK } from '../../hooks/useChapterCount';
+import { useMemberCopy } from '../../hooks/useMembershipStats';
 import Icon from '../../components/common/Icon';
 
 /* Founding year, for the "years of excellence" tile — computed rather than typed
@@ -32,12 +32,6 @@ const fallbackNews = [
   },
 ];
 
-const fallbackEvents = [
-  { _id: '1', slug: 'annual-qs-conference-2025', title: 'Annual QS Conference 2025', date: '2025-03-14', location: 'Transcorp Hilton, Abuja', time: '9:00 AM – 5:00 PM', type: 'Conference' },
-  { _id: '2', slug: 'tpc-gde-exams-2025', title: 'TPC/GDE Professional Examinations', date: '2025-03-22', location: 'Nationwide Centres', time: '8:00 AM', type: 'Examination' },
-  { _id: '3', slug: 'lagos-cpd-seminar', title: 'Lagos Chapter CPD Seminar', date: '2025-04-05', location: 'Eko Hotel, Lagos', time: '10:00 AM – 3:00 PM', type: 'CPD' },
-];
-
 const services = [
   { icon: 'costManagement', title: 'Cost Management', desc: 'Comprehensive building economics and cost planning for capital projects of all scales, from pre-design through to final account.', tag: 'Core' },
   { icon: 'procurement', title: 'Procurement Advice', desc: 'Strategic procurement route selection and contract administration that aligns client objectives with project risk profiles.', tag: 'Core' },
@@ -56,15 +50,27 @@ const defaultTickerItems = [
   'Brand Materials — Download the official NIQS brand kit',
 ];
 
+/* The hero strip reads left to right as the story of the profession, as NIQS
+   asked at the October 2026 review: the tools it started with, the Institute's
+   home today at the centre (the largest frame), and where the built environment
+   is heading. The centre frame has no photograph yet — until the Secretariat
+   supplies one of the National Secretariat building, it renders as a crest card
+   rather than a stock picture standing in for the Institute's own house. Drop
+   the photo in /public/hero/ and set `src` to switch it over. */
 const heroImages = [
-  { src: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&q=80&fit=crop', alt: 'Construction site cost survey' },
-  { src: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=600&q=80&fit=crop', alt: 'Architectural plans & take-off' },
-  { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&fit=crop', alt: 'Quantity surveying practice' },
-  { src: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&q=80&fit=crop', alt: 'Built infrastructure' },
-  { src: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&fit=crop', alt: 'Cost analysis & estimation' },
+  { src: 'https://images.unsplash.com/photo-1559819614-8e87b90b8e9b?w=600&q=80&fit=crop', alt: 'Slide rule — measurement before the calculator' },
+  { src: 'https://images.unsplash.com/photo-1648201637025-1c77b9be3013?w=600&q=80&fit=crop', alt: 'Calculator and handwritten workings' },
+  { src: null, alt: 'QS Olusegun Ajanlekoko House, NIQS National Secretariat, Abuja', badge: 'NIQS National Secretariat' },
+  { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&fit=crop', alt: 'Digital cost planning on screen' },
+  { src: 'https://images.unsplash.com/photo-1713643957213-4a6acc242563?w=600&q=80&fit=crop', alt: 'Twisting high-rise towers — the built environment ahead' },
 ];
 
 /* ── helpers ── */
+const TIER_ORDER = ['platinum', 'gold', 'silver', 'bronze', 'associate'];
+function tierRank(tier) {
+  const i = TIER_ORDER.indexOf(String(tier || '').toLowerCase());
+  return i === -1 ? TIER_ORDER.length : i;
+}
 function fmtDate(d) {
   try {
     return new Date(d).toLocaleDateString('en-NG', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -111,18 +117,20 @@ export default function Home() {
   );
 
   const [news, setNews] = useState(fallbackNews);
-  const [events, setEvents] = useState(fallbackEvents);
+  /* No placeholder events. The old fallback list was three 2025 events that
+     showed up as "upcoming" whenever the API was slow — a calendar is the one
+     place where demo content reads as fact. Empty until real events arrive. */
+  const [events, setEvents] = useState([]);
   const [hasUpcoming, setHasUpcoming] = useState(true);
-  const [platinumPartners, setPlatinumPartners] = useState([]);
+  const [partners, setPartners] = useState([]);
   const [tickerItems, setTickerItems] = useState(defaultTickerItems);
 
-  /* Live membership figures. `stats` is null while loading and whenever the
-     endpoint is unavailable, so every use below falls back to the approved static
-     copy — the hero must never render a membership figure of zero. */
-  const { stats } = useMembershipStats();
+  /* Public pages quote the size of the Institute only as a rounded figure
+     ("14,000+"), never the exact register count — NIQS confirmed this at the
+     October 2026 review. The detailed breakdown (and the Fellows count) is
+     members-only now, in the portal. */
+  const memberCopy = useMemberCopy();
   const chapterCount = useChapterCount();
-  const fellows = stats?.by_grade?.find(g => g.grade === 'Fellow')?.count ?? null;
-  const memberCopy = stats ? formatApprox(stats.total_members) : MEMBERS_FALLBACK;
 
   useEffect(() => {
     /* Reduced motion holds the fold open in the stylesheet, so leave the state
@@ -165,9 +173,12 @@ export default function Home() {
       }
     }).catch(() => {});
 
-    API.get('/partners?tier=platinum&limit=3').then(res => {
+    /* Every tier, not just platinum: the strip sits directly under the hero and
+       NIQS wants partnership seen by everyone who lands here. Highest tier first. */
+    API.get('/partners?limit=12').then(res => {
       const data = res.data?.partners || res.data || [];
-      setPlatinumPartners(data.slice(0, 3));
+      if (!Array.isArray(data)) return;
+      setPartners([...data].sort((a, b) => tierRank(a.tier) - tierRank(b.tier)).slice(0, 8));
     }).catch(() => {});
 
     // Load dynamic banner: site settings + upcoming events auto-appended
@@ -253,34 +264,26 @@ export default function Home() {
             {/* Image strip */}
             <div className="hstrip">
               {heroImages.map((img, i) => (
-                <div className="hstrip-img" key={i}>
-                  <img
-                    src={img.src}
-                    alt={img.alt}
-                    loading={i < 3 ? 'eager' : 'lazy'}
-                  />
-                  {i === 2 && <div className="hstrip-badge"><Icon name="chart" size="sm" /> Quantity Surveyors</div>}
+                <div className={`hstrip-img${img.src ? '' : ' hstrip-img--crest'}`} key={i}>
+                  {img.src ? (
+                    <img src={img.src} alt={img.alt} loading={i < 3 ? 'eager' : 'lazy'} />
+                  ) : (
+                    <img src="/brand/emblem-light.png" alt={img.alt} />
+                  )}
+                  {img.badge && <div className="hstrip-badge"><Icon name="institution" size="sm" /> {img.badge}</div>}
                 </div>
               ))}
             </div>
 
-            {/* Stat bar. Every tile is now derived — from the membership register, the
-                chapter records, the reciprocity list, or the founding year. Nothing
-                here is a number typed into the markup. */}
+            {/* Stat bar. Every tile is derived — from the chapter records, the
+                reciprocity list, or the founding year. Nothing here is a number
+                typed into the markup. Members shows the rounded figure only; the exact
+                count and the Fellows tile went to the portal at the October 2026 review. */}
             <div className="hstat-row">
               <div className="hstat">
-                <div className="hstat-n">{stats ? formatCount(stats.total_members) : MEMBERS_FALLBACK}</div>
-                <div className="hstat-l">Total Members</div>
+                <div className="hstat-n">{memberCopy}</div>
+                <div className="hstat-l">Members</div>
               </div>
-              {/* Grade labels are the Institute's to change, so this tile is only drawn
-                  when the register actually returns a Fellow grade — it is never
-                  approximated from a hard-coded figure. */}
-              {fellows !== null && (
-                <div className="hstat">
-                  <div className="hstat-n">{formatCount(fellows)}</div>
-                  <div className="hstat-l">Fellows</div>
-                </div>
-              )}
               <div className="hstat">
                 <div className="hstat-n">{chapterCount ?? CHAPTERS_FALLBACK}</div>
                 <div className="hstat-l">State Chapters</div>
@@ -297,6 +300,54 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* ── PARTNERS ──
+          Directly under the hero since the October 2026 review: NIQS wanted its
+          partners visible in position as well as in look, not near the foot of
+          the page. A logo strip once partners are on file; until then, the call
+          for partners keeps the space working rather than leaving a gap. */}
+      <section className="ptn-strip" aria-labelledby="ptn-strip-h">
+        <div className="ct">
+          <div className="ptn-strip-head">
+            <div>
+              <div className="ey">Our Partners</div>
+              <h2 className="sh" id="ptn-strip-h" style={{ marginBottom: 0 }}>
+                {partners.length > 0 ? <>Building With <em>NIQS</em></> : <>Partner With <em>NIQS</em></>}
+              </h2>
+            </div>
+            <Link to="/partnership" className="btn bo">
+              {partners.length > 0 ? 'All Partners →' : 'Partnership Opportunities →'}
+            </Link>
+          </div>
+
+          {partners.length > 0 ? (
+            <div className="ptn-logos">
+              {partners.map(p => (
+                <Link key={p._id} to={`/partnership/${p._id}`} className="ptn-logo" title={p.name}>
+                  {p.logo
+                    ? <img src={p.logo} alt={p.name} loading="lazy" />
+                    : <span className="ptn-logo-name">{p.name}</span>}
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="ptn-cta">
+              <div>
+                <h3>Become a Foundation Partner of the New NIQS</h3>
+                <p>
+                  NIQS is opening its platform to organisations committed to raising the bar in
+                  Nigeria's construction industry. Partner with the home of {memberCopy} quantity
+                  surveyors and put your brand before the industry's decision-makers.
+                </p>
+              </div>
+              <div className="ptn-cta-btns">
+                <Link to="/partnership" className="btn bp">Explore Partnership Tiers</Link>
+                <Link to="/contact" className="btn bo" style={{ borderColor: 'rgba(255,255,255,.4)', color: '#fff' }}>Contact the Secretariat</Link>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
 
       {/* ── VISION / MISSION / VALUES ── */}
       <section style={{ background: 'var(--color-off)' }}>
@@ -344,7 +395,7 @@ export default function Home() {
           <div className="ey">What We Do</div>
           <h2 className="sh">Professional Services &amp; <em>Standards</em></h2>
           <p className="sd">
-            NIQS regulates and advances quantity surveying practice in Nigeria — from cost planning to procurement, across all sectors of the built environment.
+            NIQS promotes, represents and advances quantity surveying practice in Nigeria — from cost planning to procurement, across all sectors of the built environment.
           </p>
           <div className="svc-grid">
             {services.map((s, i) => (
@@ -408,6 +459,11 @@ export default function Home() {
             </div>
             <Link to="/events" className="btn bo">Full Calendar &rarr;</Link>
           </div>
+          {events.length === 0 && (
+            <p className="sd" style={{ margin: 0 }}>
+              New events will be announced here. See the <Link to="/events">full calendar</Link> for past programmes.
+            </p>
+          )}
           <div className="evtl">
             {events.map((e, i) => (
               /* Was `/events/${e.slug}`. Events have no slug field — the model
@@ -434,62 +490,6 @@ export default function Home() {
               </Link>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* ── PARTNERS — real logos once available; a call for partners until then ── */}
-      <section style={{ background: 'var(--color-off)' }}>
-        <div className="ct" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
-            <div>
-              <div className="ey">Our Network</div>
-              <h2 className="sh" style={{ marginBottom: 0 }}>
-                {platinumPartners.length > 0 ? <>Platinum <em>Partners</em></> : <>Partner With <em>NIQS</em></>}
-              </h2>
-            </div>
-            <Link to="/partnership" className="btn bo">
-              {platinumPartners.length > 0 ? 'All Partners →' : 'Partnership Opportunities →'}
-            </Link>
-          </div>
-
-          {platinumPartners.length > 0 ? (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '1.2rem' }}>
-              {platinumPartners.map(p => (
-                <Link key={p._id} to={`/partnership/${p._id}`} style={{ textDecoration: 'none' }}>
-                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '.8rem', padding: '1.5rem', background: '#fff', borderRadius: 14, border: '1px solid var(--color-bdr)', boxShadow: '0 1px 4px rgba(0,0,0,.05)' }}>
-                    <div style={{ height: 56, width: 56, borderRadius: 10, background: '#f3f4f6', display: 'flex', alignItems: 'center', justifyContent: 'center', border: '1px solid var(--color-bdr)' }}>
-                      {p.logo
-                        ? <img src={p.logo} alt={p.name} style={{ height: 50, maxWidth: '100%', objectFit: 'contain' }} />
-                        : <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.4rem', color: '#d1d5db' }}>{p.name[0]}</span>
-                      }
-                    </div>
-                    <div style={{ textAlign: 'center' }}>
-                      <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '.9rem', color: 'var(--color-navy)' }}>{p.name}</div>
-                      {p.industry && <div style={{ fontSize: '.75rem', color: 'var(--color-txt-3)', marginTop: 2 }}>{p.industry}</div>}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div style={{
-              background: 'linear-gradient(135deg, #000066 0%, #12306e 100%)',
-              borderRadius: 16, padding: '3rem 2.5rem', textAlign: 'center',
-            }}>
-              <h3 style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.5rem', color: '#fff', marginBottom: '.6rem', letterSpacing: '-.02em' }}>
-                Become a Foundation Partner of the New NIQS
-              </h3>
-              <p style={{ fontSize: '.88rem', color: 'rgba(255,255,255,.75)', maxWidth: 620, margin: '0 auto 1.5rem', lineHeight: 1.8 }}>
-                NIQS is opening its platform to organisations committed to raising the bar in
-                Nigeria's construction industry. Partner with the home of {memberCopy} quantity
-                surveying professionals and put your brand before the industry's decision-makers.
-              </p>
-              <div style={{ display: 'flex', gap: '.8rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-                <Link to="/partnership" className="btn bp">Explore Partnership Tiers</Link>
-                <Link to="/contact" className="btn bo" style={{ borderColor: 'rgba(255,255,255,.4)', color: '#fff' }}>Contact the Secretariat</Link>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 

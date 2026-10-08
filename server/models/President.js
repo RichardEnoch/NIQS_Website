@@ -41,6 +41,20 @@ const presidentSchema = new mongoose.Schema({
   speechSubtitle: { type: String, default: '' },
   speechBody: { type: String, default: '' },
 
+  /* Speeches & addresses on other platforms (review, Oct 2026). A list rather
+     than more single fields, because the Secretariat will keep adding to it.
+     The inaugural speech above stays where it is — the page shows it first
+     whether or not this list has entries, so nothing existing has to move. */
+  speeches: [{
+    title:    { type: String, required: true, trim: true },
+    platform: { type: String, default: '', trim: true },   // event or outlet, e.g. "Channels TV — Business Morning"
+    date:     { type: Date },
+    excerpt:  { type: String, default: '' },
+    body:     { type: String, default: '' },               // full text, same block format as speechBody
+    pdfUrl:   { type: String, default: '' },
+    videoUrl: { type: String, default: '' },
+  }],
+
   /* Singleton sentinel — always the same value so findOne works cleanly */
   _singleton: { type: String, default: 'president', unique: true, immutable: true },
 

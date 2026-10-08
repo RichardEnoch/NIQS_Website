@@ -420,9 +420,6 @@ const Navbar = () => {
               <Link to="/workshop-materials" className="ddi">
                 Workshop Materials
               </Link>
-              <Link to="/webinars" className="ddi">
-                Webinar Series
-              </Link>
               <Link to="/research" className="ddi">
                 Publications
               </Link>
@@ -443,6 +440,14 @@ const Navbar = () => {
               </Link>
             </NavDropdown>
 
+            {/* Top level since the October 2026 review: NIQS wanted partnership
+                visible from every page, not two clicks deep under About. */}
+            <Link
+              to="/partnership"
+              className={`nl${location.pathname.startsWith("/partnership") ? " on" : ""}`}
+            >
+              Partnership
+            </Link>
             <Link
               to="/jobs"
               className={`nl${location.pathname === "/jobs" ? " on" : ""}`}
@@ -606,6 +611,9 @@ const Navbar = () => {
 
         <Link to="/news" className="ml" onClick={closeMenu}>
           News
+        </Link>
+        <Link to="/partnership" className="ml" onClick={closeMenu}>
+          Partnership
         </Link>
         <Link to="/jobs" className="ml" onClick={closeMenu}>
           Jobs

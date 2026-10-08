@@ -16,7 +16,10 @@ const DEFAULTS = {
   speechTitle: '',
   speechSubtitle: '',
   speechBody: '',
+  speeches: [],
 };
+
+const EMPTY_SPEECH = { title: '', platform: '', date: '', excerpt: '', body: '', pdfUrl: '', videoUrl: '' };
 
 export default function ManagePresident() {
   const [form, setForm] = useState({ ...DEFAULTS });
@@ -42,6 +45,8 @@ export default function ManagePresident() {
             speechTitle: d.speechTitle || '',
             speechSubtitle: d.speechSubtitle || '',
             speechBody: d.speechBody || '',
+            /* <input type="date"> wants yyyy-mm-dd, the API sends a full ISO string. */
+            speeches: (d.speeches || []).map(s => ({ ...EMPTY_SPEECH, ...s, date: s.date ? s.date.slice(0, 10) : '' })),
           });
           setLastUpdated(d.updatedAt);
         }
@@ -51,6 +56,12 @@ export default function ManagePresident() {
   }, []);
 
   const f = (k, v) => setForm(prev => ({ ...prev, [k]: v }));
+  const setSpeech = (i, k, v) => setForm(prev => ({
+    ...prev,
+    speeches: prev.speeches.map((s, j) => (j === i ? { ...s, [k]: v } : s)),
+  }));
+  const addSpeech = () => setForm(prev => ({ ...prev, speeches: [{ ...EMPTY_SPEECH }, ...prev.speeches] }));
+  const removeSpeech = (i) => setForm(prev => ({ ...prev, speeches: prev.speeches.filter((_, j) => j !== i) }));
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -163,6 +174,48 @@ export default function ManagePresident() {
           <Field label="Speech Text">
             <textarea value={form.speechBody} onChange={e => f('speechBody', e.target.value)} rows={18} style={{ ...inputStyle, resize: 'vertical', fontFamily: 'monospace', fontSize: 13 }} placeholder={'Opening paragraph…\n\n1. FIRST PROGRAMME HEADING\nDescription of the programme…\n\n2. SECOND PROGRAMME HEADING\nDescription…'} />
           </Field>
+
+          {/* ── OTHER SPEECHES ── */}
+          <SectionTitle>Speeches &amp; Addresses (other platforms)</SectionTitle>
+          <div style={{ background: '#fffbeb', border: '1px solid #fde68a', borderRadius: 8, padding: '10px 14px', marginBottom: 14, fontSize: 12.5, color: '#92400e' }}>
+            Keynotes, addresses and interviews given elsewhere. The public page lists them newest first, after the inaugural speech,
+            and only shows the section once at least one is added. Give each a title; add the full text, a PDF link, a video link, or any mix.
+          </div>
+          <button type="button" onClick={addSpeech} style={{ padding: '8px 16px', background: '#000066', color: '#fff', border: 'none', borderRadius: 6, fontWeight: 600, fontSize: 13, cursor: 'pointer', marginBottom: 14 }}>
+            + Add speech
+          </button>
+          {form.speeches.map((s, i) => (
+            <div key={s._id || i} style={{ border: '1px solid #e5e7eb', borderRadius: 8, padding: 16, marginBottom: 14, background: '#fafafa' }}>
+              <div style={{ display: 'grid', gridTemplateColumns: '2fr 1.4fr 1fr', gap: 14, marginBottom: 14 }}>
+                <Field label="Title" required>
+                  <input value={s.title} onChange={e => setSpeech(i, 'title', e.target.value)} style={inputStyle} required placeholder="Keynote: Cost Management in Public Procurement" />
+                </Field>
+                <Field label="Event / Platform">
+                  <input value={s.platform} onChange={e => setSpeech(i, 'platform', e.target.value)} style={inputStyle} placeholder="Channels TV — Business Morning" />
+                </Field>
+                <Field label="Date">
+                  <input type="date" value={s.date} onChange={e => setSpeech(i, 'date', e.target.value)} style={inputStyle} />
+                </Field>
+              </div>
+              <Field label="Excerpt (one or two sentences shown on the card)">
+                <textarea value={s.excerpt} onChange={e => setSpeech(i, 'excerpt', e.target.value)} rows={2} style={{ ...inputStyle, resize: 'vertical', marginBottom: 14 }} />
+              </Field>
+              <Field label="Full Text (optional — same format as the inaugural speech)">
+                <textarea value={s.body} onChange={e => setSpeech(i, 'body', e.target.value)} rows={6} style={{ ...inputStyle, resize: 'vertical', fontFamily: 'monospace', fontSize: 13, marginBottom: 14 }} />
+              </Field>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
+                <Field label="PDF URL (optional)">
+                  <input value={s.pdfUrl} onChange={e => setSpeech(i, 'pdfUrl', e.target.value)} style={inputStyle} placeholder="https://..." />
+                </Field>
+                <Field label="Video URL (optional)">
+                  <input value={s.videoUrl} onChange={e => setSpeech(i, 'videoUrl', e.target.value)} style={inputStyle} placeholder="https://youtube.com/..." />
+                </Field>
+              </div>
+              <button type="button" onClick={() => removeSpeech(i)} style={{ marginTop: 12, padding: '6px 12px', background: '#fff', color: '#dc2626', border: '1px solid #fecaca', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer' }}>
+                Remove
+              </button>
+            </div>
+          ))}
 
           {/* ── ACTIONS ── */}
           <div style={{ display: 'flex', gap: 12, marginTop: 24, paddingTop: 20, borderTop: '1px solid #f3f4f6' }}>

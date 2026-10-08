@@ -25,7 +25,7 @@ const FALLBACK = {
        2026-08-05 was stale. The secretariat confirmed the footer's — which had
        been disagreeing with this page for as long as both existed — as the
        current one. Same wording as Footer.jsx; if one moves, move both. */
-    address: 'QS Olusegun Ajalekoko House,\nNo. 24, NIQS Crescent, Mabushi District,\nAbuja, Nigeria',
+    address: 'QS Olusegun Ajanlekoko House,\nNo. 24, NIQS Crescent, Mabushi District,\nAbuja, Nigeria',
     officeHours: 'Monday — Friday: 8:00 AM — 5:00 PM\nSaturday — Sunday: Closed',
     twitterUrl: '', facebookUrl: '', linkedinUrl: '',
   },

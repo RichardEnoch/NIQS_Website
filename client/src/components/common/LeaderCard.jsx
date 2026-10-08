@@ -17,7 +17,7 @@ function chapterLinkFromTitle(title) {
 }
 
 /* Fallback shown when a member has no portrait yet — initials on brand navy,
-   never a stock stranger's face. */
+   never a stock stranger's face. Sized by the circular .lcard-img-wrap. */
 function Initials({ name }) {
   const initials = (name || '')
     .replace(/^(QS|Surv\.?|Dr\.?|Prof\.?)\s+/gi, '')
@@ -26,27 +26,33 @@ function Initials({ name }) {
     .slice(0, 2)
     .map(w => w[0].toUpperCase())
     .join('');
-  return (
-    <div style={{
-      width: '100%', aspectRatio: '4 / 4.6', display: 'flex', flexDirection: 'column',
-      alignItems: 'center', justifyContent: 'center', gap: 6,
-      background: 'linear-gradient(160deg, #000066 0%, #12306e 100%)',
-    }}>
-      <span style={{
-        fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '2.6rem',
-        color: 'rgba(255,255,255,.85)', letterSpacing: '.02em',
-      }}>{initials || 'QS'}</span>
-      <span style={{ fontSize: '.6rem', fontWeight: 600, letterSpacing: '.14em', textTransform: 'uppercase', color: 'rgba(255,255,255,.45)' }}>
-        Photo coming soon
-      </span>
-    </div>
-  );
+  return <div className="lcard-initials" aria-hidden="true">{initials || 'QS'}</div>;
+}
+
+/* Titles and honorifics that lead a name. Kept with the first name so the
+   card never shows "QS Dr." alone on one line and the name on the next. */
+const PREFIX = /^((?:QS|Surv\.?|Dr\.?|Prof\.?|Arc\.?|Engr\.?|Alhaji|Hajiya|Mrs?\.?|Ms\.?|High|Chief|Sir|Hon\.?)\s+)+/i;
+
+/**
+ * Split "QS Dr. Aminu M. Bashir, FNIQS" into a lead ("QS Dr. Aminu") that must
+ * not wrap, the rest of the name, and the post-nominals ("FNIQS"), which go on
+ * their own quieter line. Names without a comma simply have no post-nominal.
+ */
+export function splitName(full) {
+  const [namePart, ...post] = String(full || '').split(',');
+  const prefix = (namePart.match(PREFIX) || [''])[0];
+  const words = namePart.slice(prefix.length).trim().split(/\s+/);
+  return {
+    lead: (prefix + (words.shift() || '')).trim(),
+    rest: words.join(' '),
+    postnominal: post.join(',').trim(),
+  };
 }
 
 /**
- * Leadership card used on Council, NPC, chapter and body pages.
- * Portrait keeps a 4:4.6 ratio anchored near the face (studio portraits have
- * the head in the upper third).
+ * Leadership card used on Council, Trustees, chapter and body pages.
+ * Portrait is the 132px circle the Past Presidents page uses — the review
+ * (Oct 2026) asked for one smaller, uniform frame everywhere.
  *
  * Hovering used to pop the full uncropped portrait up above the card, so a
  * viewer could see what the 4:4.6 crop had trimmed. It was read as a fault
@@ -59,9 +65,11 @@ export default function LeaderCard({ member, linkTo }) {
   const m = member;
   const href = linkTo || chapterLinkFromTitle(m.title);
 
+  const { lead, rest, postnominal } = splitName(m.name);
+  const nameText = <><span className="nb">{lead}</span>{rest && ' '}{rest}</>;
   const nameEl = href
-    ? <Link to={href} className="lcard-name" style={{ color: 'var(--color-navy)', textDecoration: 'none', borderBottom: '1.5px solid var(--color-gold)', cursor: 'pointer' }}>{m.name}</Link>
-    : <div className="lcard-name">{m.name}</div>;
+    ? <Link to={href} className="lcard-name" style={{ display: 'inline-block', color: 'var(--color-navy)', textDecoration: 'none', borderBottom: '1.5px solid var(--color-gold)', cursor: 'pointer' }}>{nameText}</Link>
+    : <div className="lcard-name">{nameText}</div>;
 
   return (
     <motion.div
@@ -73,7 +81,7 @@ export default function LeaderCard({ member, linkTo }) {
       transition={{ duration: 0.45, ease: 'easeOut' }}
       whileHover={{ y: -5 }}
     >
-      <div className="lcard-img-wrap" style={{ position: 'relative' }}>
+      <div className="lcard-img-wrap">
         {m.image ? (
           /* Plain img: the hover scale is the .lcard:hover .lcard-img rule.
              It was a motion.img before, whose inline transform silently beat
@@ -85,6 +93,7 @@ export default function LeaderCard({ member, linkTo }) {
       </div>
       <div className="lcard-body">
         {nameEl}
+        {postnominal && <div className="lcard-postnom">{postnominal}</div>}
         <div className="lcard-role">{m.title}</div>
         {m.state && <div className="lcard-state">{m.state}</div>}
         {href && (
@@ -95,12 +104,12 @@ export default function LeaderCard({ member, linkTo }) {
         {(m.email || m.phone) && (
           <div style={{ marginTop: '.5rem', display: 'flex', flexDirection: 'column', gap: 2 }}>
             {m.email && (
-              <a href={`mailto:${m.email}`} style={{ fontSize: '.7rem', color: 'var(--color-navy)', fontWeight: 600, textDecoration: 'none' }}>
+              <a href={`mailto:${m.email}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 5, wordBreak: 'break-all', fontSize: '.7rem', color: 'var(--color-navy)', fontWeight: 600, textDecoration: 'none' }}>
                 <Icon name="email" size="sm" /> {m.email}
               </a>
             )}
             {m.phone && (
-              <a href={`tel:${m.phone.split(',')[0].trim()}`} style={{ fontSize: '.7rem', color: 'var(--color-txt-2)', fontWeight: 600, textDecoration: 'none' }}>
+              <a href={`tel:${m.phone.split(',')[0].trim()}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 5, wordBreak: 'break-all', fontSize: '.7rem', color: 'var(--color-txt-2)', fontWeight: 600, textDecoration: 'none' }}>
                 <Icon name="phone" size="sm" /> {m.phone}
               </a>
             )}

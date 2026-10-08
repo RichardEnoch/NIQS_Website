@@ -243,7 +243,7 @@ export default function LaunchGate() {
             <a href="mailto:info@niqs.org.ng" style={{ color: 'rgba(235,200,122,.95)', textDecoration: 'none' }}>
               info@niqs.org.ng
             </a>
-            <span>QS Olusegun Ajalekoko House, Abuja</span>
+            <span>QS Olusegun Ajanlekoko House, Abuja</span>
           </div>
         </div>
       </div>

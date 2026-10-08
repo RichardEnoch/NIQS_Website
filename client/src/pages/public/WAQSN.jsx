@@ -260,7 +260,7 @@ export default function WAQSN() {
             heading={<>Reach <em>WAQSN</em></>}
             fallback={{
               email1: 'waqsn@niqs.org.ng',
-              address: 'c/o NIQS National Secretariat,\nQS Olusegun Ajalekoko House,\nNo. 24, NIQS Crescent, Mabushi District,\nAbuja, Nigeria',
+              address: 'c/o NIQS National Secretariat,\nQS Olusegun Ajanlekoko House,\nNo. 24, NIQS Crescent, Mabushi District,\nAbuja, Nigeria',
               officeHours: 'Monday — Friday: 9:00 AM — 4:00 PM',
             }}
           />
