@@ -1,0 +1,159 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: >
+  NIQS API health check and auto-fix. A Lambda checks the API every 5 minutes
+  (health plus a real database read), restarts the ECS service when it stays
+  unhealthy, and emails through SES when a fix starts, when it is done, and if
+  it could not fix the problem. Code and reasoning: infra/autofix/healthcheck.py.
+  Deploy after 02-service.yml; see infra/autofix/README.md.
+
+Parameters:
+  ProjectName:
+    Type: String
+    Default: niqs
+    AllowedPattern: "^[a-z][a-z0-9-]{1,20}$"
+
+  ApiBase:
+    Type: String
+    Default: https://ni-1f3bf703b9454759bba61dc4f166eb0f.ecs.eu-west-3.on.aws
+    Description: The API origin, without /api (the ApiEndpoint output of niqs-api).
+
+  LogGroup:
+    Type: String
+    Default: /aws/ecs/niqs/niqs-api-d34e
+    Description: The API's container log group, quoted in the alert emails.
+
+  MailFrom:
+    Type: String
+    Default: "NIQS API monitor <alerts@adlmstudio.net>"
+
+  MailTo:
+    Type: String
+    Default: admin@adlmstudio.net,dolapo836@gmail.com,enochrichard6@gmail.com
+    Description: Comma-separated recipients.
+
+  SesRegion:
+    Type: String
+    Default: eu-west-1
+    Description: >
+      Where the sending domain is verified with production access. adlmstudio.net
+      is verified in eu-west-1; eu-west-3 has no SES identities and is in the sandbox.
+
+  SesIdentity:
+    Type: String
+    Default: adlmstudio.net
+
+  DryRun:
+    Type: String
+    Default: "false"
+    AllowedValues: ["true", "false"]
+
+Resources:
+  StateParameter:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: !Sub "/${ProjectName}/autofix/state"
+      Type: String
+      Value: '{"failures": 0, "since": null, "restarts": 0, "last_restart": null, "escalated": false, "reasons": []}'
+      Description: Incident state carried between health-check runs. Safe to reset to the default value.
+
+  FunctionLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub "/aws/lambda/${ProjectName}-api-autofix"
+      RetentionInDays: 30
+
+  FunctionRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub "${ProjectName}-api-autofix"
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: { Service: lambda.amazonaws.com }
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: AutoFix
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: [logs:CreateLogStream, logs:PutLogEvents]
+                Resource: !GetAtt FunctionLogGroup.Arn
+              - Effect: Allow
+                Action: [ssm:GetParameter, ssm:PutParameter]
+                Resource: !Sub "arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${ProjectName}/autofix/state"
+              - Effect: Allow
+                Action: ecs:DescribeServices
+                Resource: "*"
+              - Effect: Allow
+                Action: ecs:UpdateService
+                Resource: !Sub "arn:aws:ecs:${AWS::Region}:${AWS::AccountId}:service/${ProjectName}/${ProjectName}-api"
+              - Effect: Allow
+                Action: logs:FilterLogEvents
+                Resource: !Sub "arn:aws:logs:${AWS::Region}:${AWS::AccountId}:log-group:${LogGroup}:*"
+              # The identity alone is not enough: adlmstudio.net has a default
+              # configuration set (the ADLM website's mail tracking), and SES
+              # authorises SendEmail against that set as well. Without it every
+              # send fails with AccessDenied on configuration-set/...
+              - Effect: Allow
+                Action: ses:SendEmail
+                Resource:
+                  - !Sub "arn:aws:ses:${SesRegion}:${AWS::AccountId}:identity/${SesIdentity}"
+                  - !Sub "arn:aws:ses:${SesRegion}:${AWS::AccountId}:configuration-set/*"
+
+  Function:
+    Type: AWS::Lambda::Function
+    DependsOn: FunctionLogGroup
+    Properties:
+      FunctionName: !Sub "${ProjectName}-api-autofix"
+      Description: Checks the NIQS API every 5 minutes, restarts it when unhealthy, emails the outcome.
+      Runtime: python3.13
+      Handler: healthcheck.handler
+      # Replaced by an S3 location by `aws cloudformation package`.
+      Code: ../autofix/
+      Role: !GetAtt FunctionRole.Arn
+      Timeout: 90
+      MemorySize: 128
+      # No ReservedConcurrentExecutions: this account's Lambda concurrency limit
+      # is 10, and AWS refuses any reservation that leaves less than 10
+      # unreserved, so the stack would fail. Runs cannot overlap anyway: one
+      # every 5 minutes, each done within the 90 s timeout.
+      Environment:
+        Variables:
+          API_BASE: !Ref ApiBase
+          CLUSTER: !Ref ProjectName
+          SERVICE: !Sub "${ProjectName}-api"
+          LOG_GROUP: !Ref LogGroup
+          STATE_PARAM: !Ref StateParameter
+          MAIL_FROM: !Ref MailFrom
+          MAIL_TO: !Ref MailTo
+          SES_REGION: !Ref SesRegion
+          FAILURE_THRESHOLD: "2"
+          MAX_RESTARTS: "2"
+          COOLDOWN_MIN: "15"
+          DRY_RUN: !Ref DryRun
+
+  Schedule:
+    Type: AWS::Events::Rule
+    Properties:
+      Name: !Sub "${ProjectName}-api-autofix-every-5-min"
+      ScheduleExpression: rate(5 minutes)
+      State: ENABLED
+      Targets:
+        - Id: autofix
+          Arn: !GetAtt Function.Arn
+
+  SchedulePermission:
+    Type: AWS::Lambda::Permission
+    Properties:
+      FunctionName: !Ref Function
+      Action: lambda:InvokeFunction
+      Principal: events.amazonaws.com
+      SourceArn: !GetAtt Schedule.Arn
+
+Outputs:
+  FunctionName:
+    Value: !Ref Function
+  StateParameter:
+    Value: !Ref StateParameter
