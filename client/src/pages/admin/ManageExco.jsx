@@ -6,9 +6,11 @@ import { canDelete } from '../../utils/roleHelpers';
 import AdminHeader from '../../components/admin/AdminHeader';
 import DataTable from '../../components/admin/DataTable';
 import Icon from '../../components/common/Icon';
+import { shortName } from '../../utils/names';
 
 const emptyForm = {
   name: '',
+  shortName: '',
   title: '',
   state: '',
   linkedIn: '',
@@ -74,7 +76,7 @@ export default function ManageExco() {
   const openEdit = (row) => {
     setEditing(row);
     setForm({
-      name: row.name || '',
+      shortName: row.shortName || '',
       title: row.title || '',
       state: row.state || '',
       linkedIn: row.linkedIn || '',
@@ -207,6 +209,9 @@ export default function ManageExco() {
                 <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} required style={inputStyle} placeholder="e.g. President" />
               </FormField>
             </div>
+            <FormField label="Short name (optional — overrides the automatic initials)">
+              <input value={form.shortName} onChange={(e) => setForm({ ...form, shortName: e.target.value })} style={inputStyle} placeholder={shortName(form.name) || 'e.g. QS K. C. Nzekwe, FNIQS'} />
+            </FormField>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
               <FormField label="State">
                 <input value={form.state} onChange={(e) => setForm({ ...form, state: e.target.value })} style={inputStyle} placeholder="e.g. Lagos State" />

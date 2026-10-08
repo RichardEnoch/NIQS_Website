@@ -47,7 +47,7 @@ const TITLES = {
   '/exams': 'Examinations',
   '/research': 'Research & Publications',
   '/library': 'Digital Library',
-  '/news': 'News',
+  '/news': 'News & Announcements',
   '/events': 'Events',
   '/jobs': 'Jobs',
   '/payment': 'Payments',

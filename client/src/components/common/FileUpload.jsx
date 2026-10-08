@@ -103,8 +103,18 @@ export default function FileUpload({
       onError?.('Network error — upload failed');
     };
 
-    xhr.open('POST', '/api/upload');
+    /* Same base and credentials as the axios client. A bare '/api/upload' only
+       ever worked on the dev server, where Vite proxies /api: in production the
+       API lives on its own host, and Vercel's SPA rewrite answered the POST
+       with index.html — a 200 that failed as "Invalid server response". The
+       Bearer header matters for the same reason: the session cookie belongs to
+       the API's domain and a browser blocking third-party cookies drops it. */
+    xhr.open('POST', `${import.meta.env.VITE_API_URL || '/api'}/upload`);
     xhr.withCredentials = true; // send auth cookie
+    try {
+      const token = localStorage.getItem('token');
+      if (token) xhr.setRequestHeader('Authorization', `Bearer ${token}`);
+    } catch { /* storage blocked: the cookie is all we have */ }
     xhr.send(formData);
   };
 

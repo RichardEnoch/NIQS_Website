@@ -7,6 +7,7 @@ import API from '../../api/axios';
 export default function President() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [cat, setCat] = useState('All');
 
   useEffect(() => {
     API.get('/president')
@@ -31,6 +32,16 @@ export default function President() {
   const speeches = [...(data.speeches || [])].sort(
     (a, b) => (b.date ? new Date(b.date) : 0) - (a.date ? new Date(a.date) : 0)
   );
+
+  /* Category filter (review, Oct 2026: speeches "tagged or labelled" with a
+     button per kind). The legacy single speech counts as Inaugural. Buttons
+     are built from what exists, so an empty category never shows. */
+  const inaugural = data.speechBody
+    ? { title: data.speechTitle || 'Inaugural Address', platform: data.speechSubtitle, category: 'Inaugural', inaugural: true }
+    : null;
+  const allSpeeches = [...(inaugural ? [inaugural] : []), ...speeches.map(s => ({ ...s, category: s.category || 'Other' }))];
+  const categories = ['All', ...new Set(allSpeeches.map(s => s.category))];
+  const shownSpeeches = cat === 'All' ? allSpeeches : allSpeeches.filter(s => s.category === cat);
 
   /* Name is a link if LinkedIn URL is set, otherwise plain text */
   const NameEl = data.linkedIn ? (
@@ -147,10 +158,10 @@ export default function President() {
               <div className="ey">Leadership</div>
               <h2 className="sh">Meet the <em>President</em></h2>
 
-              <p style={{ fontSize: '.9rem', lineHeight: 1.88, color: 'var(--text2)', marginBottom: '1rem' }}>
+              <p style={{ fontSize: '.9rem', lineHeight: 1.88, color: 'var(--text2)', marginBottom: '1rem', textAlign: 'justify', hyphens: 'auto' }}>
                 {data.paragraph1}
               </p>
-              <p style={{ fontSize: '.9rem', lineHeight: 1.88, color: 'var(--text2)', marginBottom: '1rem' }}>
+              <p style={{ fontSize: '.9rem', lineHeight: 1.88, color: 'var(--text2)', marginBottom: '1rem', textAlign: 'justify', hyphens: 'auto' }}>
                 {data.paragraph2}
               </p>
 
@@ -214,15 +225,24 @@ export default function President() {
               Keynotes, addresses and interviews the President has given across the
               profession, government and the media.
             </p>
+            {categories.length > 2 && (
+              <div className="spk-filters" role="group" aria-label="Filter speeches by category">
+                {categories.map(c => (
+                  <button key={c} type="button" className={`spk-chip${cat === c ? ' on' : ''}`} aria-pressed={cat === c} onClick={() => setCat(c)}>
+                    {c}
+                  </button>
+                ))}
+              </div>
+            )}
             <div className="spk-grid">
-              {data.speechBody && (
+              {shownSpeeches.map(s => s.inaugural ? (
                 <SpeechCard
+                  key="inaugural"
                   featured
-                  speech={{ title: data.speechTitle || 'Inaugural Address', platform: data.speechSubtitle }}
+                  speech={s}
                   onRead={() => document.getElementById('inaugural-speech')?.scrollIntoView({ behavior: 'smooth' })}
                 />
-              )}
-              {speeches.map(s => <SpeechCard key={s._id || s.title} speech={s} />)}
+              ) : <SpeechCard key={s._id || s.title} speech={s} />)}
             </div>
           </div>
         </section>
@@ -263,10 +283,13 @@ function SpeechCard({ speech: s, featured, onRead }) {
 
   return (
     <article className={`spk${featured ? ' spk-ft' : ''}`}>
-      {featured && <div className="spk-tag">Inaugural Speech</div>}
+      <div className="spk-tag">{featured ? 'Inaugural Speech' : (s.category || 'Speech')}</div>
       {meta && <div className="spk-meta">{meta}</div>}
       <h3 className="spk-title">{s.title}</h3>
       {s.excerpt && <p className="spk-ex">{s.excerpt}</p>}
+      {s.tags?.length > 0 && (
+        <ul className="spk-tags">{s.tags.map(tg => <li key={tg}>{tg}</li>)}</ul>
+      )}
       <div className="spk-actions">
         {onRead && <button type="button" className="btn bp" onClick={onRead}>Read Speech</button>}
         {!onRead && s.body && (
@@ -314,7 +337,7 @@ function SpeechBody({ text }) {
                   {m[2]}
                 </h4>
                 {body && (
-                  <p style={{ fontSize: '.86rem', lineHeight: 1.8, color: 'var(--text2)', margin: 0 }}>
+                  <p style={{ fontSize: '.86rem', lineHeight: 1.8, color: 'var(--text2)', margin: 0, textAlign: 'justify', hyphens: 'auto' }}>
                     {body}
                   </p>
                 )}
@@ -323,7 +346,7 @@ function SpeechBody({ text }) {
           );
         }
         return (
-          <p key={i} style={{ fontSize: '.9rem', lineHeight: 1.88, color: 'var(--text2)', marginBottom: '1.1rem' }}>
+          <p key={i} style={{ fontSize: '.9rem', lineHeight: 1.88, color: 'var(--text2)', marginBottom: '1.1rem', textAlign: 'justify', hyphens: 'auto' }}>
             {block}
           </p>
         );

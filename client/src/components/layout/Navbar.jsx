@@ -432,10 +432,13 @@ const Navbar = () => {
               <Link to="/events" className="ddi">
                 Upcoming Events
               </Link>
+              {/* One name for the news page everywhere — menu, page title and the
+                  homepage section — so visitors can tell they are the same feed
+                  (October 2026 review). */}
               <Link to="/news" className="ddi">
-                Latest News
+                News &amp; Announcements
               </Link>
-              <Link to="/news" className="ddi">
+              <Link to="/news#qs-connect" className="ddi">
                 QS Connect
               </Link>
             </NavDropdown>
@@ -610,7 +613,7 @@ const Navbar = () => {
         </Link>
 
         <Link to="/news" className="ml" onClick={closeMenu}>
-          News
+          News &amp; Announcements
         </Link>
         <Link to="/partnership" className="ml" onClick={closeMenu}>
           Partnership

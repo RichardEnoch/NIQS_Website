@@ -16,6 +16,8 @@ const newsSchema = new mongoose.Schema({
   chapter: { type: mongoose.Schema.Types.ObjectId, ref: 'Chapter', default: null },
   author: { type: mongoose.Schema.Types.ObjectId, ref: 'Admin', required: true },
   isPublished: { type: Boolean, default: true },
+  // Homepage spotlight (three slots, enforced in the controller).
+  isFeatured: { type: Boolean, default: false },
   views: { type: Number, default: 0 }
 }, { timestamps: true });
 

@@ -5,8 +5,10 @@ import { useAuth } from '../../context/AuthContext';
 import { canDelete } from '../../utils/roleHelpers';
 import AdminHeader from '../../components/admin/AdminHeader';
 import DataTable from '../../components/admin/DataTable';
+import FileUpload from '../../components/common/FileUpload';
 
-const eventTypes = ['conference', 'seminar', 'workshop', 'agm', 'training', 'webinar', 'meeting', 'other'];
+// 'ceremony' for inductions and investitures, 'exam' for examination dates (October 2026 review).
+const eventTypes = ['conference', 'seminar', 'workshop', 'agm', 'training', 'webinar', 'meeting', 'ceremony', 'exam', 'other'];
 
 const emptyForm = {
   title: '',
@@ -219,8 +221,29 @@ export default function ManageEvents() {
                 </select>
               </FormField>
             )}
-            <FormField label="Image URL">
-              <input value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })} style={inputStyle} placeholder="https://..." />
+            {/* The event's flyer or design, uploaded from the admin's computer. It
+                was a pasted image URL, which meant hosting the design somewhere
+                else first (October 2026 review). Same uploader and endpoint as
+                Webinars and QS Connect; an event saved with a URL keeps it, and
+                shows it here until it is replaced or removed. */}
+            <FormField label="Event flyer / design">
+              {form.image && (
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 8 }}>
+                  <img src={form.image} alt="Current flyer" style={{ width: 72, height: 72, objectFit: 'cover', borderRadius: 8, border: '1px solid #e5e7eb' }} />
+                  <button type="button" onClick={() => setForm(prev => ({ ...prev, image: '' }))}
+                    style={{ fontSize: 12, color: '#b91c1c', background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
+                    Remove
+                  </button>
+                </div>
+              )}
+              <FileUpload
+                key={editing?._id || 'new'}
+                label={form.image ? 'Replace flyer (JPG or PNG)' : 'Upload flyer (JPG or PNG)'}
+                accept="image/*"
+                maxMB={10}
+                onUpload={(url) => setForm(prev => ({ ...prev, image: url }))}
+                onError={(msg) => toast.error(msg)}
+              />
             </FormField>
             <FormField label="Registration Link">
               <input value={form.registrationLink} onChange={(e) => setForm({ ...form, registrationLink: e.target.value })} style={inputStyle} placeholder="https://..." />
@@ -228,7 +251,7 @@ export default function ManageEvents() {
             <div style={{ marginBottom: 14 }}>
               <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: '#374151', cursor: 'pointer' }}>
                 <input type="checkbox" checked={form.isFeatured} onChange={(e) => setForm({ ...form, isFeatured: e.target.checked })} />
-                Featured Event
+                Featured on the homepage (3 slots)
               </label>
             </div>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 20 }}>

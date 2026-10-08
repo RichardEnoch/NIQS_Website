@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import PageHero from '../../components/common/PageHero';
 import API from '../../api/axios';
 import Icon from '../../components/common/Icon';
+import { shortName } from '../../utils/names';
 
 export default function NPC() {
   const [members, setMembers] = useState([]);
@@ -53,7 +54,7 @@ export default function NPC() {
               {members.map((m, i) => (
                 <div className="roster-row" role="row" key={m._id}>
                   <span className="roster-n" role="cell">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="roster-name" role="cell">{m.name}</span>
+                  <span className="roster-name" role="cell" title={m.name}>{shortName(m.name, { override: m.shortName })}</span>
                   <span className="roster-role" role="cell">{m.title}</span>
                 </div>
               ))}

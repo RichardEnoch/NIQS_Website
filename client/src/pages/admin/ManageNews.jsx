@@ -5,6 +5,7 @@ import { useAuth } from '../../context/AuthContext';
 import { canDelete } from '../../utils/roleHelpers';
 import AdminHeader from '../../components/admin/AdminHeader';
 import DataTable from '../../components/admin/DataTable';
+import { NEWS_CATEGORIES } from '../../data/newsCategories';
 
 const emptyForm = {
   title: '',
@@ -15,9 +16,10 @@ const emptyForm = {
   scope: 'national',
   chapter: '',
   isPublished: true,
+  isFeatured: false,
 };
 
-const categories = ['general', 'announcement', 'publication', 'press-release', 'update'];
+const categories = NEWS_CATEGORIES.map((c) => c.value);
 
 export default function ManageNews() {
   const { admin } = useAuth();
@@ -79,6 +81,7 @@ export default function ManageNews() {
       scope: row.scope || 'national',
       chapter: row.chapter?._id || row.chapter || '',
       isPublished: row.isPublished !== false,
+      isFeatured: !!row.isFeatured,
     });
     setShowModal(true);
   };
@@ -228,7 +231,7 @@ export default function ManageNews() {
                 >
                   {categories.map((c) => (
                     <option key={c} value={c}>
-                      {c.replace('-', ' ')}
+                      {NEWS_CATEGORIES.find((x) => x.value === c).label}
                     </option>
                   ))}
                 </select>
@@ -289,6 +292,14 @@ export default function ManageNews() {
                 <option value="no">No (Draft)</option>
               </select>
             </FormField>
+            {/* The homepage spotlight holds three articles. The server refuses a
+                fourth and says which to un-feature; that message shows as a toast. */}
+            <div style={{ marginBottom: 14 }}>
+              <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: '#374151', cursor: 'pointer' }}>
+                <input type="checkbox" checked={form.isFeatured} onChange={(e) => setForm({ ...form, isFeatured: e.target.checked })} />
+                Featured on the homepage (3 slots)
+              </label>
+            </div>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 20 }}>
               <button type="button" onClick={() => setShowModal(false)} style={{ ...btnStyle, background: '#e5e7eb', color: '#374151' }}>
                 Cancel

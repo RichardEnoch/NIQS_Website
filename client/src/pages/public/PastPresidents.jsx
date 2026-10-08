@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import PageHero from '../../components/common/PageHero';
 import API from '../../api/axios';
+import { shortName } from '../../utils/names';
 
 
 /* Initials avatar for presidents whose portrait hasn't been provided yet —
@@ -80,7 +81,7 @@ export default function PastPresidents() {
                 </div>
 
                 {/* Name — clickable if linkedIn URL is set */}
-                <div className="ppcard-name">
+                <div className="ppcard-name" title={p.name}>
                   {p.linkedIn ? (
                     <a
                       href={p.linkedIn}
@@ -95,10 +96,10 @@ export default function PastPresidents() {
                         cursor: 'pointer',
                       }}
                     >
-                      {p.name}<LinkedInIcon />
+                      {shortName(p.name, { override: p.shortName })}<LinkedInIcon />
                     </a>
                   ) : (
-                    p.name
+                    shortName(p.name, { override: p.shortName })
                   )}
                 </div>
 

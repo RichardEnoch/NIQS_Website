@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import API from '../../api/axios';
 import { AGREEMENT_COUNT } from '../../data/reciprocity';
 import useChapterCount, { CHAPTERS_FALLBACK } from '../../hooks/useChapterCount';
+import useEvents, { TYPE_LABEL } from '../../hooks/useEvents';
+import { useNewsSpotlight, NEWS_FALLBACK_IMAGE } from '../../hooks/useNews';
 import { useMemberCopy } from '../../hooks/useMembershipStats';
 import Icon from '../../components/common/Icon';
 
@@ -10,27 +12,6 @@ import Icon from '../../components/common/Icon';
    so it does not quietly go stale each January. */
 const FOUNDED = 1969;
 
-/* ── fallback data ── */
-const fallbackNews = [
-  {
-    _id: '1', slug: 'begm-2025-notice', title: 'BEGM 2025 Notice: Registration Now Open',
-    excerpt: 'The Board of Examiners invites qualified members to register before the 28 February 2025 deadline.',
-    image: 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&fit=crop',
-    date: '2025-02-10', category: 'Announcement',
-  },
-  {
-    _id: '2', slug: '2025-exam-schedule', title: '2025 Professional Examination Schedule Released',
-    excerpt: 'TPC and GDE examinations slated for March 2025. Check portal for timetable and centre assignments.',
-    image: 'https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=600&q=80&fit=crop',
-    date: '2025-01-28', category: 'Examinations',
-  },
-  {
-    _id: '3', slug: 'corporate-members-oct-2025', title: 'Corporate Financial Members List — October 2025',
-    excerpt: 'Official list of corporate members in good financial standing as at 24th October 2025 now available.',
-    image: 'https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=600&q=80&fit=crop',
-    date: '2025-10-24', category: 'Membership',
-  },
-];
 
 const services = [
   { icon: 'costManagement', title: 'Cost Management', desc: 'Comprehensive building economics and cost planning for capital projects of all scales, from pre-design through to final account.', tag: 'Core' },
@@ -39,15 +20,6 @@ const services = [
   { icon: 'chart', title: 'Project Monitoring', desc: 'Independent assessment of project progress and expenditure — providing clients with objective reporting and early warning of overruns.' },
   { icon: 'education', title: 'Professional Examinations', desc: 'NIQS administers rigorous entry and upgrade examinations that uphold the standard expected of all corporate members.' },
   { icon: 'web', title: 'International Engagement', desc: 'Through reciprocity agreements with leading QS bodies worldwide, NIQS members enjoy access to global recognition.' },
-];
-
-const defaultTickerItems = [
-  'BEGM 2025 Notice — Registration now open for qualified members',
-  '2025 Professional Examinations — TPC/GDE slated for March 2025',
-  'Corporate Financial Members List as at 24th October 2025',
-  'Erasure of Fees Defaulting Members — Important Notice',
-  'Criteria for Mature & Experience Routes to Membership',
-  'Brand Materials — Download the official NIQS brand kit',
 ];
 
 /* The hero strip reads left to right as the story of the profession, as NIQS
@@ -81,24 +53,27 @@ function monthYear(d) {
   try { return new Date(d).toLocaleDateString('en-NG', { month: 'short', year: 'numeric' }); } catch { return ''; }
 }
 
+/* Vision, Mission and Value word for word as on the previous NIQS website:
+   at the October 2026 review the Secretariat asked to keep those statements
+   until council adopts new ones, so they are not to be paraphrased here. */
 const principles = [
   {
     icon: 'eye',
     label: 'Our Vision',
     title: 'Total Cost & Procurement Management',
-    body: "To be the profession in Nigeria responsible for total cost and procurement management, for the achievement of client's objectives in all types of capital projects and developments, in all sectors of the economy.",
+    body: "To be the profession in Nigeria responsible for total cost and procurement management, for the achievement of client's objectives in all types of capital projects and developments, from conception to commissioning and maintenance, in all sectors of the economy, for the attainment of sustainable National development.",
   },
   {
     icon: 'target',
     label: 'Our Mission',
     title: 'Advancing the Profession',
-    body: 'Contributing to sustainable development of Nigeria by promoting the patronage of our world-class construction cost services and procurement management experts that meet client needs and expectations.',
+    body: 'Contributing to sustainable development of Nigeria by promoting the patronage of our world-class construction cost services and procurement management experts that meet client needs and expectations through the development of unique and distinctive competencies of the profession.',
   },
   {
     icon: 'advocacy',
-    label: 'Our Values',
-    title: 'Integrity & Excellence',
-    body: 'Integrity, professionalism, innovation, inclusiveness, and service. These are the values that guide every NIQS member and every programme we deliver.',
+    label: 'Our Value',
+    title: 'Value for Money',
+    body: 'Quantity Surveyors have value for money as their watch word. We are trained to offer comprehensive costing and cost management services.',
   },
 ];
 
@@ -116,14 +91,26 @@ export default function Home() {
     () => window.scrollY > 24 || window.matchMedia('(prefers-reduced-motion: reduce)').matches,
   );
 
-  const [news, setNews] = useState(fallbackNews);
-  /* No placeholder events. The old fallback list was three 2025 events that
-     showed up as "upcoming" whenever the API was slow — a calendar is the one
-     place where demo content reads as fact. Empty until real events arrive. */
-  const [events, setEvents] = useState([]);
-  const [hasUpcoming, setHasUpcoming] = useState(true);
+  /* News, events and the ticker read the same hooks as the News and Events
+     pages, so a snippet here is always the first few items of the page it links
+     to (October 2026 review). No placeholders: the old fallbacks were 2025
+     notices and events that read as current whenever the API was slow or empty,
+     and that the pages themselves never carried. */
+  /* The homepage spotlight: three slots each for news and events. What the
+     Secretariat marks Featured in admin comes first; empty slots fall back to
+     the latest news and the next events, so the sections never sit half empty.
+     Every item shown is also on its own page, unchanged. */
+  const { news } = useNewsSpotlight();
+  const { upcoming, spotlight: events } = useEvents();
   const [partners, setPartners] = useState([]);
-  const [tickerItems, setTickerItems] = useState(defaultTickerItems);
+  const [bannerItems, setBannerItems] = useState([]);
+  const tickerItems = [
+    ...bannerItems,
+    ...upcoming.slice(0, 5).map(e => {
+      const d = new Date(e.date).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' });
+      return `${e.title} — ${d}${e.location ? ` · ${e.location}` : ''}`;
+    }),
+  ];
 
   /* Public pages quote the size of the Institute only as a rounded figure
      ("14,000+"), never the exact register count — NIQS confirmed this at the
@@ -148,31 +135,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    API.get('/news?limit=3').then(res => {
-      const data = res.data?.news || res.data?.data || res.data;
-      if (Array.isArray(data) && data.length) setNews(data);
-    }).catch(() => {});
-
-    /* Prefer upcoming events; when none are scheduled, show the most recent
-       ones instead of demo placeholders. The endpoint returns { events, total,
-       page, pages }. */
-    const unwrapEvents = (res) => res.data?.events || res.data?.data || res.data || [];
-    API.get('/events?limit=3&upcoming=true').then(res => {
-      const data = unwrapEvents(res);
-      if (data.length) {
-        setEvents(data);
-        setHasUpcoming(true);
-      } else {
-        return API.get('/events?limit=3').then(r => {
-          const recent = unwrapEvents(r);
-          if (recent.length) {
-            setEvents(recent);
-            setHasUpcoming(false);
-          }
-        });
-      }
-    }).catch(() => {});
-
     /* Every tier, not just platinum: the strip sits directly under the hero and
        NIQS wants partnership seen by everyone who lands here. Highest tier first. */
     API.get('/partners?limit=12').then(res => {
@@ -181,32 +143,17 @@ export default function Home() {
       setPartners([...data].sort((a, b) => tierRank(a.tier) - tierRank(b.tier)).slice(0, 8));
     }).catch(() => {});
 
-    // Load dynamic banner: site settings + upcoming events auto-appended
-    Promise.all([
-      API.get('/site-settings').catch(() => ({ data: {} })),
-      API.get('/events?upcoming=true&limit=10').catch(() => ({ data: [] })),
-    ]).then(([settingsRes, eventsRes]) => {
-      const customItems = Array.isArray(settingsRes.data?.bannerItems) ? settingsRes.data.bannerItems : [];
-      const rawEvts = eventsRes.data?.events ?? eventsRes.data?.data ?? eventsRes.data;
-      const upcomingEvts = Array.isArray(rawEvts) ? rawEvts : [];
-
-      // Build event ticker entries for future events
-      const eventItems = upcomingEvts
-        .filter(e => e.date && new Date(e.date) >= new Date())
-        .slice(0, 5)
-        .map(e => {
-          const d = new Date(e.date).toLocaleDateString('en-NG', { day: 'numeric', month: 'short', year: 'numeric' });
-          return `${e.title} — ${d}${e.location ? ` · ${e.location}` : ''}`;
-        });
-
-      const merged = [...customItems, ...eventItems];
-      if (merged.length > 0) setTickerItems(merged);
-    });
+    // Announcements typed in Admin → Site Settings; upcoming events follow them.
+    API.get('/site-settings')
+      .then(res => setBannerItems(Array.isArray(res.data?.bannerItems) ? res.data.bannerItems : []))
+      .catch(() => {});
   }, []);
 
   return (
     <>
-      {/* ── TICKER ── */}
+      {/* ── TICKER ── Hidden when there is nothing current to announce, rather
+          than scrolling stale notices. */}
+      {tickerItems.length > 0 && (
       <div className="tkbar" id="tkbar">
         <span className="tklbl">Live</span>
         <div className="tkwrap">
@@ -220,6 +167,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      )}
 
       {/* ── HERO ── */}
       <div className={`hero${heroOpen ? ' is-open' : ''}`} id="heroWrap">
@@ -333,7 +281,7 @@ export default function Home() {
           ) : (
             <div className="ptn-cta">
               <div>
-                <h3>Become a Foundation Partner of the New NIQS</h3>
+                <h3>Become a Foundation Partner of NIQS</h3>
                 <p>
                   NIQS is opening its platform to organisations committed to raising the bar in
                   Nigeria's construction industry. Partner with the home of {memberCopy} quantity
@@ -393,7 +341,7 @@ export default function Home() {
       <section style={{ background: '#fff' }}>
         <div className="ct">
           <div className="ey">What We Do</div>
-          <h2 className="sh">Professional Services &amp; <em>Standards</em></h2>
+          <h2 className="sh">Professional <em>Services</em></h2>
           <p className="sd">
             NIQS promotes, represents and advances quantity surveying practice in Nigeria — from cost planning to procurement, across all sectors of the built environment.
           </p>
@@ -431,7 +379,7 @@ export default function Home() {
                 <div className="card-img-wrap">
                   <img
                     className="card-img"
-                    src={n.image || 'https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=600&q=80&fit=crop'}
+                    src={n.image || NEWS_FALLBACK_IMAGE}
                     alt={n.title}
                   />
                 </div>
@@ -454,7 +402,7 @@ export default function Home() {
             <div>
               <div className="ey">Calendar</div>
               <h2 className="sh" style={{ marginBottom: 0 }}>
-                {hasUpcoming ? <>Upcoming <em>Events</em></> : <>Recent <em>Events</em></>}
+                Upcoming <em>Events</em>
               </h2>
             </div>
             <Link to="/events" className="btn bo">Full Calendar &rarr;</Link>
@@ -486,7 +434,7 @@ export default function Home() {
                   <h4>{e.title}</h4>
                   <p><Icon name="location" size="sm" /> {e.location}{e.time ? ` \u00A0\u00B7\u00A0 ${e.time}` : ''}</p>
                 </div>
-                <span className="epill">{e.type}</span>
+                <span className="epill">{TYPE_LABEL[e.type] || e.type}</span>
               </Link>
             ))}
           </div>
