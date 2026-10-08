@@ -851,10 +851,10 @@
   .lcard-initials { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #000066 0%, #12306e 100%); font-family: var(--font-heading); font-weight: 800; font-size: 2.2rem; color: rgba(255,255,255,.85); letter-spacing: .02em; }
   .lcard-body { padding: 0; }
   .lcard-name { font-family: var(--font-heading); font-size: .95rem; font-weight: 700; color: var(--color-navy); margin-bottom: .1rem; letter-spacing: -.02em; line-height: 1.3; }
-  /* "QS Dr. Aminu" must never break between the prefix and the first name
-     (review item #23); the rest of the name may wrap normally. */
-  .lcard-name .nb { white-space: nowrap; }
-  .lcard-postnom { font-size: .66rem; font-weight: 700; color: var(--color-txt-3); letter-spacing: .08em; margin-bottom: .45rem; }
+  /* One line, title and post-nominal included (review, Oct 2026). Names are
+     initialised to fit (utils/names.js); the rare one that still overflows a
+     narrow card ends in an ellipsis, with the full name in its title. */
+  .lcard-name { display: block; max-width: 100%; font-size: .86rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: .35rem; }
   .lcard-role { font-size: .66rem; font-weight: 700; color: var(--color-gold); letter-spacing: .08em; text-transform: uppercase; line-height: 1.5; }
   .lcard-state { font-size: .72rem; color: var(--color-txt-3); margin-top: .25rem; }
   @media (max-width: 1024px) { .leader-grid { grid-template-columns: repeat(3, 1fr); } }
@@ -904,7 +904,8 @@
   .ppcard-img-wrap { @apply w-[132px] h-[132px] rounded-full overflow-hidden mx-auto mb-4; border: 3px solid var(--color-bdr); }
   .ppcard:hover .ppcard-img-wrap { border-color: var(--color-bdr-gold); }
   .ppcard-img-wrap img { @apply w-full h-full object-cover; object-position: center 22%; }
-  .ppcard-name { @apply font-heading text-[.95rem] font-bold text-navy mb-1; letter-spacing: -.02em; }
+  /* One line, like every name on the site (utils/names.js). */
+  .ppcard-name { @apply font-heading text-[.86rem] font-bold text-navy mb-1; letter-spacing: -.02em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .ppcard-term { @apply text-[.68rem] font-bold text-gold mb-0.5; }
   .ppcard-info { @apply text-[.7rem] text-txt-3; }
 

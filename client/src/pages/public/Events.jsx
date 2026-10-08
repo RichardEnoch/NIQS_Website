@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import API from '../../api/axios';
+import useEvents, { isUpcoming, TYPE_LABEL } from '../../hooks/useEvents';
 import PageHero from '../../components/common/PageHero';
 import Icon from '../../components/common/Icon';
 
@@ -21,83 +21,20 @@ const TYPE_FILTERS = [
   { label: 'Meetings',    types: ['meeting', 'social', 'other'] },
 ];
 
-const TYPE_LABEL = {
-  conference: 'Conference', seminar: 'Seminar', agm: 'AGM', workshop: 'Workshop',
-  training: 'Training', webinar: 'Webinar', exam: 'Examination', meeting: 'Meeting',
-  social: 'Social', other: 'Event',
-};
-
-/**
- * Webinars are kept in their own collection (managed under Admin → Webinars),
- * but since the October 2026 review they no longer have a page of their own —
- * NIQS asked for them to be listed with every other event. They are mapped onto
- * the event shape here so the list, filters and registration button treat them
- * the same way.
- */
-function webinarAsEvent(w) {
-  return {
-    _id: `webinar-${w._id}`,
-    title: w.title,
-    description: w.description,
-    date: w.date,
-    location: 'Online',
-    type: 'webinar',
-    registrationLink: w.registrationUrl || null,
-    recordingUrl: w.recordingUrl || null,
-    isWebinar: true,
-  };
-}
-
-/**
- * Whether an event can still be registered for.
- *
- * Measured against the end of its last day, not its start: a two-day workshop is
- * still open on the morning of day two, and a same-day event should not vanish
- * from registration at one minute past midnight. endDate wins where it exists,
- * because `date` is only the first day.
- */
-function isUpcoming(e) {
-  const last = new Date(e.endDate || e.date);
-  if (Number.isNaN(last.getTime())) return false;
-  last.setHours(23, 59, 59, 999);
-  return last.getTime() >= Date.now();
-}
 
 export default function Events() {
-  const [events, setEvents] = useState([]);
-  const [status, setStatus] = useState('loading');
   const [activeType, setActiveType] = useState('All');
-
-  useEffect(() => {
-    // Webinars are best-effort: if that request fails, events still show.
-    Promise.all([
-      API.get('/events'),
-      API.get('/webinars').catch(() => ({ data: {} })),
-    ])
-      .then(([evRes, wbRes]) => {
-        const data = evRes.data?.events || evRes.data?.data || evRes.data;
-        const webinars = wbRes.data?.webinars || [];
-        setEvents([
-          ...(Array.isArray(data) ? data : []),
-          ...(Array.isArray(webinars) ? webinars.filter(w => w.date).map(webinarAsEvent) : []),
-        ]);
-        setStatus('ready');
-      })
-      .catch(() => {
-        setEvents([]);
-        setStatus('error');
-      });
-  }, []);
+  // Same list, filter and order as the home page's events (hooks/useEvents).
+  const { upcoming, past: pastAll, status } = useEvents();
 
   const chip = TYPE_FILTERS.find(f => f.label === activeType);
-  const ofType = chip?.types ? events.filter(e => chip.types.includes(e.type)) : events;
+  const ofType = (list) => (chip?.types ? list.filter(e => chip.types.includes(e.type)) : list);
 
   /* Past events used to sit in the "Upcoming Events" list indefinitely, so by
      October the whole list was months out of date. Upcoming soonest first; past
      events move to their own list below, most recent first. */
-  const byDate = (a, b) => new Date(a.date) - new Date(b.date);
-  const filtered = ofType.filter(isUpcoming).sort(byDate);
-  const past = ofType.filter(e => !isUpcoming(e)).sort((a, b) => byDate(b, a));
+  const filtered = ofType(upcoming);
+  const past = ofType(pastAll);
 
   return (
     <>

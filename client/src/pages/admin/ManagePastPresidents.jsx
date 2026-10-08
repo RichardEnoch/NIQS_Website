@@ -6,9 +6,11 @@ import { canDelete, canManageNational } from '../../utils/roleHelpers';
 import AdminHeader from '../../components/admin/AdminHeader';
 import DataTable from '../../components/admin/DataTable';
 import Icon from '../../components/common/Icon';
+import { shortName } from '../../utils/names';
 
 const emptyForm = {
   name:     '',
+  shortName:     '',
   term:     '',
   info:     '',
   image:    '',
@@ -56,7 +58,7 @@ export default function ManagePastPresidents() {
   const openEdit = (row) => {
     setEditing(row);
     setForm({
-      name:     row.name || '',
+      shortName:     row.shortName || '',
       term:     row.term || '',
       info:     row.info || '',
       image:    row.image || '',
@@ -164,6 +166,9 @@ export default function ManagePastPresidents() {
             <FormField label="Full Name" required>
               <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required style={inputStyle} placeholder="Arc. Dr. [Name], FNIQS" />
             </FormField>
+            <FormField label="Short name (optional — overrides the automatic initials)">
+                <input value={form.shortName} onChange={e => setForm({ ...form, shortName: e.target.value })} style={inputStyle} placeholder={shortName(form.name) || 'e.g. QS K. C. Nzekwe, FNIQS'} />
+              </FormField>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
               <FormField label="Term of Office" required>
                 <input value={form.term} onChange={e => setForm({ ...form, term: e.target.value })} required style={inputStyle} placeholder="e.g. 2020 – 2024" />

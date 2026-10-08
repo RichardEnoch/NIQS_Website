@@ -2,6 +2,9 @@ const mongoose = require('mongoose');
 
 const excoSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
+  // The one-line form shown on the site, when the automatic initials
+  // (client/src/utils/names.js) get a name wrong. Empty = use the rule.
+  shortName: { type: String, trim: true, default: '' },
   title: { type: String, required: true, trim: true },
   state: { type: String, trim: true, default: '' },          // e.g. "Lagos State"
   linkedIn: { type: String, trim: true, default: '' },       // LinkedIn profile URL

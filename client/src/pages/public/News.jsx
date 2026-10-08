@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import API from '../../api/axios';
+import useNews, { NEWS_FALLBACK_IMAGE } from '../../hooks/useNews';
 import PageHero from '../../components/common/PageHero';
 
 const CATEGORIES = ['All', 'Conference', 'Legislation', 'International', 'Examinations', 'Chapter News', 'Events'];
@@ -8,28 +8,10 @@ const CATEGORIES = ['All', 'Conference', 'Legislation', 'International', 'Examin
 const NOTE = { textAlign: 'center', color: 'var(--color-txt-3)', marginTop: '2rem' };
 
 export default function News() {
-  const [news, setNews] = useState([]);
-  const [status, setStatus] = useState('loading');
   const [activeCategory, setActiveCategory] = useState('All');
   const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(1);
-
-  useEffect(() => {
-    const params = new URLSearchParams({ page, limit: 9 });
-    if (activeCategory !== 'All') params.append('category', activeCategory);
-    setStatus('loading');
-    API.get(`/news?${params}`)
-      .then(res => {
-        const data = res.data?.news || res.data?.data || res.data;
-        setNews(Array.isArray(data) ? data : []);
-        setTotalPages(res.data?.totalPages || res.data?.pages || 1);
-        setStatus('ready');
-      })
-      .catch(() => {
-        setNews([]);
-        setStatus('error');
-      });
-  }, [page, activeCategory]);
+  // Same feed as the home page's three cards (hooks/useNews).
+  const { news, totalPages, status } = useNews({ page, category: activeCategory });
 
   const filtered = activeCategory === 'All' ? news : news.filter(n => n.category === activeCategory);
 
@@ -65,7 +47,7 @@ export default function News() {
                   <div className="card">
                     <div className="card-img-wrap">
                       <img
-                        src={n.image || 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?w=600'}
+                        src={n.image || NEWS_FALLBACK_IMAGE}
                         alt={n.title}
                         className="card-img"
                       />

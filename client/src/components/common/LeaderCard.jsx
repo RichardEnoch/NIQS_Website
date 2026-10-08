@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Icon from './Icon';
+import { shortName } from '../../utils/names';
 
 /* Derive a chapter page link from a chapter-chairman title, e.g.
    "Nasarawa State Chapter Chairman" / "Lagos Chapter Chairman" / "FCT Chapter
@@ -29,26 +30,6 @@ function Initials({ name }) {
   return <div className="lcard-initials" aria-hidden="true">{initials || 'QS'}</div>;
 }
 
-/* Titles and honorifics that lead a name. Kept with the first name so the
-   card never shows "QS Dr." alone on one line and the name on the next. */
-const PREFIX = /^((?:QS|Surv\.?|Dr\.?|Prof\.?|Arc\.?|Engr\.?|Alhaji|Hajiya|Mrs?\.?|Ms\.?|High|Chief|Sir|Hon\.?)\s+)+/i;
-
-/**
- * Split "QS Dr. Aminu M. Bashir, FNIQS" into a lead ("QS Dr. Aminu") that must
- * not wrap, the rest of the name, and the post-nominals ("FNIQS"), which go on
- * their own quieter line. Names without a comma simply have no post-nominal.
- */
-export function splitName(full) {
-  const [namePart, ...post] = String(full || '').split(',');
-  const prefix = (namePart.match(PREFIX) || [''])[0];
-  const words = namePart.slice(prefix.length).trim().split(/\s+/);
-  return {
-    lead: (prefix + (words.shift() || '')).trim(),
-    rest: words.join(' '),
-    postnominal: post.join(',').trim(),
-  };
-}
-
 /**
  * Leadership card used on Council, Trustees, chapter and body pages.
  * Portrait is the 132px circle the Past Presidents page uses — the review
@@ -61,15 +42,17 @@ export function splitName(full) {
  * to the same canvas and eye line now, which is what the pop-up was
  * compensating for. The quiet scale on hover stays, in CSS.
  */
-export default function LeaderCard({ member, linkTo }) {
+export default function LeaderCard({ member, linkTo, hideState = false, pageContact = null }) {
   const m = member;
   const href = linkTo || chapterLinkFromTitle(m.title);
 
-  const { lead, rest, postnominal } = splitName(m.name);
-  const nameText = <><span className="nb">{lead}</span>{rest && ' '}{rest}</>;
+  const nameText = shortName(m.name, { override: m.shortName });
+  const same = (a, b) => a && b && String(a).replace(/\s+/g, '').toLowerCase() === String(b).replace(/\s+/g, '').toLowerCase();
+  const email = same(m.email, pageContact?.email) ? null : m.email;
+  const phone = same(m.phone, pageContact?.phone) ? null : m.phone;
   const nameEl = href
-    ? <Link to={href} className="lcard-name" style={{ display: 'inline-block', color: 'var(--color-navy)', textDecoration: 'none', borderBottom: '1.5px solid var(--color-gold)', cursor: 'pointer' }}>{nameText}</Link>
-    : <div className="lcard-name">{nameText}</div>;
+    ? <Link to={href} className="lcard-name" title={m.name} style={{ display: 'inline-block', color: 'var(--color-navy)', textDecoration: 'none', borderBottom: '1.5px solid var(--color-gold)', cursor: 'pointer' }}>{nameText}</Link>
+    : <div className="lcard-name" title={m.name}>{nameText}</div>;
 
   return (
     <motion.div
@@ -93,24 +76,23 @@ export default function LeaderCard({ member, linkTo }) {
       </div>
       <div className="lcard-body">
         {nameEl}
-        {postnominal && <div className="lcard-postnom">{postnominal}</div>}
         <div className="lcard-role">{m.title}</div>
-        {m.state && <div className="lcard-state">{m.state}</div>}
+        {m.state && !hideState && <div className="lcard-state">{m.state}</div>}
         {href && (
           <Link to={href} style={{ display: 'inline-block', marginTop: '.4rem', fontSize: '.66rem', fontWeight: 700, letterSpacing: '.06em', textTransform: 'uppercase', color: 'var(--color-gold)', textDecoration: 'none' }}>
             View chapter →
           </Link>
         )}
-        {(m.email || m.phone) && (
+        {(email || phone) && (
           <div style={{ marginTop: '.5rem', display: 'flex', flexDirection: 'column', gap: 2 }}>
-            {m.email && (
-              <a href={`mailto:${m.email}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 5, wordBreak: 'break-all', fontSize: '.7rem', color: 'var(--color-navy)', fontWeight: 600, textDecoration: 'none' }}>
-                <Icon name="email" size="sm" /> {m.email}
+            {email && (
+              <a href={`mailto:${email}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 5, wordBreak: 'break-all', fontSize: '.7rem', color: 'var(--color-navy)', fontWeight: 600, textDecoration: 'none' }}>
+                <Icon name="email" size="sm" /> {email}
               </a>
             )}
-            {m.phone && (
-              <a href={`tel:${m.phone.split(',')[0].trim()}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 5, wordBreak: 'break-all', fontSize: '.7rem', color: 'var(--color-txt-2)', fontWeight: 600, textDecoration: 'none' }}>
-                <Icon name="phone" size="sm" /> {m.phone}
+            {phone && (
+              <a href={`tel:${phone.split(',')[0].trim()}`} style={{ display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 5, wordBreak: 'break-all', fontSize: '.7rem', color: 'var(--color-txt-2)', fontWeight: 600, textDecoration: 'none' }}>
+                <Icon name="phone" size="sm" /> {phone}
               </a>
             )}
           </div>

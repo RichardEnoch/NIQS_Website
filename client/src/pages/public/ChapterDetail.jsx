@@ -90,10 +90,10 @@ export default function ChapterDetail() {
      here as well put the same face on the page three times (review, Oct 2026). */
   const heroImg = '/backgrounds/hero-crest.webp';
 
+  /* No executive head-count: the list of executives is right below it. */
   const stats = [
     chapter?.memberCount > 0 && { label: 'Registered QS', value: chapter.memberCount.toLocaleString() },
     chapter?.firmCount   > 0 && { label: 'QS Firms',      value: chapter.firmCount.toLocaleString() },
-    exco.length          > 0 && { label: 'Executives',    value: exco.length },
     chapter?.zone            && { label: 'Zone',          value: chapter.zone, small: true },
   ].filter(Boolean);
 
@@ -119,11 +119,13 @@ export default function ChapterDetail() {
             {/* Left: description + contact */}
             <div className="rl">
               <div className="ey">About This Chapter</div>
-              {/* No write-up under the name (review, Oct 2026). chapter.about is
-                  still kept in the data: ChapterMap and the chapters list read
-                  it as the "full profile" flag, so clearing it would unmark
-                  every published chapter. */}
-              <h2 className="sh" style={{ marginBottom: '1.5rem' }}>{chapter?.name || `${stateName} Chapter`}</h2>
+              <h2 className="sh">{chapter?.name || `${stateName} Chapter`}</h2>
+              {/* The write-up stays (review, second pass, Oct 2026): each chapter
+                  rewrites its own from the profile template the Secretariat
+                  circulates, rather than the page going without one. */}
+              <p style={{ fontSize: '.9rem', lineHeight: 1.85, color: 'var(--color-txt-2)', marginBottom: '1.5rem' }}>
+                {chapter?.about || `The ${stateName} State Chapter of the Nigerian Institute of Quantity Surveyors coordinates professional activities, organises CPD events, and supports member welfare within the state.`}
+              </p>
 
               {/* Stats row — only figures we actually hold are shown, so a chapter
                   whose counts the secretariat has not supplied never renders a
@@ -191,7 +193,7 @@ export default function ChapterDetail() {
           </p>
           {exco.length > 0 ? (
             <div className="leader-grid">
-              {exco.map(m => <LeaderCard key={m._id} member={m} />)}
+              {exco.map(m => <LeaderCard key={m._id} member={m} hideState pageContact={{ email: chapter?.email, phone: chapter?.phone }} />)}
             </div>
           ) : (
             <div style={{
