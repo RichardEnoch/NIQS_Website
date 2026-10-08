@@ -84,6 +84,10 @@ const PortalDashboard = () => {
             <span className="pdash-action-icon"><Icon name="edit" size="sm" /></span>
             <span>Update Profile</span>
           </Link>
+          <Link to="/portal/library" className="pdash-action">
+            <span className="pdash-action-icon"><Icon name="library" size="sm" /></span>
+            <span>My Library</span>
+          </Link>
           <div className="pdash-action disabled" title="Coming Soon">
             <span className="pdash-action-icon"><Icon name="star" size="sm" /></span>
             <span>View Results</span>

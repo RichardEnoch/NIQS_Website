@@ -87,6 +87,7 @@ app.use("/api/qs-connect", require("./routes/qsConnect"));
 app.use("/api/webinars", require("./routes/webinars"));
 app.use("/api/workshop-materials", require("./routes/workshopMaterials"));
 app.use("/api/journals", require("./routes/journals"));
+app.use("/api/library", require("./routes/library"));
 app.use("/api/stats", require("./routes/stats"));
 app.use("/api/qs", require("./routes/qs"));
 

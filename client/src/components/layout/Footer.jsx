@@ -85,6 +85,7 @@ const Footer = () => {
                   retired in the October 2026 review; webinars are events now. */}
               <li><Link to="/events">Upcoming Events</Link></li>
               <li><Link to="/research">QS Journal</Link></li>
+              <li><Link to="/library">Digital Library</Link></li>
               {/* /brand does not exist — the route is /brand-materials. This
                   link had been landing on the 404 page. */}
               <li><Link to="/brand-materials">Brand Materials</Link></li>

@@ -411,6 +411,9 @@ const Navbar = () => {
             </NavDropdown>
 
             <NavDropdown label="Research &amp; Devt">
+              <Link to="/library" className="ddi">
+                Digital Library
+              </Link>
               <Link to="/login" className="ddi">
                 Workshop Certificates <span className="lock"><Icon name="lock" size="sm" /></span>
               </Link>
@@ -599,6 +602,9 @@ const Navbar = () => {
         </Link>
 
         <div className="ml-hd">Research &amp; Devt</div>
+        <Link to="/library" className="ml-sub" onClick={closeMenu}>
+          Digital Library
+        </Link>
         <Link to="/research" className="ml-sub" onClick={closeMenu}>
           Publications &amp; Journal
         </Link>
