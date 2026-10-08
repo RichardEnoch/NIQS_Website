@@ -51,7 +51,8 @@ const eventSchema = new mongoose.Schema({
   venue: { type: String },
   type: {
     type: String,
-    enum: ['conference', 'seminar', 'workshop', 'agm', 'meeting', 'social', 'exam', 'training', 'webinar', 'other'],
+    // 'ceremony' covers inductions and investitures (review, Oct 2026).
+    enum: ['conference', 'seminar', 'workshop', 'agm', 'meeting', 'social', 'exam', 'training', 'webinar', 'ceremony', 'other'],
     default: 'other'
   },
   scope: { type: String, enum: ['national', 'chapter'], default: 'national' },

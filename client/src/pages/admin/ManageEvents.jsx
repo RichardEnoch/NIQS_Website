@@ -7,7 +7,8 @@ import AdminHeader from '../../components/admin/AdminHeader';
 import DataTable from '../../components/admin/DataTable';
 import FileUpload from '../../components/common/FileUpload';
 
-const eventTypes = ['conference', 'seminar', 'workshop', 'agm', 'training', 'webinar', 'meeting', 'other'];
+// 'ceremony' for inductions and investitures, 'exam' for examination dates (October 2026 review).
+const eventTypes = ['conference', 'seminar', 'workshop', 'agm', 'training', 'webinar', 'meeting', 'ceremony', 'exam', 'other'];
 
 const emptyForm = {
   title: '',
@@ -250,7 +251,7 @@ export default function ManageEvents() {
             <div style={{ marginBottom: 14 }}>
               <label style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 14, color: '#374151', cursor: 'pointer' }}>
                 <input type="checkbox" checked={form.isFeatured} onChange={(e) => setForm({ ...form, isFeatured: e.target.checked })} />
-                Featured Event
+                Featured on the homepage (3 slots)
               </label>
             </div>
             <div style={{ display: 'flex', gap: 10, justifyContent: 'flex-end', marginTop: 20 }}>

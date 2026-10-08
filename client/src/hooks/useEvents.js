@@ -17,8 +17,24 @@ import API from '../api/axios';
 export const TYPE_LABEL = {
   conference: 'Conference', seminar: 'Seminar', agm: 'AGM', workshop: 'Workshop',
   training: 'Training', webinar: 'Webinar', exam: 'Examination', meeting: 'Meeting',
-  social: 'Social', other: 'Event',
+  social: 'Social', ceremony: 'Ceremony', other: 'Event',
 };
+
+/* The homepage spotlight has three slots (see server/utils/spotlight.js). */
+export const SPOTLIGHT_SLOTS = 3;
+
+/**
+ * The homepage spotlight: events the Secretariat marked Featured, then — while
+ * fewer than three are featured — the next upcoming events, so the section is
+ * never half empty when there are events to show. Drawn from the same
+ * `upcoming` list as the Events page, so every spotlight item is on that page
+ * too, in the same words.
+ */
+export function spotlightOf(list, slots = SPOTLIGHT_SLOTS) {
+  const featured = list.filter(e => e.isFeatured);
+  const rest = list.filter(e => !e.isFeatured);
+  return [...featured, ...rest].slice(0, slots);
+}
 
 /**
  * Webinars are kept in their own collection (managed under Admin → Webinars),
@@ -96,9 +112,11 @@ export default function useEvents() {
     return () => { live = false; };
   }, []);
 
+  const upcoming = events.filter(isUpcoming).sort(byDate);
   return {
     events,
-    upcoming: events.filter(isUpcoming).sort(byDate),
+    upcoming,
+    spotlight: spotlightOf(upcoming),
     past: events.filter(e => !isUpcoming(e)).sort((a, b) => byDate(b, a)),
     status,
   };

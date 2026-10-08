@@ -17,6 +17,42 @@ export const NEWS_FALLBACK_IMAGE = 'https://images.unsplash.com/photo-1504384308
 
 export const NEWS_PAGE_SIZE = 9;
 
+/* The homepage spotlight has three slots (see server/utils/spotlight.js). */
+export const SPOTLIGHT_SLOTS = 3;
+
+/**
+ * The homepage's three: articles marked Featured first, then the latest ones
+ * while fewer than three are featured. Featured articles are asked for
+ * separately because an older featured piece may not be on the first page of
+ * the feed. Every item is also on the News & Announcements page, unchanged.
+ */
+export function useNewsSpotlight() {
+  const [items, setItems] = useState([]);
+  const [status, setStatus] = useState('loading');
+
+  useEffect(() => {
+    let live = true;
+    const list = (res) => {
+      const data = res.data?.news || res.data?.data || res.data;
+      return Array.isArray(data) ? data : [];
+    };
+    Promise.all([
+      API.get(`/news?featured=true&limit=${SPOTLIGHT_SLOTS}`).then(list).catch(() => []),
+      API.get(`/news?page=1&limit=${NEWS_PAGE_SIZE}`).then(list),
+    ])
+      .then(([featured, latest]) => {
+        if (!live) return;
+        const ids = new Set(featured.map(n => n._id));
+        setItems([...featured, ...latest.filter(n => !ids.has(n._id))].slice(0, SPOTLIGHT_SLOTS));
+        setStatus('ready');
+      })
+      .catch(() => { if (live) { setItems([]); setStatus('error'); } });
+    return () => { live = false; };
+  }, []);
+
+  return { news: items, status };
+}
+
 /** { news, totalPages, status } for one page of the feed. */
 export default function useNews({ page = 1, category = 'All' } = {}) {
   const [news, setNews] = useState([]);

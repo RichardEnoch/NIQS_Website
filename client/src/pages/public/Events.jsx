@@ -18,6 +18,8 @@ const TYPE_FILTERS = [
   { label: 'Workshops',   types: ['workshop', 'training'] },
   { label: 'Webinars',    types: ['webinar'] },
   { label: 'Examinations',types: ['exam'] },
+  // Inductions and investitures (October 2026 review).
+  { label: 'Ceremonies',  types: ['ceremony'] },
   { label: 'Meetings',    types: ['meeting', 'social', 'other'] },
 ];
 
@@ -74,9 +76,17 @@ export default function Events() {
                     <div className="eday">{d.getDate()}</div>
                     <div className="emon">{d.toLocaleDateString('en-NG', { month: 'short' }).toUpperCase()}</div>
                   </div>
+                  {/* Name, flyer, date and the registration link — nothing else.
+                      The Secretariat asked (October 2026) for the flyer to carry
+                      the programme details instead of paragraphs of text on the
+                      list; the flyer opens full size in a new tab. */}
+                  {e.image && (
+                    <a href={e.image} target="_blank" rel="noopener noreferrer" className="eflyer" title={`${e.title} — flyer`}>
+                      <img src={e.image} alt={`${e.title} flyer`} loading="lazy" />
+                    </a>
+                  )}
                   <div className="einfo">
                     <h4>{e.title}</h4>
-                    <p>{e.description}</p>
                     <p style={{ marginTop: '.3rem', fontSize: '.72rem', color: 'var(--color-txt-3)' }}>
                       <Icon name="location" size="sm" /> {e.location}
                       {e.endDate && (

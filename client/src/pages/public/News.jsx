@@ -1,11 +1,53 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import useNews, { NEWS_FALLBACK_IMAGE } from '../../hooks/useNews';
 import PageHero from '../../components/common/PageHero';
+import API from '../../api/axios';
+import { NEWS_CATEGORIES, newsCategoryLabel } from '../../data/newsCategories';
 
-const CATEGORIES = ['All', 'Conference', 'Legislation', 'International', 'Examinations', 'Chapter News', 'Events'];
+const CATEGORIES = [{ value: 'All', label: 'All' }, ...NEWS_CATEGORIES];
 
 const NOTE = { textAlign: 'center', color: 'var(--color-txt-3)', marginTop: '2rem' };
+
+/**
+ * QS Connect, the Institute's magazine. It used to sit under Research &
+ * Development as a "publication" as well, so it appeared twice; at the
+ * October 2026 review it was placed here, under News & Announcements, where
+ * the menu's QS Connect link already pointed. Shows nothing until editions are
+ * uploaded in admin — no sample issues.
+ */
+function QSConnect() {
+  const [issues, setIssues] = useState([]);
+  useEffect(() => {
+    API.get('/qs-connect').then(r => setIssues(r.data?.issues || [])).catch(() => setIssues([]));
+  }, []);
+  if (issues.length === 0) return null;
+  return (
+    <section id="qs-connect" className="section-alt">
+      <div className="ct" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
+        <div className="ey">Magazine</div>
+        <h2 className="sh">QS <em>Connect</em></h2>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.2rem', marginTop: '1.5rem' }}>
+          {issues.map(issue => (
+            <div key={issue._id} className="card">
+              {issue.coverImage && <img src={issue.coverImage} alt={issue.title} style={{ width: '100%', height: 140, objectFit: 'cover' }} />}
+              <div style={{ padding: '1rem' }}>
+                <div className="card-title">{issue.title}</div>
+                {issue.issueDate && <div style={{ fontSize: '.7rem', color: 'var(--color-txt-3)', marginTop: 4 }}>{issue.issueDate}</div>}
+                {issue.fileUrl && (
+                  <a href={issue.fileUrl} target="_blank" rel="noopener noreferrer" className="btn bp"
+                    style={{ display: 'inline-flex', marginTop: '.7rem', padding: '.45rem 1rem', fontSize: '.72rem', textDecoration: 'none' }}>
+                    Read issue
+                  </a>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
 
 export default function News() {
   const [activeCategory, setActiveCategory] = useState('All');
@@ -30,11 +72,11 @@ export default function News() {
           <div className="filter-bar">
             {CATEGORIES.map(cat => (
               <button
-                key={cat}
-                className={`fbtn${activeCategory === cat ? ' on' : ''}`}
-                onClick={() => { setActiveCategory(cat); setPage(1); }}
+                key={cat.value}
+                className={`fbtn${activeCategory === cat.value ? ' on' : ''}`}
+                onClick={() => { setActiveCategory(cat.value); setPage(1); }}
               >
-                {cat}
+                {cat.label}
               </button>
             ))}
           </div>
@@ -53,7 +95,7 @@ export default function News() {
                       />
                     </div>
                     <div className="card-body">
-                      <span className="card-tag">{n.category || 'News'}</span>
+                      <span className="card-tag">{newsCategoryLabel(n.category)}</span>
                       <div className="card-title">{n.title}</div>
                       <p className="card-text">{n.excerpt}</p>
                       <div className="card-date">
@@ -90,6 +132,7 @@ export default function News() {
           )}
         </div>
       </section>
+      <QSConnect />
     </>
   );
 }

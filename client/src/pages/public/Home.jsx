@@ -4,7 +4,7 @@ import API from '../../api/axios';
 import { AGREEMENT_COUNT } from '../../data/reciprocity';
 import useChapterCount, { CHAPTERS_FALLBACK } from '../../hooks/useChapterCount';
 import useEvents, { TYPE_LABEL } from '../../hooks/useEvents';
-import useNews, { NEWS_FALLBACK_IMAGE } from '../../hooks/useNews';
+import { useNewsSpotlight, NEWS_FALLBACK_IMAGE } from '../../hooks/useNews';
 import { useMemberCopy } from '../../hooks/useMembershipStats';
 import Icon from '../../components/common/Icon';
 
@@ -53,24 +53,27 @@ function monthYear(d) {
   try { return new Date(d).toLocaleDateString('en-NG', { month: 'short', year: 'numeric' }); } catch { return ''; }
 }
 
+/* Vision, Mission and Value word for word as on the previous NIQS website:
+   at the October 2026 review the Secretariat asked to keep those statements
+   until council adopts new ones, so they are not to be paraphrased here. */
 const principles = [
   {
     icon: 'eye',
     label: 'Our Vision',
     title: 'Total Cost & Procurement Management',
-    body: "To be the profession in Nigeria responsible for total cost and procurement management, for the achievement of client's objectives in all types of capital projects and developments, in all sectors of the economy.",
+    body: "To be the profession in Nigeria responsible for total cost and procurement management, for the achievement of client's objectives in all types of capital projects and developments, from conception to commissioning and maintenance, in all sectors of the economy, for the attainment of sustainable National development.",
   },
   {
     icon: 'target',
     label: 'Our Mission',
     title: 'Advancing the Profession',
-    body: 'Contributing to sustainable development of Nigeria by promoting the patronage of our world-class construction cost services and procurement management experts that meet client needs and expectations.',
+    body: 'Contributing to sustainable development of Nigeria by promoting the patronage of our world-class construction cost services and procurement management experts that meet client needs and expectations through the development of unique and distinctive competencies of the profession.',
   },
   {
     icon: 'advocacy',
-    label: 'Our Values',
-    title: 'Integrity & Excellence',
-    body: 'Integrity, professionalism, innovation, inclusiveness, and service. These are the values that guide every NIQS member and every programme we deliver.',
+    label: 'Our Value',
+    title: 'Value for Money',
+    body: 'Quantity Surveyors have value for money as their watch word. We are trained to offer comprehensive costing and cost management services.',
   },
 ];
 
@@ -93,10 +96,12 @@ export default function Home() {
      to (October 2026 review). No placeholders: the old fallbacks were 2025
      notices and events that read as current whenever the API was slow or empty,
      and that the pages themselves never carried. */
-  const { news: newsPage } = useNews();
-  const news = newsPage.slice(0, 3);
-  const { upcoming } = useEvents();
-  const events = upcoming.slice(0, 3);
+  /* The homepage spotlight: three slots each for news and events. What the
+     Secretariat marks Featured in admin comes first; empty slots fall back to
+     the latest news and the next events, so the sections never sit half empty.
+     Every item shown is also on its own page, unchanged. */
+  const { news } = useNewsSpotlight();
+  const { upcoming, spotlight: events } = useEvents();
   const [partners, setPartners] = useState([]);
   const [bannerItems, setBannerItems] = useState([]);
   const tickerItems = [
@@ -276,7 +281,7 @@ export default function Home() {
           ) : (
             <div className="ptn-cta">
               <div>
-                <h3>Become a Foundation Partner of the New NIQS</h3>
+                <h3>Become a Foundation Partner of NIQS</h3>
                 <p>
                   NIQS is opening its platform to organisations committed to raising the bar in
                   Nigeria's construction industry. Partner with the home of {memberCopy} quantity
@@ -336,7 +341,7 @@ export default function Home() {
       <section style={{ background: '#fff' }}>
         <div className="ct">
           <div className="ey">What We Do</div>
-          <h2 className="sh">Professional Services &amp; <em>Standards</em></h2>
+          <h2 className="sh">Professional <em>Services</em></h2>
           <p className="sd">
             NIQS promotes, represents and advances quantity surveying practice in Nigeria — from cost planning to procurement, across all sectors of the built environment.
           </p>

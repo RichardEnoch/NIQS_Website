@@ -1,6 +1,14 @@
 const Event = require('../models/Event');
 const Registration = require('../models/Registration');
 const { classifyConflicts, describeConflict, dayStartUTC, dayEndUTC } = require('../utils/eventConflicts');
+const { spotlightRefusal } = require('../utils/spotlight');
+
+// Only events still to come hold a homepage spotlight slot; the homepage never
+// shows a past event, so a stale "featured" flag must not block a new one.
+const upcomingFilter = () => {
+  const today = dayStartUTC(new Date());
+  return { $or: [{ endDate: { $gte: today } }, { endDate: null, date: { $gte: today } }] };
+};
 
 /* ── Helpers ───────────────────────────────────────────────────────────────── */
 
@@ -162,6 +170,11 @@ exports.createEvent = async (req, res) => {
       return res.status(409).json({ message: conflictMessage(hard), conflicts: hard.map(describeConflict) });
     }
 
+    const refusal = await spotlightRefusal(Event, {
+      requested: body.isFeatured, slotFilter: upcomingFilter(), noun: 'event',
+    });
+    if (refusal) return res.status(400).json({ message: refusal, code: 'SPOTLIGHT_FULL' });
+
     const { force, ...clean } = body;
     const event = await Event.create({ ...clean, scope, chapter, author: req.admin._id });
 
@@ -203,6 +216,12 @@ exports.updateEvent = async (req, res) => {
     if (hard.length && !(body.force && canOverrideConflicts(req.admin.role))) {
       return res.status(409).json({ message: conflictMessage(hard), conflicts: hard.map(describeConflict) });
     }
+
+    const refusal = await spotlightRefusal(Event, {
+      requested: body.isFeatured, current: event.isFeatured,
+      slotFilter: upcomingFilter(), excludeId: event._id, noun: 'event',
+    });
+    if (refusal) return res.status(400).json({ message: refusal, code: 'SPOTLIGHT_FULL' });
 
     const { force, ...clean } = body;
     Object.assign(event, clean, { scope, chapter });

@@ -1,10 +1,13 @@
 const News = require('../models/News');
+const { spotlightRefusal } = require('../utils/spotlight');
 
 // Get all news (public)
 exports.getAllNews = async (req, res) => {
   try {
-    const { page = 1, limit = 12, category, scope, chapter } = req.query;
+    const { page = 1, limit = 12, category, scope, chapter, featured } = req.query;
     const filter = { isPublished: true };
+    // ?featured=true: the homepage spotlight (three slots).
+    if (featured === 'true') filter.isFeatured = true;
 
     if (category) filter.category = category;
     if (scope) filter.scope = scope;
@@ -46,7 +49,7 @@ exports.getNewsBySlug = async (req, res) => {
 // Create news (admin)
 exports.createNews = async (req, res) => {
   try {
-    const { title, content, image, category, tags, scope, chapter } = req.body;
+    const { title, content, image, category, tags, scope, chapter, isFeatured } = req.body;
 
     // State admin can only create chapter-scoped news
     if (req.admin.role === 'state_admin') {
@@ -55,8 +58,13 @@ exports.createNews = async (req, res) => {
       }
     }
 
+    const refusal = await spotlightRefusal(News, {
+      requested: isFeatured, slotFilter: { isPublished: true }, noun: 'news item',
+    });
+    if (refusal) return res.status(400).json({ message: refusal, code: 'SPOTLIGHT_FULL' });
+
     const news = await News.create({
-      title, content, image, category,
+      title, content, image, category, isFeatured: !!isFeatured,
       tags: tags || [],
       scope: scope || 'national',
       chapter: chapter || null,
@@ -81,6 +89,12 @@ exports.updateNews = async (req, res) => {
         return res.status(403).json({ message: 'You can only edit your chapter\'s news' });
       }
     }
+
+    const refusal = await spotlightRefusal(News, {
+      requested: req.body.isFeatured, current: news.isFeatured,
+      slotFilter: { isPublished: true }, excludeId: news._id, noun: 'news item',
+    });
+    if (refusal) return res.status(400).json({ message: refusal, code: 'SPOTLIGHT_FULL' });
 
     Object.assign(news, req.body);
     await news.save();
