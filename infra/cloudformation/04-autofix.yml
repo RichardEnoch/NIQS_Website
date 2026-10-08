@@ -28,7 +28,7 @@ Parameters:
 
   MailTo:
     Type: String
-    Default: admin@adlmstudio.net,dolapo836@gmail.com
+    Default: admin@adlmstudio.net,dolapo836@gmail.com,enochrichard6@gmail.com
     Description: Comma-separated recipients.
 
   SesRegion:

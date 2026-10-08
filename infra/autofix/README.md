@@ -35,7 +35,7 @@ any reservation below that, so the stack would fail to create.)
 
 Sent through SES in **eu-west-1** (adlmstudio.net is verified there with
 production access; eu-west-3 has no identities and is in the sandbox), from
-`alerts@adlmstudio.net` to `admin@adlmstudio.net, dolapo836@gmail.com`
+`alerts@adlmstudio.net` to `admin@adlmstudio.net, dolapo836@gmail.com, enochrichard6@gmail.com`
 (stack parameter `MailTo`).
 
 | When | Subject |
