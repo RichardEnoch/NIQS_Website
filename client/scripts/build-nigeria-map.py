@@ -168,6 +168,10 @@ def main():
         fh.write(' * documents the projection and simplification.\n')
         fh.write(' */\n')
         fh.write(f'export const VIEWBOX = "0 0 {WIDTH:.0f} {height:.0f}";\n\n')
+        # The projection itself, so a lon/lat (a chapter secretariat's pin)
+        # lands on these paths. Same formula as project() above.
+        fh.write('export const PROJECTION = '
+                 f'{{ minLon: {min_lon!r}, maxLat: {max_lat!r}, kx: {kx!r}, scale: {scale!r}, pad: {PADDING!r} }};\n\n')
         fh.write('export const STATES = [\n')
         for s in states:
             fh.write(f'  {{ name: {json.dumps(s["name"])}, cx: {s["cx"]}, cy: {s["cy"]},\n')

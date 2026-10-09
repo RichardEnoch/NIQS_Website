@@ -19,6 +19,9 @@ const emptyForm = {
   email:       '',
   phone:       '',
   website:     '',
+  pinLat:      '',
+  pinLng:      '',
+  pinLabel:    '',
   about:       '',
   image:       '',
   memberCount: 0,
@@ -76,6 +79,9 @@ export default function ManageChapters() {
       email:       row.email       || '',
       phone:       row.phone       || '',
       website:     row.website     || '',
+      pinLat:      row.pinLat ?? '',
+      pinLng:      row.pinLng ?? '',
+      pinLabel:    row.pinLabel    || '',
       about:       row.about       || '',
       image:       row.image       || '',
       memberCount: row.memberCount ?? 0,
@@ -93,6 +99,9 @@ export default function ManageChapters() {
         ...form,
         memberCount: Number(form.memberCount) || 0,
         firmCount:   Number(form.firmCount)   || 0,
+        // Blank clears the pin (back to the state capital), so send null, not "".
+        pinLat:      form.pinLat === '' ? null : Number(form.pinLat),
+        pinLng:      form.pinLng === '' ? null : Number(form.pinLng),
       };
       if (editing) {
         await API.put(`/chapters/${editing._id}`, payload);
@@ -221,6 +230,25 @@ export default function ManageChapters() {
             <FormField label="Website URL">
               <input value={form.website} onChange={e => setForm({ ...form, website: e.target.value })} style={inputStyle} placeholder="https://..." />
             </FormField>
+
+            {/* MAP PIN — empty means the state capital, which is where most
+                chapter secretariats are. Coordinates come from Google Maps:
+                right-click the office, and the first menu line is "lat, lng". */}
+            <SectionLabel>Map Pin (Chapter Secretariat)</SectionLabel>
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1.4fr', gap: 14 }}>
+              <FormField label="Latitude">
+                <input type="number" step="0.0001" value={form.pinLat} onChange={e => setForm({ ...form, pinLat: e.target.value })} style={inputStyle} placeholder="e.g. 7.6211" />
+              </FormField>
+              <FormField label="Longitude">
+                <input type="number" step="0.0001" value={form.pinLng} onChange={e => setForm({ ...form, pinLng: e.target.value })} style={inputStyle} placeholder="e.g. 5.2214" />
+              </FormField>
+              <FormField label="Place name">
+                <input value={form.pinLabel} onChange={e => setForm({ ...form, pinLabel: e.target.value })} style={inputStyle} placeholder="e.g. Ado-Ekiti" />
+              </FormField>
+            </div>
+            <p style={{ fontSize: '.78rem', color: 'var(--color-txt-3)', margin: '-4px 0 8px' }}>
+              Leave blank to pin the state capital.
+            </p>
 
             {/* LEADERSHIP (text fields — full portrait management is in Exco Members) */}
             <SectionLabel>Leadership (Quick Entry)</SectionLabel>

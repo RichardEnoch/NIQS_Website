@@ -177,7 +177,8 @@ export default function ChapterDetail() {
 
             {/* Right: where the chapter is */}
             <div className="rr">
-              <StateMap state={chapter?.state || stateName} zone={chapter?.zone || ZONE_MAP[stateSlug]} />
+              <StateMap state={chapter?.state || stateName} zone={chapter?.zone || ZONE_MAP[stateSlug]}
+                pin={{ lat: chapter?.pinLat, lng: chapter?.pinLng, label: chapter?.pinLabel }} />
             </div>
           </div>
         </div>
