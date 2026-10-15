@@ -1,0 +1,566 @@
+[
+  {
+    "group": "National Executive Council",
+    "name": "QS Dr. Aminu M. Bashir, FNIQS",
+    "title": "President",
+    "order": 1
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Bamidele A. Mafimidiwo, FNIQS",
+    "title": "Deputy President",
+    "order": 2
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Joseph Afe Otaru, FNIQS",
+    "title": "Vice President",
+    "order": 3
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Ahmad Kabir Muhammad, FNIQS",
+    "title": "Secretary General",
+    "order": 4
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Aliyu Wada Abubakar, FNIQS",
+    "title": "Assistant Secretary General",
+    "order": 5
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Hawwa Audi Muhammad, FNIQS",
+    "title": "Treasurer",
+    "order": 6
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Abdulkadir Shehu Rasheed, FNIQS",
+    "title": "Secretary Professional Development & Library",
+    "order": 7
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Bolaji Oluwadamilola Sotunde, FNIQS",
+    "title": "Secretary Marketing and Corporate Affairs",
+    "order": 8
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Abdulkareem Tukur, FNIQS",
+    "title": "Secretary International Affairs",
+    "order": 9
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Ahmed Kankia Usman, FNIQS",
+    "title": "FCT Chapter Chairman",
+    "order": 10
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Rilwan Olanrewaju Balogun, FNIQS",
+    "title": "Lagos Chapter Chairman",
+    "order": 11
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Ololade Olaide Sokoya, FNIQS",
+    "title": "WAQSN Chairperson",
+    "order": 12
+  },
+  {
+    "group": "National Executive Council",
+    "name": "QS Abubakar Ahmed Maigatari, MNIQS",
+    "title": "YQSF Chairman",
+    "order": 13
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Gabriel A. Balogun, PPNIQS, FNIQS",
+    "title": "Past President",
+    "order": 101
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Abdulkadir M. Kawu, PPNIQS, FNIQS",
+    "title": "Past President",
+    "order": 102
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Hussaini A. Dikko, PPNIQS, FNIQS",
+    "title": "Past President",
+    "order": 103
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Joseph O. Ajanlekoko, PPNIQS, FNIQS",
+    "title": "Past President",
+    "order": 104
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Francis O. Adetola, PPNIQS, FNIQS",
+    "title": "Past President",
+    "order": 105
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Felix A. Okereke-Onyeri, FNIQS, PPNIQS",
+    "title": "Past President",
+    "order": 106
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Agele J. Alufohai, PPNIQS, FNIQS",
+    "title": "Past President",
+    "order": 107
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Murtala M. Aliyu, PPNIQS, FNIQS",
+    "title": "Past President",
+    "order": 108
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Mercy T. Iyotyer, PPNIQS, FNIQS",
+    "title": "Past President",
+    "order": 109
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Obafemi O. Onashile, FNIQS, PPNIQS",
+    "title": "Past President",
+    "order": 110
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Dr. Muhammed Abba Tor, FNIQS, PPNIQS",
+    "title": "Past President",
+    "order": 111
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Olayemi M. Shonubi, FNIQS, PPNIQS",
+    "title": "Past President",
+    "order": 112
+  },
+  {
+    "group": "Past Presidents",
+    "name": "QS Kene C. Nzekwe, FNIQS, PPNIQS",
+    "title": "Past President",
+    "order": 113
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Linus T. Adekunle, FNIQS",
+    "title": "Past Secretary General",
+    "order": 201
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Ole U. Ikpa, FNIQS",
+    "title": "Past Secretary General",
+    "order": 202
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Felix A. Okereke-Onyeri, FNIQS, PPNIQS",
+    "title": "Past Secretary General",
+    "order": 203
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Emmanuel A. Asawo, FNIQS",
+    "title": "Past Secretary General",
+    "order": 204
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Okey J. Nwagbara, FNIQS",
+    "title": "Past Secretary General",
+    "order": 205
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Hassan Aminu-kano, FNIQS",
+    "title": "Past Secretary General",
+    "order": 206
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Adebola Olawole, FNIQS",
+    "title": "Past Secretary General",
+    "order": 207
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Alex S. Udeh, FNIQS",
+    "title": "Past Secretary General",
+    "order": 208
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Akinpelu M. Adewumi, FNIQS",
+    "title": "Past Secretary General",
+    "order": 209
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Dr. Muhammed Abba Tor, FNIQS, PPNIQS",
+    "title": "Past Secretary General",
+    "order": 210
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Dr. Olorunfemi J. Balogun, FNIQS",
+    "title": "Past Secretary General",
+    "order": 211
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Adebowale Oyinleye, FNIQS",
+    "title": "Past Secretary General",
+    "order": 212
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Dr. Aminu M. Bashir, FNIQS",
+    "title": "Past Secretary General",
+    "order": 213
+  },
+  {
+    "group": "Past Secretaries General",
+    "name": "QS Rotimi B. Ojelade, FNIQS",
+    "title": "Past Secretary General",
+    "order": 214
+  },
+  {
+    "group": "Board of Trustees",
+    "name": "QS Husaini A. Dikko, PPNIQS, FNIQS",
+    "title": "Chairman, Board of Trustees",
+    "order": 301
+  },
+  {
+    "group": "Board of Trustees",
+    "name": "QS Mercy T. Iyortyer, PPNIQS, FNIQS",
+    "title": "Trustee",
+    "order": 302
+  },
+  {
+    "group": "Board of Trustees",
+    "name": "QS Yahaya Abubakar, FNIQS",
+    "title": "Trustee",
+    "order": 303
+  },
+  {
+    "group": "Board of Trustees",
+    "name": "QS Joshua A. Bamdupe, FNIQS",
+    "title": "Trustee",
+    "order": 304
+  },
+  {
+    "group": "Board of Trustees",
+    "name": "QS Oladimeji O. Garuba, FNIQS",
+    "title": "Trustee",
+    "order": 305
+  },
+  {
+    "group": "Board of Trustees",
+    "name": "QS Godson O. Moneke FNIQS",
+    "title": "Trustee",
+    "order": 306
+  },
+  {
+    "group": "Board of Trustees",
+    "name": "QS Anthony V. Ndah, FNIQS",
+    "title": "Trustee",
+    "order": 307
+  },
+  {
+    "group": "National Bodies Chairmen",
+    "name": "QS Abubakar A. Maigatari, MNIQS",
+    "title": "YQSF Chairman",
+    "order": 401
+  },
+  {
+    "group": "National Bodies Chairmen",
+    "name": "QS Olukayode Osokomaiya, FNIQS",
+    "title": "Chairman, Fellows Forum",
+    "order": 402
+  },
+  {
+    "group": "National Bodies Chairmen",
+    "name": "QS Adamu Y. Shehu, FNIQS",
+    "title": "Chairman, Association of Consulting Quantity Surveyors",
+    "order": 403
+  },
+  {
+    "group": "National Bodies Chairmen",
+    "name": "QS Fausat O. Ajibade, FNIQS",
+    "title": "Chairman, Association of Quantity Surveyors in Public Services",
+    "order": 404
+  },
+  {
+    "group": "National Bodies Chairmen",
+    "name": "QS Prof. Ahmed D. Ibrahim, FNIQS",
+    "title": "Chairman, Association of Quantity Surveyors Lecturers/Educators",
+    "order": 405
+  },
+  {
+    "group": "National Bodies Chairmen",
+    "name": "QS Faith O. Ezeugoh, FNIQS",
+    "title": "Chairman, Association of Quantity Surveyors in Contracting Organizations",
+    "order": 406
+  },
+  {
+    "group": "National Bodies Chairmen",
+    "name": "QS Ololade O. Sokoya, FNIQS",
+    "title": "WAQSN Chairperson",
+    "order": 407
+  },
+  {
+    "group": "QSRBN & Allied Representatives",
+    "name": "QS Obafemi O. Onashile, FNIQS, PPNIQS",
+    "title": "President, QSRBN",
+    "order": 501
+  },
+  {
+    "group": "QSRBN & Allied Representatives",
+    "name": "QS Prof. Kulomri J. Adogbo, FNIQS",
+    "title": "Registrar, QSRBN",
+    "order": 502
+  },
+  {
+    "group": "QSRBN & Allied Representatives",
+    "name": "QS Abdullahi M. Inuwa, MNIQS",
+    "title": "NBTE Representative",
+    "order": 503
+  },
+  {
+    "group": "QSRBN & Allied Representatives",
+    "name": "QS Dr. Celestina N. Eke, FNIQS",
+    "title": "NIQS Foundation",
+    "order": 504
+  },
+  {
+    "group": "QSRBN & Allied Representatives",
+    "name": "QS Ayodele S. Faleye, FNIQS",
+    "title": "QS Academy",
+    "order": 505
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Dr. Michael N. Anosike, MNIQS",
+    "title": "Abia State Chapter Chairman",
+    "order": 601
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Benitareni Telu, MNIQS",
+    "title": "Adamawa State Chapter Chairman",
+    "order": 602
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Iniobong G. Wilson, MNIQS",
+    "title": "Akwa Ibom State Chapter Chairman",
+    "order": 603
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Donatus C. Oduenyi, MNIQS",
+    "title": "Anambra State Chapter Chairman",
+    "order": 604
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Mohammed Abdulhamid, MNIQS",
+    "title": "Bauchi State Chapter Chairman",
+    "order": 605
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Mabel M. Amangala, FNIQS",
+    "title": "Bayelsa State Chapter Chairman",
+    "order": 606
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Benjamin A. Aliegba, MNIQS",
+    "title": "Benue State Chapter Chairman",
+    "order": 607
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Zanna Sumayin, FNIQS",
+    "title": "Borno State Chapter Chairman",
+    "order": 608
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Victor O. Etifit, MNIQS",
+    "title": "Cross River State Chapter Chairman",
+    "order": 609
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Julius S. Apodor, FNIQS",
+    "title": "Delta State Chapter Chairman",
+    "order": 610
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Kalu A. Agha, MNIQS",
+    "title": "Ebonyi State Chapter Chairman",
+    "order": 611
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Dr. Chukwuemeka P. Ogbu, MNIQS",
+    "title": "Edo State Chapter Chairman",
+    "order": 612
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Dr Comfort O. Ade-ojo, FNIQS",
+    "title": "Ekiti State Chapter Chairman",
+    "order": 613
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Uchenna A. Nwajagu, FNIQS",
+    "title": "Enugu State Chapter Chairman",
+    "order": 614
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Ahmed K. Usman, FNIQS",
+    "title": "FCT Chapter Chairman",
+    "order": 615
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Maryamu Arab, FNIQS",
+    "title": "Gombe State Chapter Chairman",
+    "order": 616
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Ogochukwu A. Amuda, FNIQS",
+    "title": "Imo State Chapter Chairman",
+    "order": 617
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Usman Musa, MNIQS",
+    "title": "Jigawa State Chapter Chairman",
+    "order": 618
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Saidu M. Mohammed, MNIQS",
+    "title": "Kaduna State Chapter Chairman",
+    "order": 619
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Gyadi-Gyadi S. Musa, MNIQS",
+    "title": "Kano State Chapter Chairman",
+    "order": 620
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Abubakar K. Yahaya, FNIQS",
+    "title": "Katsina State Chapter Chairman",
+    "order": 621
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Samuel A. Audu, MNIQS",
+    "title": "Kogi State Chapter Chairman",
+    "order": 622
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Theophilus O. Olowa, FNIQS",
+    "title": "Kwara State Chapter Chairman",
+    "order": 623
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Rilwan O. Balogun, FNIQS",
+    "title": "Lagos State Chapter Chairman",
+    "order": 624
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Jibrin Mairiga, FNIQS",
+    "title": "Nasarawa State Chapter Chairman",
+    "order": 625
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Umar D. Musa, MNIQS",
+    "title": "Niger State Chapter Chairman",
+    "order": 626
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Esther O. Ola-Ade, FNIQS",
+    "title": "Ogun State Chapter Chairman",
+    "order": 627
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Akinlolu O. Fadiyimu, FNIQS",
+    "title": "Ondo State Chapter Chairman",
+    "order": 628
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Olayinka Kingsley-Otaru, FNIQS",
+    "title": "Osun State Chapter Chairman",
+    "order": 629
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Adelayo F. Abass, MNIQS",
+    "title": "Oyo State Chapter Chairman",
+    "order": 630
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Nuhu Z. Machunga, MNIQS",
+    "title": "Plateau State Chapter Chairman",
+    "order": 631
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Naomi S. Landue, FNIQS",
+    "title": "Rivers State Chapter Chairman",
+    "order": 632
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Sule Umar, FNIQS",
+    "title": "Sokoto-Kebbi State Chapter Chairman",
+    "order": 633
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Dikko B. Yerima, MNIQS",
+    "title": "Yobe State Chapter Chairman",
+    "order": 634
+  },
+  {
+    "group": "State Chapter Chairmen",
+    "name": "QS Aliyu G. Abdullahi, MNIQS",
+    "title": "Zamfara State Chapter Chairman",
+    "order": 635
+  }
+]
