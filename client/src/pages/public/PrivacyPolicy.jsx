@@ -80,7 +80,7 @@ export default function PrivacyPolicy() {
             information collected through this website.
           </P>
           <P style={{ margin: 0 }}>
-            National Secretariat — QS Olusegun Ajanlekoko House, No. 24, NIQS
+            National Secretariat — QS J. Segun Ajanlekoko House, No. 24, NIQS
             Crescent, Mabushi District, Abuja, Nigeria.{' '}
             <a href="mailto:info@niqs.org.ng" style={{ color: 'var(--color-navy-2)', fontWeight: 600 }}>info@niqs.org.ng</a>
           </P>
@@ -326,11 +326,11 @@ export default function PrivacyPolicy() {
           </P>
           <P>
             NIQS National Secretariat<br />
-            QS Olusegun Ajanlekoko House, No. 24, NIQS Crescent<br />
+            QS J. Segun Ajanlekoko House, No. 24, NIQS Crescent<br />
             Mabushi District, Abuja, Nigeria<br />
             <a href="mailto:info@niqs.org.ng" style={{ color: 'var(--color-navy-2)', fontWeight: 600 }}>info@niqs.org.ng</a>
             {' · '}
-            <a href="mailto:secretary@niqs.org.ng" style={{ color: 'var(--color-navy-2)', fontWeight: 600 }}>secretary@niqs.org.ng</a>
+            <a href="mailto:contact@niqs.org.ng" style={{ color: 'var(--color-navy-2)', fontWeight: 600 }}>contact@niqs.org.ng</a>
           </P>
           <P style={{ margin: 0 }}>
             If you are not satisfied with our response, you may complain to the{' '}

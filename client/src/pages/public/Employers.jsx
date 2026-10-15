@@ -17,7 +17,7 @@ const WHY = [
   {
     icon: 'group',
     title: 'Reach qualified quantity surveyors directly',
-    text: 'Your listing goes to NIQS members across all 37 state chapters, and to the job alerts they have set up.',
+    text: 'Your listing goes to NIQS members across all its state chapters, and to the job alerts they have set up.',
   },
   {
     icon: 'userVerified',

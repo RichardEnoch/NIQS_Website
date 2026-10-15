@@ -56,8 +56,26 @@ function useScrollReveal() {
 function useScrollToTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
-    if (hash) return;
-    window.scrollTo(0, 0);
+    if (!hash) {
+      window.scrollTo(0, 0);
+      return undefined;
+    }
+    /* A link to a section (/exams#syllabus from the menu) lands on a lazy route
+       whose content renders a beat after navigation, so the target is not in the
+       DOM yet when this runs. Look for it for a few seconds, then bring it into
+       view; the sticky header is cleared by scroll-margin-top in index.css. */
+    let tries = 0;
+    const id = decodeURIComponent(hash.slice(1));
+    const timer = setInterval(() => {
+      const el = document.getElementById(id);
+      if (el) {
+        clearInterval(timer);
+        el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (++tries > 30) {
+        clearInterval(timer);
+      }
+    }, 100);
+    return () => clearInterval(timer);
   }, [pathname, hash]);
 }
 

@@ -36,6 +36,31 @@ export function normaliseState(value) {
     .trim();
 }
 
+
+/**
+ * The map states a chapter covers. Almost always one, but Sokoto and Kebbi
+ * share the Sokoto-Kebbi chapter (Secretariat, Oct 2026), so a value made of
+ * two state names joined by "-", "&" or "and" covers both. A hyphen inside one
+ * real state name is left alone. Falls back to the chapter's name when the
+ * record has no state.
+ */
+export function chapterStates(chapter) {
+  const resolve = (raw) => {
+    if (!raw) return [];
+    const one = STATES.find(s => s.name.toLowerCase() === raw.toLowerCase());
+    if (one) return [one.name];
+    const parts = raw.split(/\s*(?:-|&|\band\b)\s*/i).map(normaliseState).filter(Boolean);
+    const hits = parts.map(p => STATES.find(s => s.name.toLowerCase() === p.toLowerCase())).filter(Boolean);
+    return hits.length && hits.length === parts.length ? hits.map(s => s.name) : [];
+  };
+  // Whichever of the state field and the chapter name names more states wins,
+  // so "Sokoto-Kebbi Chapter" counts even while its state still says Sokoto.
+  const fromState = resolve(normaliseState(chapter?.state));
+  const fromName = resolve(normaliseState(String(chapter?.name || '').replace(/\s+chapter$/i, '')));
+  const best = fromName.length > fromState.length ? fromName : fromState;
+  return best.length ? best : [normaliseState(chapter?.state) || normaliseState(String(chapter?.name || '').replace(/\s+chapter$/i, ''))].filter(Boolean);
+}
+
 /**
  * A published profile, not merely a chapter record. Keyed on `about`, matching
  * the "Full profile" badge the list below already used — deliberately not
@@ -96,10 +121,7 @@ export default function ChapterMap({ chapters = [], activeZone, onZoneChange }) 
 
   const byState = useMemo(() => {
     const m = new Map();
-    chapters.forEach((c) => {
-      const key = normaliseState(c.state) || normaliseState(String(c.name).replace(/\s+chapter$/i, ''));
-      if (key) m.set(key, c);
-    });
+    chapters.forEach((c) => chapterStates(c).forEach((key) => m.set(key, c)));
     return m;
   }, [chapters]);
 
@@ -117,7 +139,7 @@ export default function ChapterMap({ chapters = [], activeZone, onZoneChange }) 
         <div>
           <div className="ey">Nationwide</div>
           <h2 className="sh" style={{ marginBottom: '.4rem' }}>
-            All 37 <em>Chapters</em>
+            All {chapters.length} <em>Chapters</em>
           </h2>
           {/* No completeness statistic here. It read as "17 chapters have not
               bothered", which is not what an incremental rollout means and not
@@ -169,6 +191,17 @@ export default function ChapterMap({ chapters = [], activeZone, onZoneChange }) 
             const dimmed   = activeZone && zone !== activeZone;
             const slug     = chapter?.slug || `${s.name.toLowerCase().replace(/\s+/g, '-')}-chapter`;
 
+            /* A state with no chapter of its own (Taraba since Oct 2026) is
+               drawn but not a link: there is no page to open. Only once the
+               records have loaded — the fallback list is not proof of absence. */
+            if (!chapter && chapters.length && !chapters[0]?._id?.match?.(/^\d+$/)) {
+              return (
+                <g key={s.name} role="listitem" aria-label={`${s.name}: no chapter`}>
+                  <path d={s.d} className="cmap-state is-none" />
+                </g>
+              );
+            }
+
             return (
               <g key={s.name} role="listitem">
                 {/* SVG <a> is a real link: right-click, middle-click and
@@ -181,7 +214,7 @@ export default function ChapterMap({ chapters = [], activeZone, onZoneChange }) 
                   onMouseLeave={() => setHovered(null)}
                   onFocus={() => setHovered(s.name)}
                   onBlur={() => setHovered(null)}
-                  aria-label={`${s.name} chapter${zone ? `, ${zone} zone` : ''}`}
+                  aria-label={`${chapter?.name || `${s.name} chapter`}${zone ? `, ${zone} zone` : ''}`}
                 >
                   <path
                     d={s.d}

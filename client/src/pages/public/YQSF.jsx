@@ -4,7 +4,6 @@ import PageHero from '../../components/common/PageHero';
 import LeaderCard from '../../components/common/LeaderCard';
 import BodyContact from '../../components/common/BodyContact';
 import API from '../../api/axios';
-import useChapterCount, { CHAPTERS_FALLBACK } from '../../hooks/useChapterCount';
 import Icon from '../../components/common/Icon';
 
 const offerings = [
@@ -16,36 +15,10 @@ const offerings = [
   { icon: 'international', title: 'International Exposure',  desc: 'Opportunities to participate in international QS conferences, exchange programmes, and collaborative projects.',                                      tag: 'Global'      },
 ];
 
-/* Placeholder defaults — replaced by admin-set values once loaded */
-const DEFAULTS = { cpdEvents: '40', totalAwards: '10+' };
-
 export default function YQSF() {
-  const [cpdEvents,    setCpdEvents]    = useState(DEFAULTS.cpdEvents);
-  const [totalAwards,  setTotalAwards]  = useState(DEFAULTS.totalAwards);
-  const [under40,      setUnder40]      = useState('');
-  const [liveYoung,    setLiveYoung]    = useState(null);
   const [council, setCouncil] = useState([]);
-  const chapterCount = useChapterCount();
-
-  /* The Chairman heads the council and also sits on the NEC. His council record
-     is the one to show here — same portrait treatment as the rest of the EC. */
-  const chair = council.find(m => (m.title || '').toLowerCase() === 'chairman') || null;
 
   useEffect(() => {
-    API.get('/site-settings')
-      .then(res => {
-        if (res.data?.yqsfCpdEvents)   setCpdEvents(res.data.yqsfCpdEvents);
-        if (res.data?.yqsfTotalAwards) setTotalAwards(res.data.yqsfTotalAwards);
-        if (res.data?.yqsfUnder40Count) setUnder40(res.data.yqsfUnder40Count);
-      })
-      .catch(() => {});
-
-    /* 503 while the statistics key is unloaded, which is the designed path: the
-       tile simply falls back to the hand-set figure, or a dash. */
-    API.get('/stats/membership')
-      .then(res => { if (res.data?.young_members) setLiveYoung(res.data.young_members); })
-      .catch(() => {});
-
     API.get('/exco?scope=yqsf')
       .then(res => {
         const data = res.data?.exco || res.data?.data || res.data;
@@ -67,27 +40,6 @@ export default function YQSF() {
         .catch(() => {}));
   }, []);
 
-  /* Young members. The register aggregates at under 40 and YQSF eligibility is
-     under 40 — which is the bracket the register already publishes, so this is a
-     true count of the forum's population rather than a stand-in for it.
-
-     The tile is still labelled from the figure's own age_limit rather than from
-     a hardcoded number, so if the register is ever re-aggregated the count and
-     the caption move together with no change here.
-
-     A figure the secretariat has typed into site settings still wins: that one
-     is the forum's own roll, not an aggregate that happens to share its bracket. */
-  const young = liveYoung && !under40
-    ? { n: liveYoung.count.toLocaleString(), l: `Registered QS Under ${liveYoung.age_limit}` }
-    : { n: under40 || '—', l: 'Registered QS Under 40' };
-
-  const stats = [
-    young,
-    { n: chapterCount ?? CHAPTERS_FALLBACK, l: 'State Chapters' },
-    { n: cpdEvents,      l: 'CPD Events/Year' },
-    { n: totalAwards,    l: 'Total Awards' },
-  ];
-
   return (
     <>
       <PageHero
@@ -100,12 +52,14 @@ export default function YQSF() {
       {/* About */}
       <section style={{ background: '#fff' }}>
         <div className="ct" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
-          <div className="tc2">
+          {/* Text only since October 2026: the Secretariat asked for the Chairman
+              once, in the Leadership section below, not a second picture here. */}
+          <div style={{ maxWidth: 760 }}>
             <div>
               <div className="ey">About the Forum</div>
               <h2 className="sh">Empowering the Next Generation of <em>QS Professionals</em></h2>
               <p className="sd" style={{ marginBottom: '1.2rem' }}>
-                The Young Quantity Surveyors Forum (YQSF) is a dedicated platform within NIQS for
+                The Young Quantity Surveyors Forum (YQSF), inaugurated in July 2015, is a dedicated platform within NIQS for
                 quantity surveyors under the age of 40 or those within their first ten years of
                 professional practice.
               </p>
@@ -119,19 +73,6 @@ export default function YQSF() {
                 and attractive to young Nigerians, while preparing the next generation of leaders.
               </p>
               <Link to="/membership" className="btn bg">Join the Forum</Link>
-            </div>
-            <div>
-              <img
-                src={chair?.image || 'https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=700&q=80&fit=crop'}
-                alt={chair ? chair.name : 'Young QS professionals'}
-                style={{ width: '100%', borderRadius: 14, objectFit: 'cover', objectPosition: 'center 20%', maxHeight: 420, border: '1px solid var(--color-bdr)' }}
-              />
-              {chair && (
-                <div style={{ marginTop: '.8rem', textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '.95rem', color: 'var(--color-navy)' }}>{chair.name}</div>
-                  <div style={{ fontSize: '.68rem', fontWeight: 700, color: 'var(--color-gold)', letterSpacing: '.08em', textTransform: 'uppercase', marginTop: 2 }}>{chair.title}</div>
-                </div>
-              )}
             </div>
           </div>
         </div>
@@ -170,19 +111,8 @@ export default function YQSF() {
         </section>
       )}
 
-      {/* Stats strip */}
-      <div className="stats-strip">
-        <div className="ct">
-          <div className="strip-inner" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
-            {stats.map((s, i) => (
-              <div className="strip-item" key={i} style={{ textAlign: 'center' }}>
-                <div className="strip-num">{s.n}</div>
-                <div className="strip-lbl">{s.l}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      {/* The counts strip (QS under 40, chapters, CPD events, awards) was removed
+          at the Secretariat's request, October 2026. */}
 
       {/* What We Offer */}
       <section className="section-alt">
@@ -209,6 +139,8 @@ export default function YQSF() {
       </section>
 
       {/* ── Contact ──
+          The Institute's own details since October 2026: the Secretariat asked
+          that the body be reached through the National Secretariat.
           The forum's own details, here rather than as a tab on /contact
           (secretariat, 2026-08-05). The CTA below used to send people there for
           them, which is why this section exists at all. */}
@@ -216,12 +148,14 @@ export default function YQSF() {
         <div className="ct" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
           <div className="ey">Get in Touch</div>
           <BodyContact
-            bodyKey="yqsf"
+            bodyKey="national"
             heading={<>Reach <em>YQSF</em></>}
             fallback={{
-              email1: 'yqsf@niqs.org.ng',
-              address: 'c/o NIQS National Secretariat,\nQS Olusegun Ajanlekoko House,\nNo. 24, NIQS Crescent, Mabushi District,\nAbuja, Nigeria',
-              officeHours: 'Monday — Friday: 9:00 AM — 4:00 PM',
+              phone1: '08167593807',
+              email1: 'info@niqs.org.ng',
+              email2: 'contact@niqs.org.ng',
+              address: 'NIQS Head Office Secretariat,\nQS J. Segun Ajanlekoko House,\nNo. 24, NIQS Crescent, Off Michael Ama Nnachi Crescent,\nCadastral Zone B6, Mabushi District,\nAbuja, Nigeria',
+              officeHours: 'Monday — Friday: 8:00 AM — 5:00 PM',
             }}
           />
         </div>

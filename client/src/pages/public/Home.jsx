@@ -13,13 +13,22 @@ import Icon from '../../components/common/Icon';
 const FOUNDED = 1969;
 
 
+/* The Institute's own list of quantity surveying services, word for word as
+   the Secretariat supplied it (Oct 2026), in its order. Titles are in title
+   case; the descriptions are theirs and are not paraphrased. */
 const services = [
-  { icon: 'costManagement', title: 'Cost Management', desc: 'Comprehensive building economics and cost planning for capital projects of all scales, from pre-design through to final account.', tag: 'Core' },
-  { icon: 'procurement', title: 'Procurement Advice', desc: 'Strategic procurement route selection and contract administration that aligns client objectives with project risk profiles.', tag: 'Core' },
-  { icon: 'contract', title: 'Contract Administration', desc: 'Professional oversight of valuations, variations, claims, and final accounts — ensuring fair dealing for all parties.', tag: 'Core' },
-  { icon: 'chart', title: 'Project Monitoring', desc: 'Independent assessment of project progress and expenditure — providing clients with objective reporting and early warning of overruns.' },
-  { icon: 'education', title: 'Professional Examinations', desc: 'NIQS administers rigorous entry and upgrade examinations that uphold the standard expected of all corporate members.' },
-  { icon: 'web', title: 'International Engagement', desc: 'Through reciprocity agreements with leading QS bodies worldwide, NIQS members enjoy access to global recognition.' },
+  { icon: 'costManagement', title: 'Construction Cost Experts', desc: "Professional who apply specialized knowledge and skills to predict, plan, control, and minimize construction costs, ensuring optimal resource allocation, risk management, and value for money throughout a project's lifecycle, from inception to completion." },
+  { icon: 'chart', title: 'Feasibility Study of Capital Projects', desc: "Conducting of comprehensive assessment to determine a project's viability, potential for success, and practicality before significant resources are committed." },
+  { icon: 'technology', title: 'Cost Modelling', desc: 'The systematic representation of construction costs in relation to design, function, and performance variables, used to forecast, control, and optimize expenditure throughout the project lifecycle.' },
+  { icon: 'procurement', title: 'Procurement Management', desc: 'The structured process of planning, selecting, and administering the acquisition of goods, services, and construction works to deliver a project efficiently, cost-effectively, and in compliance with contractual and regulatory requirements.' },
+  { icon: 'handshake', title: 'PPP Transaction Advisory Services', desc: 'A specialized consultancy services that guide public authorities and private investors through the entire lifecycle of a Public–Private Partnership (PPP) project, from feasibility analysis and procurement strategy to contract negotiation and financial closure.' },
+  { icon: 'task', title: 'Project Management', desc: 'An organized approach to initiating, planning, executing, monitoring, and controlling project activities to achieve specific project objectives, ensuring efficient use of resources, time, and cost, while meeting stakeholder expectations.' },
+  { icon: 'idea', title: 'Value Engineering & Management', desc: 'The systematic and structured methodology that analyzes the functions of a project, product, or service to achieve those functions at the lowest possible cost without compromising quality, performance, or reliability.' },
+  { icon: 'legal', title: 'Construction Arbitration and Mediation', desc: 'Act as a cost and contract expert—providing evidence, valuations, claims analysis, and advisory input—to support fair resolution of disputes, whether through formal arbitration or amicable mediation.' },
+  { icon: 'shield', title: 'Risk Management', desc: "A logical process of identifying, analyzing, and responding to project uncertainties to protect the project's financial and contractual health." },
+  { icon: 'certificate', title: 'Reinstatement Cost Assessment for Insurance Purposes', desc: 'Evaluates the total expense required to rebuild or repair a damaged property to its original condition. Prepared for insurance purposes, it ensures the sum insured accurately reflects current reconstruction costs, preventing underinsurance and guaranteeing adequate coverage during a claim.' },
+  { icon: 'target', title: 'Project Control and Monitoring', desc: 'The methodical process of tracking, evaluating, and regulating construction project performance in terms of cost, time, and quality to ensure that the project objectives are achieved.' },
+  { icon: 'contract', title: 'Construction Contract/Technical Auditing', desc: 'Refers to the detailed review and evaluation of construction contracts, project documentation, and technical processes to ensure compliance with contractual obligations, financial accuracy, and industry standards.' },
 ];
 
 /* The hero strip reads left to right as the story of the profession, as NIQS
@@ -32,7 +41,7 @@ const services = [
 const heroImages = [
   { src: 'https://images.unsplash.com/photo-1559819614-8e87b90b8e9b?w=600&q=80&fit=crop', alt: 'Slide rule — measurement before the calculator' },
   { src: 'https://images.unsplash.com/photo-1648201637025-1c77b9be3013?w=600&q=80&fit=crop', alt: 'Calculator and handwritten workings' },
-  { src: null, alt: 'QS Olusegun Ajanlekoko House, NIQS National Secretariat, Abuja', badge: 'NIQS National Secretariat' },
+  { src: null, alt: 'QS J. Segun Ajanlekoko House, NIQS National Secretariat, Abuja', badge: 'NIQS National Secretariat' },
   { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&fit=crop', alt: 'Digital cost planning on screen' },
   { src: 'https://images.unsplash.com/photo-1713643957213-4a6acc242563?w=600&q=80&fit=crop', alt: 'Twisting high-rise towers — the built environment ahead' },
 ];
@@ -249,54 +258,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── PARTNERS ──
-          Directly under the hero since the October 2026 review: NIQS wanted its
-          partners visible in position as well as in look, not near the foot of
-          the page. A logo strip once partners are on file; until then, the call
-          for partners keeps the space working rather than leaving a gap. */}
-      <section className="ptn-strip" aria-labelledby="ptn-strip-h">
-        <div className="ct">
-          <div className="ptn-strip-head">
-            <div>
-              <div className="ey">Our Partners</div>
-              <h2 className="sh" id="ptn-strip-h" style={{ marginBottom: 0 }}>
-                {partners.length > 0 ? <>Building With <em>NIQS</em></> : <>Partner With <em>NIQS</em></>}
-              </h2>
-            </div>
-            <Link to="/partnership" className="btn bo">
-              {partners.length > 0 ? 'All Partners →' : 'Partnership Opportunities →'}
-            </Link>
-          </div>
-
-          {partners.length > 0 ? (
-            <div className="ptn-logos">
-              {partners.map(p => (
-                <Link key={p._id} to={`/partnership/${p._id}`} className="ptn-logo" title={p.name}>
-                  {p.logo
-                    ? <img src={p.logo} alt={p.name} loading="lazy" />
-                    : <span className="ptn-logo-name">{p.name}</span>}
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="ptn-cta">
-              <div>
-                <h3>Become a Foundation Partner of NIQS</h3>
-                <p>
-                  NIQS is opening its platform to organisations committed to raising the bar in
-                  Nigeria's construction industry. Partner with the home of {memberCopy} quantity
-                  surveyors and put your brand before the industry's decision-makers.
-                </p>
-              </div>
-              <div className="ptn-cta-btns">
-                <Link to="/partnership" className="btn bp">Explore Partnership Tiers</Link>
-                <Link to="/contact" className="btn bo" style={{ borderColor: 'rgba(255,255,255,.4)', color: '#fff' }}>Contact the Secretariat</Link>
-              </div>
-            </div>
-          )}
-        </div>
-      </section>
-
       {/* ── VISION / MISSION / VALUES ── */}
       <section style={{ background: 'var(--color-off)' }}>
         <div className="ct" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
@@ -347,7 +308,7 @@ export default function Home() {
           </p>
           <div className="svc-grid">
             {services.map((s, i) => (
-              <div className={`svc reveal${i > 0 ? ` d${i}` : ''}`} key={i}>
+              <div className={`svc reveal${i % 4 ? ` d${i % 4}` : ''}`} key={i}>
                 {s.tag && <span className="svc-tag">{s.tag}</span>}
                 <div className="svc-ico"><Icon name={s.icon} size="lg" /></div>
                 <div className="svc-t">{s.title}</div>
@@ -438,6 +399,55 @@ export default function Home() {
               </Link>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ── PARTNERS ──
+          Back after the events, where it sat before the October 2026 review. It
+          spent a round directly under the hero; NIQS then said the Partnership
+          item on the main menu is visibility enough, and a sales strip above
+          the Institute's own story read wrong. A logo strip once partners are on
+          file; until then, the call for partners keeps the space working. */}
+      <section className="ptn-strip" aria-labelledby="ptn-strip-h">
+        <div className="ct">
+          <div className="ptn-strip-head">
+            <div>
+              <div className="ey">Our Partners</div>
+              <h2 className="sh" id="ptn-strip-h" style={{ marginBottom: 0 }}>
+                {partners.length > 0 ? <>Building With <em>NIQS</em></> : <>Partner With <em>NIQS</em></>}
+              </h2>
+            </div>
+            <Link to="/partnership" className="btn bo">
+              {partners.length > 0 ? 'All Partners →' : 'Partnership Opportunities →'}
+            </Link>
+          </div>
+
+          {partners.length > 0 ? (
+            <div className="ptn-logos">
+              {partners.map(p => (
+                <Link key={p._id} to={`/partnership/${p._id}`} className="ptn-logo" title={p.name}>
+                  {p.logo
+                    ? <img src={p.logo} alt={p.name} loading="lazy" />
+                    : <span className="ptn-logo-name">{p.name}</span>}
+                </Link>
+              ))}
+            </div>
+          ) : (
+            <div className="ptn-cta">
+              <div>
+                <h3>Become a Foundation Partner of NIQS</h3>
+                <p>
+                  NIQS is opening its platform to organisations committed to raising the bar in
+                  Nigeria's construction industry. Partner with the home of {memberCopy} quantity
+                  surveyors and put your brand before the industry's decision-makers.
+                </p>
+              </div>
+              <div className="ptn-cta-btns">
+                <Link to="/partnership" className="btn bp">Explore Partnership Tiers</Link>
+                <Link to="/contact" className="btn bo" style={{ borderColor: 'rgba(255,255,255,.4)', color: '#fff' }}>Contact the Secretariat</Link>
+              </div>
+            </div>
+          )}
         </div>
       </section>
 

@@ -15,6 +15,9 @@ const excoSchema = new mongoose.Schema({
   scope: { type: String, enum: ['national', 'npc', 'body-heads', 'bot', 'chapter', 'yqsf'], default: 'national' },
   chapter: { type: mongoose.Schema.Types.ObjectId, ref: 'Chapter', default: null },
   order: { type: Number, default: 0 },
+  // NPC roster section ("National Executive Council", "Past Presidents" ...).
+  // The NPC is made of several bodies; the page lists them under these headings.
+  group: { type: String, trim: true, default: '' },
   isActive: { type: Boolean, default: true }
 }, { timestamps: true });
 

@@ -256,6 +256,26 @@ export default function Exams() {
         </div>
       </section>
 
+      {/* ══ SYLLABUS & POLICY ══
+          The Exams menu points here (Secretariat, Oct 2026). Placeholders until
+          the Secretariat sends the two documents; link the PDFs in when they do. */}
+      <section className="section-alt">
+        <div className="ct" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>
+          <div className="tc2">
+            <div id="syllabus">
+              <div className="ey">Examinations</div>
+              <h2 className="sh">Examination <em>Syllabus</em></h2>
+              <p className="sd">The Examination Syllabus will be published here.</p>
+            </div>
+            <div id="policy">
+              <div className="ey">Examinations</div>
+              <h2 className="sh">Examination <em>Policy</em></h2>
+              <p className="sd">The Examination Policy will be published here.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ══ CTA ══ */}
       <section style={{ background: '#fff' }}>
         <div className="ct" style={{ paddingTop: '4rem', paddingBottom: '4rem' }}>

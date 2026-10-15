@@ -7,10 +7,12 @@ import AdminHeader from '../../components/admin/AdminHeader';
 import DataTable from '../../components/admin/DataTable';
 import Icon from '../../components/common/Icon';
 import { shortName } from '../../utils/names';
+import { NPC_GROUPS } from '../../data/npcGroups';
 
 const emptyForm = {
   name: '',
   shortName: '',
+  group: '',
   title: '',
   state: '',
   linkedIn: '',
@@ -77,6 +79,7 @@ export default function ManageExco() {
     setEditing(row);
     setForm({
       shortName: row.shortName || '',
+      group: row.group || '',
       title: row.title || '',
       state: row.state || '',
       linkedIn: row.linkedIn || '',
@@ -210,7 +213,7 @@ export default function ManageExco() {
               </FormField>
             </div>
             <FormField label="Short name (optional — overrides the automatic initials)">
-              <input value={form.shortName} onChange={(e) => setForm({ ...form, shortName: e.target.value })} style={inputStyle} placeholder={shortName(form.name) || 'e.g. QS K. C. Nzekwe, FNIQS'} />
+              <input value={form.shortName} onChange={(e) => setForm({ ...form, shortName: e.target.value })} style={inputStyle} placeholder={shortName(form.name) || 'e.g. QS Nzekwe C. Kene, FNIQS'} />
             </FormField>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
               <FormField label="State">
@@ -254,6 +257,14 @@ export default function ManageExco() {
                 <input type="number" value={form.order} onChange={(e) => setForm({ ...form, order: e.target.value })} style={inputStyle} min="0" />
               </FormField>
             </div>
+            {form.scope === 'npc' && (
+              <FormField label="NPC section">
+                <select value={form.group} onChange={(e) => setForm({ ...form, group: e.target.value })} style={inputStyle}>
+                  <option value="">-- Members (no section) --</option>
+                  {NPC_GROUPS.map((g) => <option key={g} value={g}>{g}</option>)}
+                </select>
+              </FormField>
+            )}
             {form.scope === 'chapter' && (
               <FormField label="Chapter" required>
                 <select value={form.chapter} onChange={(e) => setForm({ ...form, chapter: e.target.value })} required disabled={isStateAdmin} style={{ ...inputStyle, opacity: isStateAdmin ? 0.6 : 1 }}>

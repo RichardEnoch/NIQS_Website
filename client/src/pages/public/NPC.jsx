@@ -3,6 +3,8 @@ import PageHero from '../../components/common/PageHero';
 import API from '../../api/axios';
 import Icon from '../../components/common/Icon';
 import { shortName } from '../../utils/names';
+import { NPC_GROUPS } from '../../data/npcGroups';
+
 
 export default function NPC() {
   const [members, setMembers] = useState([]);
@@ -45,20 +47,33 @@ export default function NPC() {
           ) : members.length > 0 ? (
             /* Names only, no portraits: the committee is a working body, not a
                gallery, and the review (Oct 2026) asked for a plain list. */
-            <div className="roster" role="table" aria-label="National Policy Committee members">
-              <div className="roster-row roster-head" role="row">
-                <span role="columnheader">#</span>
-                <span role="columnheader">Name</span>
-                <span className="roster-role" role="columnheader">Role</span>
-              </div>
-              {members.map((m, i) => (
-                <div className="roster-row" role="row" key={m._id}>
-                  <span className="roster-n" role="cell">{String(i + 1).padStart(2, '0')}</span>
-                  <span className="roster-name" role="cell" title={m.name}>{shortName(m.name, { override: m.shortName })}</span>
-                  <span className="roster-role" role="cell">{m.title}</span>
-                </div>
-              ))}
-            </div>
+            <>
+              {[...NPC_GROUPS, 'Members'].map(group => {
+                const rows = members
+                  .filter(m => (NPC_GROUPS.includes(m.group) ? m.group : 'Members') === group)
+                  .sort((a, b) => (a.order ?? 0) - (b.order ?? 0));
+                if (!rows.length) return null;
+                return (
+                  <div key={group} style={{ marginBottom: '2.4rem' }}>
+                    <h3 className="roster-group">{group}</h3>
+                    <div className="roster" role="table" aria-label={group}>
+                      <div className="roster-row roster-head" role="row">
+                        <span role="columnheader">#</span>
+                        <span role="columnheader">Name</span>
+                        <span className="roster-role" role="columnheader">Role</span>
+                      </div>
+                      {rows.map((m, i) => (
+                        <div className="roster-row" role="row" key={m._id}>
+                          <span className="roster-n" role="cell">{String(i + 1).padStart(2, '0')}</span>
+                          <span className="roster-name" role="cell" title={m.name}>{shortName(m.name, { override: m.shortName })}</span>
+                          <span className="roster-role" role="cell">{m.title}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                );
+              })}
+            </>
           ) : (
             <div style={{
               padding: '3.5rem 2rem', textAlign: 'center', background: 'var(--color-off)',

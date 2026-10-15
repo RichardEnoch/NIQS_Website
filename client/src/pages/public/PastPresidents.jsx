@@ -96,10 +96,10 @@ export default function PastPresidents() {
                         cursor: 'pointer',
                       }}
                     >
-                      {shortName(p.name, { override: p.shortName })}<LinkedInIcon />
+                      {shortName(p.name, { override: p.shortName, drop: ['PPNIQS'] })}<LinkedInIcon />
                     </a>
                   ) : (
-                    shortName(p.name, { override: p.shortName })
+                    shortName(p.name, { override: p.shortName, drop: ['PPNIQS'] })
                   )}
                 </div>
 

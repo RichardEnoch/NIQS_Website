@@ -2,7 +2,7 @@ const President = require('../models/President');
 
 /* The categories the President page filters by. Anything else is filed under
    "Other" rather than refused, so a typo never loses a speech. */
-const SPEECH_CATEGORIES = ['Inaugural', 'Keynote', 'Conference', 'Lecture', 'Interview', 'Statement', 'Other'];
+const SPEECH_CATEGORIES = ['Inaugural', 'Keynote', 'Conference', 'Lecture', 'Courtesy Visit', 'Interview', 'Statement', 'Other'];
 const cleanSpeech = (s) => {
   const cat = SPEECH_CATEGORIES.find(c => c.toLowerCase() === String(s.category || '').trim().toLowerCase());
   const tags = (Array.isArray(s.tags) ? s.tags : String(s.tags || '').split(','))
