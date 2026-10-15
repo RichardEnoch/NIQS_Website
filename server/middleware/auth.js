@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const Admin = require('../models/Admin');
 const User = require('../models/User');
+const Employer = require('../models/Employer');
 
 // Verify JWT token — works for both admins and members
 const protect = async (req, res, next) => {
@@ -25,6 +26,15 @@ const protect = async (req, res, next) => {
       }
       req.admin = admin;
       req.userRole = admin.role;
+    } else if (decoded.kind === 'employer') {
+      // Employers keep their login when suspended so they can read why;
+      // employerApproved is what stops them posting.
+      const employer = await Employer.findById(decoded.id).select('-password');
+      if (!employer) {
+        return res.status(401).json({ message: 'Employer account not found' });
+      }
+      req.employer = employer;
+      req.userRole = 'employer';
     } else {
       const user = await User.findById(decoded.id).select('-password');
       if (!user) {
@@ -56,6 +66,30 @@ const memberOnly = (req, res, next) => {
   next();
 };
 
+// Employer-only middleware (must be used after protect)
+const employerOnly = (req, res, next) => {
+  if (!req.employer) {
+    return res.status(403).json({ message: 'Employer account required' });
+  }
+  next();
+};
+
+// An employer the Secretariat has approved, and not suspended. Required to post.
+const employerApproved = (req, res, next) => {
+  if (!req.employer) {
+    return res.status(403).json({ message: 'Employer account required' });
+  }
+  if (req.employer.status !== 'approved') {
+    return res.status(403).json({
+      message: req.employer.status === 'pending'
+        ? 'Your employer account is waiting for approval by the NIQS Secretariat.'
+        : 'Your employer account cannot post listings. Please contact the NIQS Secretariat.',
+      employerStatus: req.employer.status,
+    });
+  }
+  next();
+};
+
 // Attach req.user / req.admin when a valid token is present; never rejects.
 // For public routes that show more to signed-in visitors.
 const optionalAuth = async (req, res, next) => {
@@ -69,6 +103,9 @@ const optionalAuth = async (req, res, next) => {
     if (decoded.isAdmin) {
       const admin = await Admin.findById(decoded.id).select('-password');
       if (admin?.isActive) { req.admin = admin; req.userRole = admin.role; }
+    } else if (decoded.kind === 'employer') {
+      const employer = await Employer.findById(decoded.id).select('-password');
+      if (employer) { req.employer = employer; req.userRole = 'employer'; }
     } else {
       const user = await User.findById(decoded.id).select('-password');
       if (user) { req.user = user; req.userRole = 'member'; }
@@ -77,4 +114,4 @@ const optionalAuth = async (req, res, next) => {
   next();
 };
 
-module.exports = { protect, adminOnly, memberOnly, optionalAuth };
+module.exports = { protect, adminOnly, memberOnly, employerOnly, employerApproved, optionalAuth };

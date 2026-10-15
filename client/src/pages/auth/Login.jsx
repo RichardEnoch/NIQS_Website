@@ -128,6 +128,10 @@ const Login = () => {
             Not yet a member?{' '}
             <Link to="/membership" className="login-link">Apply for membership</Link>
           </p>
+          <p>
+            Hiring?{' '}
+            <Link to="/employers/sign-in" className="login-link">Employers sign in here</Link>
+          </p>
           <Link to="/" className="login-back">
             &larr; Back to website
           </Link>

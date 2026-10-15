@@ -2,13 +2,17 @@ import { useState } from 'react';
 import { Link, useParams, useNavigate, useSearchParams } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import API from '../../api/axios';
+import { employerResetPassword } from '../../api/jobsApi';
 
 const ResetPassword = () => {
   const { token } = useParams();
   const navigate = useNavigate();
   const [params] = useSearchParams();
   const isAdmin = params.get('type') === 'admin';
-  const minLen = isAdmin ? 8 : 6;
+  // Job board employers have their own accounts and their own sign-in page.
+  const isEmployer = params.get('type') === 'employer';
+  const minLen = isAdmin || isEmployer ? 8 : 6;
+  const signInPath = isEmployer ? '/employers/sign-in' : '/login';
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [loading, setLoading] = useState(false);
@@ -33,9 +37,13 @@ const ResetPassword = () => {
 
     setLoading(true);
     try {
-      await API.put(`${isAdmin ? '/auth/admin/reset-password/' : '/auth/reset-password/'}${token}`, { password });
+      if (isEmployer) {
+        await employerResetPassword(token, password);
+      } else {
+        await API.put(`${isAdmin ? '/auth/admin/reset-password/' : '/auth/reset-password/'}${token}`, { password });
+      }
       toast.success('Password reset successfully!');
-      navigate('/login');
+      navigate(signInPath);
     } catch (err) {
       const msg =
         err.response?.data?.message ||
@@ -102,7 +110,7 @@ const ResetPassword = () => {
         </form>
 
         <div className="login-footer">
-          <Link to="/login" className="login-back">
+          <Link to={signInPath} className="login-back">
             &larr; Back to Login
           </Link>
         </div>

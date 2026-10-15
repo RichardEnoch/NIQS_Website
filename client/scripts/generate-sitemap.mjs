@@ -70,6 +70,7 @@ const STATIC_ROUTES = [
   ['/workshop-materials',  0.6, 'monthly'],
   ['/search-qs-firms',     0.8, 'weekly'],
   ['/jobs',                0.8, 'weekly'],
+  ['/employers',           0.6, 'monthly'],
   ['/partnership',         0.7, 'monthly'],
   ['/waqsn',               0.6, 'yearly'],
   ['/yqsf',                0.6, 'yearly'],

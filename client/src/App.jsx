@@ -217,6 +217,8 @@ export default function App() {
           <Route path="/flyer-request" element={<PublicPage element={<Pages.FlyerRequest />} />} />
           <Route path="/flyer-request/:token" element={<PublicPage element={<Pages.FlyerRequest />} />} />
           <Route path="/jobs" element={<PublicPage element={<Pages.Jobs />} />} />
+          <Route path="/jobs/:id" element={<PublicPage element={<Pages.JobDetail />} />} />
+          <Route path="/employers" element={<PublicPage element={<Pages.Employers />} />} />
           <Route path="/payment" element={<PublicPage element={<Pages.Payment />} />} />
           <Route path="/contact" element={<PublicPage element={<Pages.Contact />} />} />
           <Route path="/partnership" element={<PublicPage element={<Pages.Partnership />} />} />
@@ -228,6 +230,8 @@ export default function App() {
           <Route path="/login" element={<Pages.Login />} />
           <Route path="/forgot-password" element={<Pages.ForgotPassword />} />
           <Route path="/reset-password/:token" element={<Pages.ResetPassword />} />
+          <Route path="/employers/sign-in" element={<Pages.EmployerSignIn />} />
+          <Route path="/employers/register" element={<Pages.EmployerRegister />} />
 
           {/* ══════ MEMBER PORTAL ══════ */}
           <Route
@@ -241,6 +245,27 @@ export default function App() {
             <Route index element={<Pages.PortalDashboard />} />
             <Route path="profile" element={<Pages.PortalProfile />} />
             <Route path="library" element={<Pages.PortalLibrary />} />
+            <Route path="jobs" element={<Pages.PortalJobs />} />
+            <Route path="job-alerts" element={<Pages.PortalJobAlerts />} />
+            <Route path="career-profile" element={<Pages.PortalCareerProfile />} />
+          </Route>
+
+          {/* ══════ EMPLOYER AREA (job board) ══════ */}
+          <Route
+            path="/employer"
+            element={
+              <ProtectedRoute employerOnly>
+                <Pages.EmployerLayout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<Pages.EmployerDashboard />} />
+            <Route path="listings" element={<Pages.EmployerListings />} />
+            <Route path="listings/new" element={<Pages.EmployerListingForm />} />
+            <Route path="listings/:id/edit" element={<Pages.EmployerListingForm />} />
+            <Route path="applicants" element={<Pages.EmployerApplicants />} />
+            <Route path="talent" element={<Pages.EmployerTalent />} />
+            <Route path="profile" element={<Pages.EmployerProfile />} />
           </Route>
 
           {/* ══════ ADMIN PANEL ══════ */}
@@ -262,6 +287,7 @@ export default function App() {
             <Route path="exco" element={<Pages.ManageExco />} />
             <Route path="chapters" element={<Pages.ManageChapters />} />
             <Route path="jobs" element={<Pages.ManageJobs />} />
+            <Route path="chapter-jobs" element={<Pages.ChapterJobs />} />
             <Route path="partners" element={<Pages.ManagePartners />} />
             <Route path="members" element={<Pages.ManageMembers />} />
             <Route path="admins" element={<Pages.ManageAdmins />} />

@@ -7,6 +7,9 @@ const AuthContext = createContext(null);
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [admin, setAdmin] = useState(null);
+  // Employer accounts (job board). A third kind of session beside members and
+  // admins; at most one of user / admin / employer is ever set.
+  const [employer, setEmployer] = useState(null);
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [loading, setLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
@@ -31,9 +34,16 @@ export function AuthProvider({ children }) {
       if (data.admin) {
         setAdmin(data.admin);
         setUser(null);
+        setEmployer(null);
         setIsAdmin(true);
       } else if (data.user) {
         setUser(data.user);
+        setAdmin(null);
+        setEmployer(null);
+        setIsAdmin(false);
+      } else if (data.employer) {
+        setEmployer(data.employer);
+        setUser(null);
         setAdmin(null);
         setIsAdmin(false);
       } else {
@@ -41,6 +51,7 @@ export function AuthProvider({ children }) {
         saveToken(null);
         setAdmin(null);
         setUser(null);
+        setEmployer(null);
         setIsAdmin(false);
       }
     } catch (err) {
@@ -49,6 +60,7 @@ export function AuthProvider({ children }) {
         saveToken(null);
         setUser(null);
         setAdmin(null);
+        setEmployer(null);
         setIsAdmin(false);
       }
     } finally {
@@ -75,6 +87,7 @@ export function AuthProvider({ children }) {
       setAdmin(null);
       setIsAdmin(false);
     }
+    setEmployer(null);
 
     toast.success('Logged in successfully');
     return data;
@@ -90,6 +103,28 @@ export function AuthProvider({ children }) {
     return data;
   };
 
+  /* ── Employer sessions (job board) ── */
+  const employerLogin = async (email, password) => {
+    const { data } = await API.post('/employers/login', { email: email.trim().toLowerCase(), password });
+    saveToken(data.token);
+    setEmployer(data.employer);
+    setUser(null);
+    setAdmin(null);
+    setIsAdmin(false);
+    toast.success('Signed in');
+    return data;
+  };
+
+  const employerRegister = async (formData) => {
+    const { data } = await API.post('/employers/register', formData);
+    saveToken(data.token);
+    setEmployer(data.employer);
+    setUser(null);
+    setAdmin(null);
+    setIsAdmin(false);
+    return data;
+  };
+
   const logout = async () => {
     try {
       await API.post('/auth/logout');
@@ -100,6 +135,7 @@ export function AuthProvider({ children }) {
     saveToken(null);
     setUser(null);
     setAdmin(null);
+    setEmployer(null);
     setIsAdmin(false);
     toast.success('Logged out');
   };
@@ -108,6 +144,10 @@ export function AuthProvider({ children }) {
     user,
     admin,
     setAdmin,
+    employer,
+    setEmployer,
+    employerLogin,
+    employerRegister,
     token,
     loading,
     isAdmin,

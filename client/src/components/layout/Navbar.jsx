@@ -457,6 +457,12 @@ const Navbar = () => {
             >
               Jobs
             </Link>
+            <Link
+              to="/employers"
+              className={`nl${location.pathname.startsWith("/employers") ? " on" : ""}`}
+            >
+              For employers
+            </Link>
             {isAdminUser && (
               <Link
                 to="/request-flyer"
@@ -620,6 +626,9 @@ const Navbar = () => {
         </Link>
         <Link to="/jobs" className="ml" onClick={closeMenu}>
           Jobs
+        </Link>
+        <Link to="/employers" className="ml" onClick={closeMenu}>
+          For employers
         </Link>
         {isAdminUser && (
           <Link to="/request-flyer" className="ml" onClick={closeMenu}>

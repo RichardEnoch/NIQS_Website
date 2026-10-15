@@ -12,23 +12,36 @@ import LoadingSpinner from './LoadingSpinner';
  *  - roles: string[]         — if provided, user.role must be in this list
  *  - adminRoles: string[]    — if provided, admin.role (e.g. main_admin) must be in this list;
  *                              used for fine-grained gates inside the /admin section
+ *  - employerOnly: boolean   — only a signed-in job board employer may access
+ *  - memberOnly: boolean     — only a signed-in member may access (keeps employers
+ *                              out of /portal, which would otherwise let any session in)
  *
  * Works with the AuthContext which exposes:
  *  - user / admin   — the logged-in entity (one will be set)
  *  - isAdmin        — boolean shortcut
  *  - loading        — true while the initial auth check runs
  */
-const ProtectedRoute = ({ children, adminOnly = false, roles, adminRoles }) => {
-  const { user, admin, isAdmin, loading } = useAuth();
+const ProtectedRoute = ({ children, adminOnly = false, roles, adminRoles, employerOnly = false, memberOnly = false }) => {
+  const { user, admin, employer, isAdmin, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {
     return <LoadingSpinner message="Checking authentication..." />;
   }
 
+  // Employer area: its own sign-in page
+  if (employerOnly) {
+    if (!employer) return <Navigate to="/employers/sign-in" state={{ from: location }} replace />;
+    return children;
+  }
+
   // Not logged in at all — redirect to login, preserving intended destination
   if (!user && !admin) {
     return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+
+  if (memberOnly && !user) {
+    return <Navigate to={admin ? '/admin' : '/login'} replace />;
   }
 
   // Admin-only gate

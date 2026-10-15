@@ -50,6 +50,9 @@ const TITLES = {
   '/news': 'News & Announcements',
   '/events': 'Events',
   '/jobs': 'Jobs',
+  '/employers': 'Hire Quantity Surveyors',
+  '/employers/sign-in': 'Employer Sign In',
+  '/employers/register': 'Register as an Employer',
   '/payment': 'Payments',
   '/contact': 'Contact Us',
   '/partnership': 'Partnership',
@@ -71,7 +74,7 @@ export default function useCanonical() {
        Only for routes that should be indexed at all. The staff areas and the
        token-bearing URLs are excluded from the sitemap and disallowed in
        robots.txt; giving them a canonical would contradict both. */
-    const indexable = !['/admin', '/portal', '/login', '/forgot-password', '/reset-password', '/flyer-request/', '/events/attend/']
+    const indexable = !['/admin', '/portal', '/employer', '/employers/sign-in', '/employers/register', '/login', '/forgot-password', '/reset-password', '/flyer-request/', '/events/attend/']
       .some((p) => pathname === p || pathname.startsWith(p.endsWith('/') ? p : `${p}/`));
 
     let tag = document.querySelector('link[rel="canonical"]');

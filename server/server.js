@@ -72,6 +72,9 @@ app.use("/api/registrations", require("./routes/registrations"));
 app.use("/api/exco", require("./routes/exco"));
 app.use("/api/chapters", require("./routes/chapters"));
 app.use("/api/jobs", require("./routes/jobs"));
+app.use("/api/careers", require("./routes/careers"));
+app.use("/api/employers", require("./routes/employers"));
+app.use("/api/job-admin", require("./routes/jobAdmin"));
 app.use("/api/partners", require("./routes/partners"));
 app.use("/api/members", require("./routes/members"));
 app.use("/api/contact", require("./routes/contact"));
@@ -109,6 +112,10 @@ const PORT = process.env.PORT || 5000;
 const server = app.listen(PORT, () => {
   console.log(`NIQS Server running on port ${PORT}`);
 });
+
+// Job board housekeeping: closes listings past their deadline, ends featured
+// placements, purges applicant data past its retention date.
+require("./utils/jobBoardService").start();
 
 /**
  * Graceful shutdown. ECS sends SIGTERM and waits 30s before SIGKILL, so every

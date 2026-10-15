@@ -42,6 +42,8 @@ const load = {
   EventRegister:    () => import('../pages/public/EventRegister'),
   EventAttend:      () => import('../pages/public/EventAttend'),
   Jobs:             () => import('../pages/public/Jobs'),
+  JobDetail:        () => import('../pages/public/JobDetail'),
+  Employers:        () => import('../pages/public/Employers'),
   Payment:          () => import('../pages/public/Payment'),
   Contact:          () => import('../pages/public/Contact'),
   Partnership:      () => import('../pages/public/Partnership'),
@@ -55,12 +57,26 @@ const load = {
   Login:            () => import('../pages/auth/Login'),
   ForgotPassword:   () => import('../pages/auth/ForgotPassword'),
   ResetPassword:    () => import('../pages/auth/ResetPassword'),
+  EmployerSignIn:   () => import('../pages/auth/EmployerSignIn'),
+  EmployerRegister: () => import('../pages/auth/EmployerRegister'),
 
   /* ── Member portal ── */
   PortalLayout:     () => import('../pages/portal/PortalLayout'),
   PortalDashboard:  () => import('../pages/portal/PortalDashboard'),
   PortalProfile:    () => import('../pages/portal/PortalProfile'),
   PortalLibrary:    () => import('../pages/portal/PortalLibrary'),
+  PortalJobs:       () => import('../pages/portal/PortalJobs'),
+  PortalJobAlerts:  () => import('../pages/portal/PortalJobAlerts'),
+  PortalCareerProfile: () => import('../pages/portal/PortalCareerProfile'),
+
+  /* ── Employer area (job board) ── */
+  EmployerLayout:      () => import('../pages/employer/EmployerLayout'),
+  EmployerDashboard:   () => import('../pages/employer/EmployerDashboard'),
+  EmployerListings:    () => import('../pages/employer/EmployerListings'),
+  EmployerListingForm: () => import('../pages/employer/EmployerListingForm'),
+  EmployerApplicants:  () => import('../pages/employer/EmployerApplicants'),
+  EmployerTalent:      () => import('../pages/employer/EmployerTalent'),
+  EmployerProfile:     () => import('../pages/employer/EmployerProfile'),
 
   /* ── Admin ──
      The heaviest group by far. FlyerStudio alone pulls jspdf, html2canvas and
@@ -78,6 +94,7 @@ const load = {
   ManageExco:             () => import('../pages/admin/ManageExco'),
   ManageChapters:         () => import('../pages/admin/ManageChapters'),
   ManageJobs:             () => import('../pages/admin/ManageJobs'),
+  ChapterJobs:            () => import('../pages/admin/ChapterJobs'),
   ManagePartners:         () => import('../pages/admin/ManagePartners'),
   ManageMembers:          () => import('../pages/admin/ManageMembers'),
   ManageBrandMaterials:   () => import('../pages/admin/ManageBrandMaterials'),
@@ -128,6 +145,9 @@ const byPath = {
   '/news': load.News,
   '/events': load.Events,
   '/jobs': load.Jobs,
+  '/employers': load.Employers,
+  '/employers/sign-in': load.EmployerSignIn,
+  '/employers/register': load.EmployerRegister,
   '/payment': load.Payment,
   '/contact': load.Contact,
   '/partnership': load.Partnership,

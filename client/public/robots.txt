@@ -16,6 +16,10 @@ Allow: /
 # wall a crawler would only ever index as a login form.
 Disallow: /admin
 Disallow: /portal
+Disallow: /employer$
+Disallow: /employer/
+Disallow: /employers/sign-in
+Disallow: /employers/register
 Disallow: /login
 Disallow: /forgot-password
 Disallow: /reset-password

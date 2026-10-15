@@ -72,6 +72,7 @@ export function getAdminSidebarItems(role) {
       { label: 'Contact Messages',  path: '/admin/messages',           icon: 'email'         },
       { label: 'Chapter',           path: '/admin/chapters',           icon: 'chapter' },
       { label: 'Members',           path: '/admin/members',            icon: 'group'       },
+      { label: 'Chapter Jobs',      path: '/admin/chapter-jobs',       icon: 'jobs'        },
       { label: 'Webinars',          path: '/admin/webinars',           icon: 'video' },
       { label: 'Workshop Materials',path: '/admin/workshop-materials', icon: 'folderOpen'   },
     );
@@ -91,7 +92,8 @@ export function getAdminSidebarItems(role) {
     { label: 'Members',          path: '/admin/members',  icon: 'group'           },
     { label: 'Contact Messages', path: '/admin/messages', icon: 'email'             },
     { label: 'Chapters',         path: '/admin/chapters', icon: 'chapter'     },
-    { label: 'Jobs',             path: '/admin/jobs',     icon: 'jobs'             },
+    { label: 'Job Board',        path: '/admin/jobs',     icon: 'jobs'             },
+    { label: 'Chapter Jobs',     path: '/admin/chapter-jobs', icon: 'chapter'      },
     { label: 'Partners',         path: '/admin/partners', icon: 'handshake'        },
     { label: 'Brand Materials',  path: '/admin/brand-materials', icon: 'brand' },
     { label: 'President Profile',path: '/admin/president',       icon: 'account'     },

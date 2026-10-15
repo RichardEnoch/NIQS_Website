@@ -5,6 +5,8 @@ import LeaderCard from '../../components/common/LeaderCard';
 import StateMap from '../../components/chapters/StateMap';
 import API from '../../api/axios';
 import Icon from '../../components/common/Icon';
+import { JobCard } from '../../components/jobs/JobBits';
+import { listJobs } from '../../api/jobsApi';
 
 const ZONE_MAP = {
   'abia':'South East','adamawa':'North East','akwa-ibom':'South South','anambra':'South East',
@@ -18,6 +20,37 @@ const ZONE_MAP = {
   'rivers':'South South','sokoto':'North West','taraba':'North East','yobe':'North East',
   'zamfara':'North West',
 };
+
+/* Live listings in the chapter's state. Renders nothing when there are none
+   or the request fails, so a quiet board never leaves an empty section. */
+function ChapterJobs({ state, background }) {
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    if (!state) return undefined;
+    let live = true;
+    listJobs({ state, allTracks: 1, limit: 3 })
+      .then((res) => { if (live) setJobs(Array.isArray(res?.jobs) ? res.jobs : []); })
+      .catch(() => { if (live) setJobs([]); });
+    return () => { live = false; };
+  }, [state]);
+
+  if (!jobs.length) return null;
+  return (
+    <section style={{ background }}>
+      <div className="ct" style={{ paddingTop: '3rem', paddingBottom: '3rem' }}>
+        <div className="ey">Job Board</div>
+        <h2 className="sh" style={{ marginBottom: '.5rem' }}>Jobs in <em>{state}</em></h2>
+        <div className="job-list" style={{ marginTop: '1.2rem' }}>
+          {jobs.map((job) => <JobCard key={job._id} job={job} />)}
+        </div>
+        <Link to={`/jobs?state=${encodeURIComponent(state)}`} className="btn bo" style={{ marginTop: '1.4rem' }}>
+          See all jobs in {state}
+        </Link>
+      </div>
+    </section>
+  );
+}
 
 export default function ChapterDetail() {
   const { slug } = useParams();
@@ -231,6 +264,9 @@ export default function ChapterDetail() {
           </div>
         </section>
       )}
+
+      {/* ── JOBS IN THIS STATE ── */}
+      <ChapterJobs state={chapter?.state || stateName} background={events.length > 0 ? 'var(--color-off)' : '#fff'} />
     </>
   );
 }

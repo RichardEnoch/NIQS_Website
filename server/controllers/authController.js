@@ -120,6 +120,9 @@ exports.getMe = async (req, res) => {
       // Shape the client expects: { user: { ... } }
       return res.json({ user: req.user, type: 'member' });
     }
+    if (req.employer) {
+      return res.json({ employer: req.employer, type: 'employer' });
+    }
     res.status(401).json({ message: 'Not authenticated' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
