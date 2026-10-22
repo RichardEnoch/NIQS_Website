@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PageHero from '../../components/common/PageHero';
 import MemberLookup from '../../components/qs/MemberLookup';
-import MEMBERSHIP_REQUIREMENTS from '../../data/membershipRequirements';
+import MEMBERSHIP_REQUIREMENTS, { APPLICATION_FLOWS } from '../../data/membershipRequirements';
 
 const categories = [
   {
@@ -147,15 +147,22 @@ export default function Membership() {
           <div className="tc2">
             <div>
               <div className="ey">Application Process</div>
-              <h2 className="sh">Requirements by <em>Category</em></h2>
-              {/* Each grade has its own route in (review, Oct 2026), so the one
-                  generic five-step list is gone: pick a category to see what it
-                  asks for. Applications are made online now; the Secretariat's
-                  membership officer is updating these requirements. */}
+              <h2 className="sh">How to <em>Apply</em></h2>
+              {/* The Secretariat's two routes (Oct 2026): new members register on
+                  the membership portal, existing members upgrade from their
+                  dashboard. Both open the portal in a new tab. */}
+              <div className="mflow">
+                {APPLICATION_FLOWS.map(f => (
+                  <div className="mflow-card" key={f.key}>
+                    <h3 className="mflow-h">{f.title}</h3>
+                    <ol className="mreq-list">{f.steps.map((s, i) => <li key={i}>{s}</li>)}</ol>
+                    <a href={f.href} target="_blank" rel="noopener noreferrer" className="btn bg">Apply Now</a>
+                  </div>
+                ))}
+              </div>
+              <h3 className="sh" style={{ fontSize: '1.4rem', margin: '2.2rem 0 .6rem' }}>Eligibility &amp; <em>Requirements</em></h3>
               <p className="sd" style={{ marginBottom: '1.4rem' }}>
-                Applications are made online. Select a membership category to see its requirements,
-                then <Link to="/login" style={{ color: 'var(--color-gold)', fontWeight: 600 }}>apply through the member portal</Link> or{' '}
-                <Link to="/contact" style={{ color: 'var(--color-gold)', fontWeight: 600 }}>contact the Secretariat</Link>.
+                Select a membership category to see who is eligible and what the application needs.
               </p>
               <div className="mreq">
                 {MEMBERSHIP_REQUIREMENTS.map(c => {

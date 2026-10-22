@@ -96,12 +96,10 @@ const Footer = () => {
           <div className="fcol">
             <h5>Contact</h5>
             <ul className="flinks">
-              <li><a href="tel:08028303346">08028 303 346</a></li>
+              <li><a href="tel:08167593807">0816 759 3807</a></li>
               <li><a href="mailto:info@niqs.org.ng">info@niqs.org.ng</a></li>
-              {/* Both office links were href="#" and went nowhere. Abuja opens the
-                  Secretariat on a map. Lagos is held back until the Secretariat
-                  confirms the liaison office address — a dead link is worse
-                  than none. */}
+              {/* Both offices open on a map. The Lagos address arrived from the
+                  Secretariat in October 2026 (Victor Akan QS House). */}
               <li>
                 <a
                   href="https://www.google.com/maps/search/?api=1&query=NIQS+Crescent+Mabushi+Abuja"
@@ -109,6 +107,15 @@ const Footer = () => {
                   rel="noopener noreferrer"
                 >
                   Abuja Head Office
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=17%2F19+Idowu+Taylor+Street+Victoria+Island+Lagos"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Lagos Liaison Office
                 </a>
               </li>
             </ul>
@@ -126,7 +133,7 @@ const Footer = () => {
             <Link to="/contact">Contact</Link>
           </p>
           <p>&copy; {new Date().getFullYear()} <span className="fgold">Nigerian Institute of Quantity Surveyors</span>. All rights reserved.</p>
-          <p>No. 24, NIQS Crescent, Mabushi District, Abuja, Nigeria.</p>
+          <p>QS J. Segun Ajanlekoko House, No. 24, NIQS Crescent, Mabushi District, Abuja, Nigeria.</p>
           <Attribution />
         </div>
       </div>

@@ -28,7 +28,6 @@ export default function useChapterCount() {
   return count;
 }
 
-/* 36 states + the FCT. Used when the chapter records cannot be reached — a
-   chapter the secretariat has not loaded yet is a gap in our content, not a
-   chapter that does not exist. */
-export const CHAPTERS_FALLBACK = 37;
+/* 36 states + the FCT, less Kebbi (one chapter with Sokoto) and Taraba (no
+   chapter) since October 2026. Used when the chapter records cannot be reached. */
+export const CHAPTERS_FALLBACK = 35;

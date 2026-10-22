@@ -25,9 +25,9 @@ const APPLY = process.argv.includes('--apply');
 // Matched on the exact stored name and scope, so nothing else can be touched.
 const OVERRIDES = [
   // NEC: "QS Dr. Chukwuemeka Patrick Ogbu, MNIQS"; Edo chapter stores it surname-first.
-  { scope: 'chapter', name: 'QS Dr. Ogbu Chukwuemeka Patrick, MNIQS', shortName: 'QS Dr. C. P. Ogbu, MNIQS' },
+  { scope: 'chapter', name: 'QS Dr. Ogbu Chukwuemeka Patrick, MNIQS', shortName: 'QS Dr. Ogbu P. Chukwuemeka, MNIQS' },
   // NEC: "QS Donatus Chidi Oduenyi, MNIQS"; Anambra chapter stores it surname-first.
-  { scope: 'chapter', name: 'QS Oduenyi Donatus Chidi, MNIQS', shortName: 'QS D. C. Oduenyi, MNIQS' },
+  { scope: 'chapter', name: 'QS Oduenyi Donatus Chidi, MNIQS', shortName: 'QS Oduenyi C. Donatus, MNIQS' },
 ];
 
 async function main() {

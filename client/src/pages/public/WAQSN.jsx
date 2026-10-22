@@ -16,13 +16,6 @@ const roles = [
 
 export default function WAQSN() {
   const [waqsnUrl, setWaqsnUrl] = useState('');
-  const [femaleQS, setFemaleQS] = useState('');
-  /* Nothing in the public statistics endpoint distinguishes gender today, so this
-     stays null and the tile falls back to the figure the secretariat types into
-     site settings. The server already reads a `by_gender[]` array if one appears
-     (see normaliseFemaleMembers), so adding it upstream is the whole job — the
-     same arrangement as the YQSF under-35 count. */
-  const [liveFemale, setLiveFemale] = useState(null);
   const [chair, setChair] = useState(null);
   const [exec, setExec] = useState([]);
 
@@ -30,13 +23,9 @@ export default function WAQSN() {
     API.get('/site-settings')
       .then(res => {
         if (res.data?.waqsnUrl) setWaqsnUrl(res.data.waqsnUrl);
-        if (res.data?.waqsnFemaleQSCount) setFemaleQS(res.data.waqsnFemaleQSCount);
       })
       .catch(() => {});
 
-    API.get('/stats/membership')
-      .then(res => { if (res.data?.female_members) setLiveFemale(res.data.female_members); })
-      .catch(() => {});
 
     /* The association's own executive. Its Chairperson also sits on the NEC, so
        if this scope is empty — as it was before the roster was seeded — fall back
@@ -103,32 +92,20 @@ export default function WAQSN() {
         </div>
       </section>
 
-      {/* ── Two-col: image LEFT / text RIGHT ── */}
+      {/* ── About ──
+          Text only since October 2026: the Secretariat asked for one picture of
+          the Chairperson, the one under "Meet the Chairperson", not a second
+          copy here. */}
       <section style={{ background: 'var(--color-off)' }}>
         <div className="ct" style={{ paddingTop: '4rem', paddingBottom: '5rem' }}>
-          <div className="tc2">
-            {/* Image — left: the WAQSN Chairperson's portrait once loaded */}
-            <div>
-              <img
-                src={chair?.image || 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80&fit=crop'}
-                alt={chair ? chair.name : 'Women QS professionals'}
-                style={{ width: '100%', borderRadius: 16, objectFit: 'cover', objectPosition: 'center 20%', maxHeight: 420, border: '1px solid var(--color-bdr)', display: 'block' }}
-              />
-              {chair && (
-                <div style={{ marginTop: '.8rem', textAlign: 'center' }}>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '.95rem', color: 'var(--color-navy)' }}>{chair.name}</div>
-                  <div style={{ fontSize: '.68rem', fontWeight: 700, color: 'var(--color-gold)', letterSpacing: '.08em', textTransform: 'uppercase', marginTop: 2 }}>{chair.title}</div>
-                </div>
-              )}
-            </div>
-
-            {/* Text — right */}
+          <div style={{ maxWidth: 760 }}>
             <div>
               <div className="ey">About WAQSN</div>
               <h2 className="sh">Women Shaping <em>Excellence</em></h2>
               <p className="sd" style={{ marginBottom: '1.2rem' }}>
-                The Women Association of Quantity Surveyors in Nigeria (WAQSN) is a body within
-                the Nigerian Institute of Quantity Surveyors established to champion the interests,
+                The Women Association of Quantity Surveyors in Nigeria (WAQSN), inaugurated in
+                November 2004, is a body within the Nigerian Institute of Quantity Surveyors
+                established to champion the interests,
                 welfare, and professional advancement of women in the QS profession.
               </p>
               <p className="sd" style={{ marginBottom: '1.2rem' }}>
@@ -141,16 +118,6 @@ export default function WAQSN() {
                 increase female representation in leadership roles, and position women as key
                 drivers of Nigeria's built environment.
               </p>
-
-              {/* Registered female QS stat */}
-              <div style={{ display: 'flex', gap: '1rem', margin: '0 0 1.8rem', flexWrap: 'wrap' }}>
-                <div style={{ background: 'var(--color-off)', borderRadius: 12, padding: '1rem 1.4rem', minWidth: 150 }}>
-                  <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.9rem', fontWeight: 800, color: 'var(--color-navy)', letterSpacing: '-.04em' }}>
-                    {femaleQS || (liveFemale ? liveFemale.count.toLocaleString() : '—')}
-                  </div>
-                  <div style={{ fontSize: '.66rem', fontWeight: 700, color: 'var(--color-txt-3)', textTransform: 'uppercase', letterSpacing: '.08em' }}>Registered Female QS</div>
-                </div>
-              </div>
 
               <div style={{ display: 'flex', gap: '.8rem', flexWrap: 'wrap' }}>
                 <a href="/membership" className="btn bp">Join WAQSN →</a>
@@ -249,6 +216,8 @@ export default function WAQSN() {
       </section>
 
       {/* ── Contact ──
+          The Institute's own details since October 2026: the Secretariat asked
+          that the body be reached through the National Secretariat.
           The association's own details, here rather than as a tab on /contact
           (secretariat, 2026-08-05). The CTA below used to send people there for
           them, which is why this section exists at all. */}
@@ -256,12 +225,14 @@ export default function WAQSN() {
         <div className="ct" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
           <div className="ey">Get in Touch</div>
           <BodyContact
-            bodyKey="waqsn"
+            bodyKey="national"
             heading={<>Reach <em>WAQSN</em></>}
             fallback={{
-              email1: 'waqsn@niqs.org.ng',
-              address: 'c/o NIQS National Secretariat,\nQS Olusegun Ajanlekoko House,\nNo. 24, NIQS Crescent, Mabushi District,\nAbuja, Nigeria',
-              officeHours: 'Monday — Friday: 9:00 AM — 4:00 PM',
+              phone1: '08167593807',
+              email1: 'info@niqs.org.ng',
+              email2: 'contact@niqs.org.ng',
+              address: 'NIQS Head Office Secretariat,\nQS J. Segun Ajanlekoko House,\nNo. 24, NIQS Crescent, Off Michael Ama Nnachi Crescent,\nCadastral Zone B6, Mabushi District,\nAbuja, Nigeria',
+              officeHours: 'Monday — Friday: 8:00 AM — 5:00 PM',
             }}
           />
         </div>

@@ -11,6 +11,11 @@ const chapterSchema = new mongoose.Schema({
   email:       { type: String, trim: true, default: '' },
   phone:       { type: String, trim: true, default: '' },
   website:     { type: String, trim: true, default: '' },
+  // Pin on the chapter page's state map. Empty = the state capital
+  // (client/src/data/stateCapitals.js); set these to mark the actual office.
+  pinLat:      { type: Number, min: 4, max: 14 },
+  pinLng:      { type: Number, min: 2.5, max: 15 },
+  pinLabel:    { type: String, trim: true, default: '' },
   about:       { type: String, default: '' },
   image:       { type: String, default: '' },
   memberCount: { type: Number, default: 0 },   // registered QS in the chapter

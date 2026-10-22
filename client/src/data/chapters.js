@@ -1,5 +1,7 @@
 /**
- * The 37 NIQS chapters — one per state, plus the FCT.
+ * The 35 NIQS chapters. One per state plus the FCT, except that Sokoto and
+ * Kebbi share the Sokoto-Kebbi chapter and Taraba has none (Secretariat,
+ * Oct 2026).
  *
  * This list lived inside Chapters.jsx until the sitemap generator needed it too.
  * The generator runs in Node before the build and cannot import a file
@@ -15,7 +17,7 @@
  * chapter with no profile yet still has a page, and still belongs in the sitemap.
  */
 
-/** [state, geopolitical zone] — alphabetical, which is also the display order. */
+/** [state, geopolitical zone, slug?] — alphabetical, which is also the display order. */
 export const CHAPTER_STATES = [
   ['Abia',        'South East'],   ['Adamawa',    'North East'],
   ['Akwa Ibom',   'South South'],  ['Anambra',    'South East'],
@@ -27,14 +29,16 @@ export const CHAPTER_STATES = [
   ['FCT',         'North Central'],['Gombe',      'North East'],
   ['Imo',         'South East'],   ['Jigawa',     'North West'],
   ['Kaduna',      'North West'],   ['Kano',       'North West'],
-  ['Katsina',     'North West'],   ['Kebbi',      'North West'],
+  ['Katsina',     'North West'],
   ['Kogi',        'North Central'],['Kwara',      'North Central'],
   ['Lagos',       'South West'],   ['Nasarawa',   'North Central'],
   ['Niger',       'North Central'],['Ogun',       'South West'],
   ['Ondo',        'South West'],   ['Osun',       'South West'],
   ['Oyo',         'South West'],   ['Plateau',    'North Central'],
-  ['Rivers',      'South South'],  ['Sokoto',     'North West'],
-  ['Taraba',      'North East'],   ['Yobe',       'North East'],
+  ['Rivers',      'South South'],
+  /* Covers Sokoto and Kebbi. Keeps the slug its record always had. */
+  ['Sokoto-Kebbi', 'North West', 'sokoto-chapter'],
+  ['Yobe',       'North East'],
   ['Zamfara',     'North West'],
 ];
 
@@ -52,10 +56,10 @@ export const CHAPTER_STATES = [
 export const chapterSlug = (state) => `${state.toLowerCase().replace(/\s+/g, '-')}-chapter`;
 
 /** Chapter records in the shape the API returns, for use as a fallback. */
-export const CHAPTERS = CHAPTER_STATES.map(([state, zone], i) => ({
+export const CHAPTERS = CHAPTER_STATES.map(([state, zone, slug], i) => ({
   _id: String(i + 1),
   name: `${state} Chapter`,
-  slug: chapterSlug(state),
+  slug: slug || chapterSlug(state),
   state,
   zone,
   memberCount: 0,

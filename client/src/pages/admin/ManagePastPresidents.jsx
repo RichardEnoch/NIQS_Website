@@ -167,7 +167,7 @@ export default function ManagePastPresidents() {
               <input value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required style={inputStyle} placeholder="Arc. Dr. [Name], FNIQS" />
             </FormField>
             <FormField label="Short name (optional — overrides the automatic initials)">
-                <input value={form.shortName} onChange={e => setForm({ ...form, shortName: e.target.value })} style={inputStyle} placeholder={shortName(form.name) || 'e.g. QS K. C. Nzekwe, FNIQS'} />
+                <input value={form.shortName} onChange={e => setForm({ ...form, shortName: e.target.value })} style={inputStyle} placeholder={shortName(form.name) || 'e.g. QS Nzekwe C. Kene, FNIQS'} />
               </FormField>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14 }}>
               <FormField label="Term of Office" required>

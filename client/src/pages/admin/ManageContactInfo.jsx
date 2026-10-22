@@ -100,7 +100,7 @@ function BodyForm({ bodyKey, onSaved }) {
         <Field label="Primary Phone"   name="phone1"  value={form.phone1}  onChange={handleChange} placeholder="+234 901 234 5678" />
         <Field label="Secondary Phone" name="phone2"  value={form.phone2}  onChange={handleChange} placeholder="+234 801 234 5678" />
         <Field label="Primary Email"   name="email1"  value={form.email1}  onChange={handleChange} type="email" placeholder="info@niqs.org.ng" />
-        <Field label="Secondary Email" name="email2"  value={form.email2}  onChange={handleChange} type="email" placeholder="secretary@niqs.org.ng" />
+        <Field label="Secondary Email" name="email2"  value={form.email2}  onChange={handleChange} type="email" placeholder="contact@niqs.org.ng" />
         <Field label="Website URL"     name="websiteUrl" value={form.websiteUrl} onChange={handleChange} placeholder="https://niqs.org.ng" />
       </div>
 

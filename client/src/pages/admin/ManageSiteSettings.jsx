@@ -207,7 +207,7 @@ export default function ManageSiteSettings() {
           <Field label="Primary Phone" name="phone1" value={form.phone1} onChange={handleChange} placeholder="+234 901 234 5678" />
           <Field label="Secondary Phone" name="phone2" value={form.phone2} onChange={handleChange} placeholder="+234 801 234 5678" />
           <Field label="Primary Email" name="email1" value={form.email1} onChange={handleChange} type="email" placeholder="info@niqs.org.ng" />
-          <Field label="Secondary Email" name="email2" value={form.email2} onChange={handleChange} type="email" placeholder="secretary@niqs.org.ng" />
+          <Field label="Secondary Email" name="email2" value={form.email2} onChange={handleChange} type="email" placeholder="contact@niqs.org.ng" />
         </div>
         <div style={{ marginBottom: '1rem' }}>
           <label style={{ display: 'block', fontSize: '.65rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.1em', color: 'var(--color-txt-3)', marginBottom: '.4rem' }}>
@@ -218,7 +218,7 @@ export default function ManageSiteSettings() {
             value={form.address}
             onChange={handleChange}
             rows={3}
-            placeholder="QS Olusegun Ajanlekoko House, No. 24, NIQS Crescent, Mabushi District, Abuja, Nigeria"
+            placeholder="QS J. Segun Ajanlekoko House, No. 24, NIQS Crescent, Off Michael Ama Nnachi Crescent, Cadastral Zone B6, Mabushi District, Abuja, Nigeria"
             style={{
               width: '100%', padding: '10px 12px', fontSize: '.84rem', borderRadius: 8,
               border: '1.5px solid var(--color-bdr)', background: 'var(--color-off)',

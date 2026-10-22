@@ -132,7 +132,7 @@ export default function Partnership() {
                 body in construction cost management.
               </p>
               <p className="sd" style={{ marginBottom: '1.2rem' }}>
-                With {memberCopy} members across 37 state chapters, NIQS provides unparalleled access to
+                With {memberCopy} members across its state chapters, NIQS provides unparalleled access to
                 the quantity surveying profession in Nigeria and across West Africa.
               </p>
               <p className="sd" style={{ marginBottom: '2rem' }}>

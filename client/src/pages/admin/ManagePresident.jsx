@@ -21,7 +21,7 @@ const DEFAULTS = {
 
 const EMPTY_SPEECH = { title: '', platform: '', date: '', excerpt: '', body: '', pdfUrl: '', videoUrl: '', category: 'Keynote', tags: '' };
 // Same list the server normalises to; the public page builds its filter buttons from it.
-const SPEECH_CATEGORIES = ['Inaugural', 'Keynote', 'Conference', 'Lecture', 'Interview', 'Statement', 'Other'];
+const SPEECH_CATEGORIES = ['Inaugural', 'Keynote', 'Conference', 'Lecture', 'Courtesy Visit', 'Interview', 'Statement', 'Other'];
 
 export default function ManagePresident() {
   const [form, setForm] = useState({ ...DEFAULTS });

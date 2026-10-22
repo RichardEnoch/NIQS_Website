@@ -19,15 +19,21 @@ import Icon from '../../components/common/Icon';
 const FALLBACK = {
   national: {
     label: 'National Secretariat',
-    phone1: '', phone2: '',
-    email1: 'info@niqs.org.ng', email2: 'secretary@niqs.org.ng',
-    /* The Plot 759 / Central Business District address this carried until
-       2026-08-05 was stale. The secretariat confirmed the footer's — which had
-       been disagreeing with this page for as long as both existed — as the
-       current one. Same wording as Footer.jsx; if one moves, move both. */
-    address: 'QS Olusegun Ajanlekoko House,\nNo. 24, NIQS Crescent, Mabushi District,\nAbuja, Nigeria',
+    phone1: '08167593807', phone2: '',
+    email1: 'info@niqs.org.ng', email2: 'contact@niqs.org.ng',
+    /* As the Secretariat sent it (Oct 2026), building name included: the house
+       is "QS J. Segun Ajanlekoko House". Same wording as Footer.jsx; if one
+       moves, move both. The live values come from /contact-info. */
+    address: 'NIQS Head Office Secretariat\nQS J. Segun Ajanlekoko House,\nNo. 24, NIQS Crescent, Off Michael Ama Nnachi Crescent,\nCadastral Zone B6, Mabushi District,\nAbuja, Nigeria',
     officeHours: 'Monday — Friday: 8:00 AM — 5:00 PM\nSaturday — Sunday: Closed',
     twitterUrl: '', facebookUrl: '', linkedinUrl: '',
+  },
+  /* The Lagos liaison office, which the review found missing from the page. */
+  lagos: {
+    label: 'NIQS Liaison Office, Lagos',
+    phone1: '08137399669', phone2: '',
+    email1: 'liaisonoffice@niqs.org.ng', email2: '',
+    address: 'Victor Akan QS House,\nNo. 17/19 Idowu Taylor Street,\nVictoria Island,\nLagos, Nigeria',
   },
 };
 
@@ -148,6 +154,8 @@ export default function Contact() {
                 Reach the <em>Nigerian Institute of Quantity Surveyors</em>
               </h2>
               <ContactBlock info={info} />
+              <h3 className="ey" style={{ marginTop: '2.2rem' }}>{(contactData.lagos || FALLBACK.lagos).label}</h3>
+              <ContactBlock info={contactData.lagos || FALLBACK.lagos} />
             </div>
 
             {/* Contact Form */}

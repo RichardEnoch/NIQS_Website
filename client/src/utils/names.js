@@ -3,13 +3,15 @@
  *
  * The Institute asked for every name to fit on one line, title included, so a
  * card never splits "QS Dr." from the name or pushes "FNIQS" onto a line of
- * its own. Given names become initials; the surname stays whole, because the
- * surname is what a reader recognises. Professional and academic titles (QS,
- * Dr., Prof., Engr., Arc., Surv., Barr.) and the post-nominals after the comma
- * are kept exactly as the record holds them. Traditional, religious and
- * courtesy titles ("High Chief", "Alhaji", "Mrs" ...) are left off the card:
- * the meeting agreed to drop them so every name reads the same way and fits
- * on one line. They stay in the record and in the hover title.
+ * its own. After the second review (Oct 2026) NIQS chose the order too: the
+ * surname first and in full, then the initials of any middle names, then the
+ * first name in full — "QS Nzekwe C. Kene, FNIQS". Professional and academic
+ * titles (QS, Dr., Prof., Engr., Arc., Surv., Barr.) and the post-nominals
+ * after the comma are kept as the record holds them; members who are still
+ * probationers carry no "QS" in the record, so none is added. Traditional,
+ * religious and courtesy titles ("High Chief", "Alhaji", "Mrs" ...) are left
+ * off the card, as agreed at the first review. They stay in the record and in
+ * the hover title.
  *
  * The records were typed by different people over the years, so the order is
  * not consistent: most are given-name first ("QS Kene Christopher Nzekwe"), a
@@ -21,8 +23,8 @@
  */
 
 export const NAME_RULE =
-  'Titles + initials of every given name + surname in full, post-nominals after a comma, on one line. ' +
-  'Example: "QS Kene Christopher Nzekwe, FNIQS" becomes "QS K. C. Nzekwe, FNIQS".';
+  'Titles + surname in full + initials of middle names + first name in full, post-nominals after a comma, on one line. ' +
+  'Example: "QS Kene Christopher Nzekwe, FNIQS" becomes "QS Nzekwe C. Kene, FNIQS".';
 
 /* Titles and honorifics that lead a name, longest first so "High Chief" wins
    over "Chief". Compared case-insensitively, without a trailing full stop. */
@@ -38,11 +40,6 @@ const SHOWN_TITLES = ['qs', 'surv', 'dr', 'prof', 'engr', 'arc', 'arch', 'barr']
 
 const bare = (w) => w.replace(/\.$/, '').toLowerCase();
 
-/* Post-nominals that only restate the page a name sits on. PPNIQS is the one
-   in the data: it means "past president", which the Past Presidents page has
-   already said in its title. */
-const DROPPED_POSTNOMINALS = /^PPNIQS$/i;
-
 /** Split a record into its leading titles, the name words, and post-nominals. */
 export function parseName(full) {
   const [namePart, ...post] = String(full || '').split(',');
@@ -54,8 +51,7 @@ export function parseName(full) {
     if (PREFIXES.includes(bare(words[0]))) { titles.push(words.shift()); continue; }
     break;
   }
-  const postnominals = post.join(',').split(',').map(s => s.trim())
-    .filter(s => s && !DROPPED_POSTNOMINALS.test(s));
+  const postnominals = post.join(',').split(',').map(s => s.trim()).filter(Boolean);
   return { titles, words, postnominals };
 }
 
@@ -64,21 +60,32 @@ const isInitial = (w) => /^[A-Za-z]\.?$/.test(w) || /^([A-Za-z]\.)+$/.test(w);
 /**
  * The one-line form of a name. `override` (the record's `shortName`) wins
  * whenever it is set: it is the Secretariat's correction for a name the rule
- * gets wrong.
+ * gets wrong. `drop` lists post-nominals that only restate the page the name
+ * sits on — PPNIQS on the Past Presidents page, whose title already says it.
+ * Everywhere else PPNIQS stays: on the Board of Trustees it is news, and NIQS
+ * asked for it there.
  */
-export function shortName(full, { override } = {}) {
+export function shortName(full, { override, drop = [] } = {}) {
   if (override && String(override).trim()) return String(override).trim();
   const { titles, words, postnominals } = parseName(full);
   if (!words.length) return String(full || '').trim();
   const hyphenated = words.filter(w => w.includes('-'));
   const surnameAt = hyphenated.length === 1 ? words.indexOf(hyphenated[0]) : words.length - 1;
-  const shown = words.map((w, i) => {
-    if (i === surnameAt || isInitial(w)) return isInitial(w) && !w.endsWith('.') ? `${w}.` : w;
-    return `${w[0].toUpperCase()}.`;
-  });
+  const surname = words[surnameAt];
+  const given = words.filter((_, i) => i !== surnameAt);
+  // The first given name that is spelt out stays whole and goes last; every
+  // other given name becomes an initial. A record that only has initials
+  // ("QS B. Tanko") has no first name to spell out, so it is surname + initials.
+  const firstAt = given.findIndex(w => !isInitial(w));
+  const initials = given
+    .filter((_, i) => i !== firstAt)
+    .map(w => (isInitial(w) ? (w.endsWith('.') ? w : `${w}.`) : `${w[0].toUpperCase()}.`));
+  const shown = [surname, ...initials, ...(firstAt >= 0 ? [given[firstAt]] : [])];
   const keptTitles = titles.filter(w => SHOWN_TITLES.includes(bare(w)));
+  const dropSet = drop.map(d => d.toLowerCase());
+  const posts = postnominals.filter(pn => !dropSet.includes(pn.toLowerCase()));
   const name = [...keptTitles, ...shown].join(' ');
-  return postnominals.length ? `${name}, ${postnominals.join(', ')}` : name;
+  return posts.length ? `${name}, ${posts.join(', ')}` : name;
 }
 
 /**

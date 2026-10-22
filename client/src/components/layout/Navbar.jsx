@@ -383,30 +383,19 @@ const Navbar = () => {
               <Link to="/login" className="ddi">
                 Member Portal <span className="lock"><Icon name="lock" size="sm" /></span>
               </Link>
-              <Link to="/login" className="ddi">
-                Induction Letter <span className="lock"><Icon name="lock" size="sm" /></span>
-              </Link>
-              <Link to="/login" className="ddi">
-                Upgrade Letter <span className="lock"><Icon name="lock" size="sm" /></span>
-              </Link>
             </NavDropdown>
 
+            {/* Results moved into the member portal (Secretariat, Oct 2026); the
+                menu now points at the syllabus and the policy instead. */}
             <NavDropdown label="Exams">
               <Link to="/exams" className="ddi">
                 Examinations
               </Link>
-              <Link to="/exams" className="ddi">
-                Published Results
+              <Link to="/exams#syllabus" className="ddi">
+                Examination Syllabus
               </Link>
-              <div className="ddi-div"></div>
-              <Link to="/login" className="ddi">
-                Interview Results <span className="lock"><Icon name="lock" size="sm" /></span>
-              </Link>
-              <Link to="/login" className="ddi">
-                TPC/GDE Results <span className="lock"><Icon name="lock" size="sm" /></span>
-              </Link>
-              <Link to="/login" className="ddi">
-                Logbook Result <span className="lock"><Icon name="lock" size="sm" /></span>
+              <Link to="/exams#policy" className="ddi">
+                Examination Policy
               </Link>
             </NavDropdown>
 
@@ -603,11 +592,11 @@ const Navbar = () => {
         <Link to="/exams" className="ml-sub" onClick={closeMenu}>
           Examinations
         </Link>
-        <Link to="/exams" className="ml-sub" onClick={closeMenu}>
-          Published Results
+        <Link to="/exams#syllabus" className="ml-sub" onClick={closeMenu}>
+          Examination Syllabus
         </Link>
-        <Link to="/login" className="ml-sub" onClick={closeMenu}>
-          My Results <Icon name="lock" size="sm" />
+        <Link to="/exams#policy" className="ml-sub" onClick={closeMenu}>
+          Examination Policy
         </Link>
 
         <div className="ml-hd">Research &amp; Devt</div>
