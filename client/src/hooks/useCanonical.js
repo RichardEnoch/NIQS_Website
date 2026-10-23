@@ -32,7 +32,7 @@ const TITLES = {
   '/about': 'About the Institute',
   '/president': 'The President',
   '/council': 'Council',
-  '/npc': 'National Programmes Committee',
+  '/npc': 'National Policy Committee',
   '/national-bodies': 'National Bodies',
   '/board-of-trustees': 'Board of Trustees',
   '/past-presidents': 'Past Presidents',
