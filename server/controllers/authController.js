@@ -276,8 +276,19 @@ exports.forgotPassword = async (req, res) => {
     user.resetPasswordExpires = Date.now() + 30 * 60 * 1000; // 30 min
     await user.save();
 
-    // In production, send email here with resetToken
-    res.json({ message: 'If that email exists, a reset link has been sent', resetToken });
+    // The token goes only to the member's inbox, never in this response:
+    // returning it let anyone reset any member's password.
+    const base = (publicBase() || req.headers.origin || '').replace(/\/$/, '');
+    const link = `${base}/reset-password/${resetToken}`;
+    const result = await sendMail({
+      to: user.email,
+      subject: 'Reset your NIQS password',
+      text: `Reset your NIQS password (expires in 30 minutes): ${link}`,
+    });
+    if (!result.sent) {
+      console.warn(`[member reset] SMTP not configured — reset link for ${user.email}: ${link}`);
+    }
+    res.json({ message: 'If that email exists, a reset link has been sent' });
   } catch (error) {
     res.status(500).json({ message: 'Server error' });
   }
