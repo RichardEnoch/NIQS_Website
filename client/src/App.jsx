@@ -228,6 +228,7 @@ export default function App() {
           <Route path="/library/:slug" element={<PublicPage element={<Pages.LibraryItem />} />} />
           <Route path="/news" element={<PublicPage element={<Pages.News />} />} />
           <Route path="/news/:slug" element={<PublicPage element={<Pages.NewsArticle />} />} />
+          <Route path="/qs-connect/:volume" element={<PublicPage element={<Pages.QSConnectReader />} />} />
           <Route path="/events" element={<PublicPage element={<Pages.Events />} />} />
           <Route path="/events/:id/register" element={<PublicPage element={<Pages.EventRegister />} />} />
           <Route path="/events/attend/:token" element={<PublicPage element={<Pages.EventAttend />} />} />

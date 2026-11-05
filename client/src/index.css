@@ -1595,3 +1595,28 @@ a.spn-logo:hover, a.spn-logo:focus-visible { border-color: var(--color-bdr-gold)
 .jrn-title { font-weight: 700; color: var(--color-navy); line-height: 1.45; }
 .jrn-auth { font-size: .76rem; color: var(--color-txt-3); }
 .jrn-papers p { font-size: .8rem; line-height: 1.75; color: var(--color-txt-2); margin: .5rem 0 .2rem; text-align: justify; }
+
+/* QS Connect reader (Nov 2026): page images on a dark desk, a sticky bar under
+   the fixed 68px nav. */
+.qsr { background: #2b2b33; min-height: 100vh; padding-top: 68px; }
+.qsr-bar { position: sticky; top: 68px; z-index: 50; background: var(--color-navy); border-bottom: 1px solid rgba(255,255,255,.1); }
+.qsr-bar-in { max-width: 1240px; margin: 0 auto; padding: .6rem 1.2rem; display: flex; align-items: center; gap: .6rem 1.2rem; flex-wrap: wrap; color: #fff; }
+.qsr-back { color: var(--color-gold); font-weight: 700; font-size: .82rem; text-decoration: none; white-space: nowrap; }
+.qsr-title { flex: 1 1 auto; display: flex; align-items: baseline; gap: .7rem; min-width: 0; }
+.qsr-title strong { font-family: var(--font-heading); font-size: .98rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.qsr-title span { font-size: .74rem; color: rgba(255,255,255,.65); }
+.qsr-tools { display: flex; align-items: center; gap: .8rem; font-size: .8rem; }
+.qsr-pageno select { background: rgba(255,255,255,.12); color: #fff; border: 1px solid rgba(255,255,255,.25); border-radius: 6px; padding: .15rem .3rem; font: inherit; }
+.qsr-pageno select option { color: #000; }
+.qsr-pdf { color: #fff; border: 1px solid rgba(255,255,255,.35); border-radius: 999px; padding: .35rem .9rem; font-weight: 700; text-decoration: none; white-space: nowrap; }
+.qsr-pdf:hover { border-color: var(--color-gold); color: var(--color-gold); }
+.qsr-pages { max-width: 920px; margin: 0 auto; padding: 1.2rem .6rem 2rem; display: flex; flex-direction: column; gap: .9rem; }
+.qsr-page { scroll-margin-top: 130px; background: #fff; box-shadow: 0 6px 28px rgba(0,0,0,.35); aspect-ratio: 1240 / 1754; }
+.qsr-page img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.qsr-nav { max-width: 920px; margin: 0 auto; padding: 0 .6rem 3rem; display: flex; justify-content: space-between; gap: 1rem; }
+.qsr-nav a { color: var(--color-gold); font-weight: 700; font-size: .85rem; text-decoration: none; }
+@media (max-width: 640px) {
+  .qsr-bar-in { padding: .5rem .8rem; }
+  .qsr-title span { display: none; }
+  .qsr-pages { padding: .6rem .3rem 1.5rem; gap: .5rem; }
+}
