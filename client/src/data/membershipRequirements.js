@@ -161,7 +161,7 @@ const MEMBERSHIP_REQUIREMENTS = [
 export const APPLICATION_FLOWS = [
   {
     key: 'new',
-    title: 'How to apply for Student / Technician / Probationer membership',
+    title: 'Student / Technician / Probationer membership',
     href: 'https://portal.niqsng.org/register',
     steps: [
       'Click Apply Now below to open the Membership Portal.',

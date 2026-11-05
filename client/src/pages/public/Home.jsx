@@ -4,87 +4,42 @@ import API from '../../api/axios';
 import { AGREEMENT_COUNT } from '../../data/reciprocity';
 import useChapterCount, { CHAPTERS_FALLBACK } from '../../hooks/useChapterCount';
 import useEvents, { TYPE_LABEL } from '../../hooks/useEvents';
-import { useNewsSpotlight, NEWS_FALLBACK_IMAGE } from '../../hooks/useNews';
 import { useMemberCopy } from '../../hooks/useMembershipStats';
 import Icon from '../../components/common/Icon';
+import { OUR_STORY, services, principles } from '../../data/institute';
+import { sponsors } from '../../data/sponsors';
+
+/* NIQS review, 4 Nov 2026 (Gloria Ifiorah): the Home page reads, in order,
+   Who We Are, Vision / Mission / Value, three Professional Services, three
+   Upcoming Events, the annual subscription notice, Sponsors & Partners, and
+   ends on Ready to Join NIQS. News & Announcements and the President's quote
+   came off the page; News keeps its own page. */
+const HOME_SERVICES = 3;
 
 /* Founding year, for the "years of excellence" tile — computed rather than typed
    so it does not quietly go stale each January. */
 const FOUNDED = 1969;
 
 
-/* The Institute's own list of quantity surveying services, word for word as
-   the Secretariat supplied it (Oct 2026), in its order. Titles are in title
-   case; the descriptions are theirs and are not paraphrased. */
-const services = [
-  { icon: 'costManagement', title: 'Construction Cost Experts', desc: "Professional who apply specialized knowledge and skills to predict, plan, control, and minimize construction costs, ensuring optimal resource allocation, risk management, and value for money throughout a project's lifecycle, from inception to completion." },
-  { icon: 'chart', title: 'Feasibility Study of Capital Projects', desc: "Conducting of comprehensive assessment to determine a project's viability, potential for success, and practicality before significant resources are committed." },
-  { icon: 'technology', title: 'Cost Modelling', desc: 'The systematic representation of construction costs in relation to design, function, and performance variables, used to forecast, control, and optimize expenditure throughout the project lifecycle.' },
-  { icon: 'procurement', title: 'Procurement Management', desc: 'The structured process of planning, selecting, and administering the acquisition of goods, services, and construction works to deliver a project efficiently, cost-effectively, and in compliance with contractual and regulatory requirements.' },
-  { icon: 'handshake', title: 'PPP Transaction Advisory Services', desc: 'A specialized consultancy services that guide public authorities and private investors through the entire lifecycle of a Public–Private Partnership (PPP) project, from feasibility analysis and procurement strategy to contract negotiation and financial closure.' },
-  { icon: 'task', title: 'Project Management', desc: 'An organized approach to initiating, planning, executing, monitoring, and controlling project activities to achieve specific project objectives, ensuring efficient use of resources, time, and cost, while meeting stakeholder expectations.' },
-  { icon: 'idea', title: 'Value Engineering & Management', desc: 'The systematic and structured methodology that analyzes the functions of a project, product, or service to achieve those functions at the lowest possible cost without compromising quality, performance, or reliability.' },
-  { icon: 'legal', title: 'Construction Arbitration and Mediation', desc: 'Act as a cost and contract expert—providing evidence, valuations, claims analysis, and advisory input—to support fair resolution of disputes, whether through formal arbitration or amicable mediation.' },
-  { icon: 'shield', title: 'Risk Management', desc: "A logical process of identifying, analyzing, and responding to project uncertainties to protect the project's financial and contractual health." },
-  { icon: 'certificate', title: 'Reinstatement Cost Assessment for Insurance Purposes', desc: 'Evaluates the total expense required to rebuild or repair a damaged property to its original condition. Prepared for insurance purposes, it ensures the sum insured accurately reflects current reconstruction costs, preventing underinsurance and guaranteeing adequate coverage during a claim.' },
-  { icon: 'target', title: 'Project Control and Monitoring', desc: 'The methodical process of tracking, evaluating, and regulating construction project performance in terms of cost, time, and quality to ensure that the project objectives are achieved.' },
-  { icon: 'contract', title: 'Construction Contract/Technical Auditing', desc: 'Refers to the detailed review and evaluation of construction contracts, project documentation, and technical processes to ensure compliance with contractual obligations, financial accuracy, and industry standards.' },
-];
-
 /* The hero strip reads left to right as the story of the profession, as NIQS
    asked at the October 2026 review: the tools it started with, the Institute's
-   home today at the centre (the largest frame), and where the built environment
-   is heading. The centre frame has no photograph yet — until the Secretariat
-   supplies one of the National Secretariat building, it renders as a crest card
-   rather than a stock picture standing in for the Institute's own house. Drop
-   the photo in /public/hero/ and set `src` to switch it over. */
+   home at the centre (the largest frame), and where the built environment is
+   heading. The centre frame is the National Secretariat, QS J. Segun
+   Ajanlekoko House, Abuja: the "Homepage picture" the Secretariat supplied
+   on 4 Nov 2026. */
 const heroImages = [
   { src: 'https://images.unsplash.com/photo-1559819614-8e87b90b8e9b?w=600&q=80&fit=crop', alt: 'Slide rule — measurement before the calculator' },
   { src: 'https://images.unsplash.com/photo-1648201637025-1c77b9be3013?w=600&q=80&fit=crop', alt: 'Calculator and handwritten workings' },
-  { src: null, alt: 'QS J. Segun Ajanlekoko House, NIQS National Secretariat, Abuja', badge: 'NIQS National Secretariat' },
+  { src: '/hero/niqs-secretariat-abuja.jpg', alt: 'QS J. Segun Ajanlekoko House, NIQS National Secretariat, Abuja', badge: 'NIQS National Secretariat' },
   { src: 'https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=600&q=80&fit=crop', alt: 'Digital cost planning on screen' },
   { src: 'https://images.unsplash.com/photo-1713643957213-4a6acc242563?w=600&q=80&fit=crop', alt: 'Twisting high-rise towers — the built environment ahead' },
 ];
 
 /* ── helpers ── */
-const TIER_ORDER = ['platinum', 'gold', 'silver', 'bronze', 'associate'];
-function tierRank(tier) {
-  const i = TIER_ORDER.indexOf(String(tier || '').toLowerCase());
-  return i === -1 ? TIER_ORDER.length : i;
-}
-function fmtDate(d) {
-  try {
-    return new Date(d).toLocaleDateString('en-NG', { year: 'numeric', month: 'short', day: 'numeric' });
-  } catch { return d; }
-}
 function dayNum(d) { try { return new Date(d).getDate(); } catch { return ''; } }
 function monthYear(d) {
   try { return new Date(d).toLocaleDateString('en-NG', { month: 'short', year: 'numeric' }); } catch { return ''; }
 }
-
-/* Vision, Mission and Value word for word as on the previous NIQS website:
-   at the October 2026 review the Secretariat asked to keep those statements
-   until council adopts new ones, so they are not to be paraphrased here. */
-const principles = [
-  {
-    icon: 'eye',
-    label: 'Our Vision',
-    title: 'Total Cost & Procurement Management',
-    body: "To be the profession in Nigeria responsible for total cost and procurement management, for the achievement of client's objectives in all types of capital projects and developments, from conception to commissioning and maintenance, in all sectors of the economy, for the attainment of sustainable National development.",
-  },
-  {
-    icon: 'target',
-    label: 'Our Mission',
-    title: 'Advancing the Profession',
-    body: 'Contributing to sustainable development of Nigeria by promoting the patronage of our world-class construction cost services and procurement management experts that meet client needs and expectations through the development of unique and distinctive competencies of the profession.',
-  },
-  {
-    icon: 'advocacy',
-    label: 'Our Value',
-    title: 'Value for Money',
-    body: 'Quantity Surveyors have value for money as their watch word. We are trained to offer comprehensive costing and cost management services.',
-  },
-];
 
 export default function Home() {
   /* The hero opens on the content block alone — logo, headline, subtitle,
@@ -109,9 +64,7 @@ export default function Home() {
      Secretariat marks Featured in admin comes first; empty slots fall back to
      the latest news and the next events, so the sections never sit half empty.
      Every item shown is also on its own page, unchanged. */
-  const { news } = useNewsSpotlight();
   const { upcoming, spotlight: events } = useEvents();
-  const [partners, setPartners] = useState([]);
   const [bannerItems, setBannerItems] = useState([]);
   const tickerItems = [
     ...bannerItems,
@@ -144,14 +97,6 @@ export default function Home() {
   }, []);
 
   useEffect(() => {
-    /* Every tier, not just platinum: the strip sits directly under the hero and
-       NIQS wants partnership seen by everyone who lands here. Highest tier first. */
-    API.get('/partners?limit=12').then(res => {
-      const data = res.data?.partners || res.data || [];
-      if (!Array.isArray(data)) return;
-      setPartners([...data].sort((a, b) => tierRank(a.tier) - tierRank(b.tier)).slice(0, 8));
-    }).catch(() => {});
-
     // Announcements typed in Admin → Site Settings; upcoming events follow them.
     API.get('/site-settings')
       .then(res => setBannerItems(Array.isArray(res.data?.bannerItems) ? res.data.bannerItems : []))
@@ -258,12 +203,26 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── VISION / MISSION / VALUES ── */}
+      {/* ── WHO WE ARE ── The first paragraph of About's "Our Story", word for
+          word, and a link to the rest (4 Nov 2026). */}
+      <section style={{ background: '#fff' }}>
+        <div className="ct" style={{ paddingTop: '5rem', paddingBottom: '3rem' }}>
+          <div className="home-who">
+            <div className="ey">Who We Are</div>
+            <h2 className="sh">Shaping Nigeria's <em>Built Environment</em> Since 1969</h2>
+            <p className="sd" style={{ maxWidth: '100%' }}>{OUR_STORY[0]}</p>
+            <Link to="/about" className="btn bo">Read More About NIQS &rarr;</Link>
+          </div>
+        </div>
+      </section>
+
+      {/* ── VISION / MISSION / VALUE ── Word for word from the previous NIQS
+          website (data/institute.js). "Principles That Guide Us" came off the
+          heading on 4 Nov 2026. */}
       <section style={{ background: 'var(--color-off)' }}>
         <div className="ct" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
           <div style={{ textAlign: 'center', maxWidth: 560, margin: '0 auto 3rem' }}>
-            <div className="ey" style={{ justifyContent: 'center' }}>Who We Are</div>
-            <h2 className="sh">Principles That <em>Guide Us</em></h2>
+            <h2 className="sh">Our Vision, Mission <em>&amp; Value</em></h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: '1.5rem' }}>
             {principles.map((p, i) => (
@@ -282,11 +241,9 @@ export default function Home() {
                   overflow: 'hidden',
                 }}
               >
-                {/* subtle grid texture on navy card */}
                 {i === 1 && (
                   <div style={{ position: 'absolute', inset: 0, pointerEvents: 'none', backgroundImage: 'linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px)', backgroundSize: '44px 44px' }} />
                 )}
-                {/* gold accent line on top */}
                 <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 3, background: 'linear-gradient(90deg, var(--color-gold), var(--color-gold-2, #E5C56A))', borderRadius: '18px 18px 0 0' }} />
                 <div style={{ marginBottom: '1.2rem', position: 'relative', color: 'var(--color-gold)' }}><Icon name={p.icon} size="xl" /></div>
                 <div style={{ fontSize: '.78rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '.1em', color: 'var(--color-gold)', marginBottom: '.5rem', position: 'relative' }}>{p.label}</div>
@@ -298,18 +255,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── SERVICES ── */}
+      {/* ── SERVICES ── Three of the Institute's list; the full list is on About. */}
       <section style={{ background: '#fff' }}>
         <div className="ct">
-          <div className="ey">What We Do</div>
-          <h2 className="sh">Professional <em>Services</em></h2>
-          <p className="sd">
-            NIQS promotes, represents and advances quantity surveying practice in Nigeria — from cost planning to procurement, across all sectors of the built environment.
-          </p>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '1rem' }}>
+            <div>
+              <div className="ey">What We Do</div>
+              <h2 className="sh" style={{ marginBottom: 0 }}>Professional <em>Services</em></h2>
+            </div>
+            <Link to="/about#services" className="btn bo">All Professional Services &rarr;</Link>
+          </div>
           <div className="svc-grid">
-            {services.map((s, i) => (
-              <div className={`svc reveal${i % 4 ? ` d${i % 4}` : ''}`} key={i}>
-                {s.tag && <span className="svc-tag">{s.tag}</span>}
+            {services.slice(0, HOME_SERVICES).map((s, i) => (
+              <div className={`svc reveal${i ? ` d${i}` : ''}`} key={i}>
                 <div className="svc-ico"><Icon name={s.icon} size="lg" /></div>
                 <div className="svc-t">{s.title}</div>
                 <div className="svc-d">{s.desc}</div>
@@ -319,45 +277,9 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── NEWS ── */}
+      {/* ── EVENTS ── Three: what the Secretariat marks Featured in admin comes
+          first, then the next events (hooks/useEvents.js spotlight). */}
       <section style={{ background: 'var(--color-off)' }}>
-        <div className="ct">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
-            <div>
-              <div className="ey">Latest</div>
-              <h2 className="sh" style={{ marginBottom: 0 }}>News &amp; <em>Announcements</em></h2>
-            </div>
-            <Link to="/news" className="btn bo">View All &rarr;</Link>
-          </div>
-          <div className="tc3">
-            {news.map((n, i) => (
-              <Link
-                to={`/news/${n.slug}`}
-                className={`card reveal${i > 0 ? ` d${i}` : ''}`}
-                key={n._id}
-                style={{ textDecoration: 'none', color: 'inherit' }}
-              >
-                <div className="card-img-wrap">
-                  <img
-                    className="card-img"
-                    src={n.image || NEWS_FALLBACK_IMAGE}
-                    alt={n.title}
-                  />
-                </div>
-                <div className="card-body">
-                  <div className="card-tag">{n.category || 'News'}</div>
-                  <div className="card-title">{n.title}</div>
-                  <div className="card-text">{n.excerpt}</div>
-                  <div className="card-date">{fmtDate(n.date || n.createdAt)}</div>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ── EVENTS ── */}
-      <section style={{ background: '#fff' }}>
         <div className="ct">
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '2rem', flexWrap: 'wrap', gap: '1rem' }}>
             <div>
@@ -366,21 +288,15 @@ export default function Home() {
                 Upcoming <em>Events</em>
               </h2>
             </div>
-            <Link to="/events" className="btn bo">Full Calendar &rarr;</Link>
+            <Link to="/events" className="btn bo">All Upcoming Events &rarr;</Link>
           </div>
           {events.length === 0 && (
             <p className="sd" style={{ margin: 0 }}>
-              New events will be announced here. See the <Link to="/events">full calendar</Link> for past programmes.
+              New events will be announced here. See the <Link to="/events">events page</Link> for past programmes.
             </p>
           )}
           <div className="evtl">
-            {events.map((e, i) => (
-              /* Was `/events/${e.slug}`. Events have no slug field — the model
-                 never had one — so this produced /events/undefined on every row,
-                 and there is no /events/:id route to catch it either. Every event
-                 on the homepage led to the 404 page. Goes to the calendar, which
-                 is the page that actually exists; the Register action lives
-                 there, per event. */
+            {events.slice(0, 3).map((e, i) => (
               <Link
                 to="/events"
                 className={`erow reveal d${i + 1}`}
@@ -393,7 +309,7 @@ export default function Home() {
                 </div>
                 <div className="einfo">
                   <h4>{e.title}</h4>
-                  <p><Icon name="location" size="sm" /> {e.location}{e.time ? ` \u00A0\u00B7\u00A0 ${e.time}` : ''}</p>
+                  <p><Icon name="location" size="sm" /> {e.location}{e.time ? `  ·  ${e.time}` : ''}</p>
                 </div>
                 <span className="epill">{TYPE_LABEL[e.type] || e.type}</span>
               </Link>
@@ -402,63 +318,76 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── PARTNERS ──
-          Back after the events, where it sat before the October 2026 review. It
-          spent a round directly under the hero; NIQS then said the Partnership
-          item on the main menu is visibility enough, and a sales strip above
-          the Institute's own story read wrong. A logo strip once partners are on
-          file; until then, the call for partners keeps the space working. */}
-      <section className="ptn-strip" aria-labelledby="ptn-strip-h">
+      {/* ── ANNUAL SUBSCRIPTION ── The Treasurer's flyer and write-up, word for
+          word ("Write up for flyer.docx", 4 Nov 2026). */}
+      <section style={{ background: '#fff' }} aria-labelledby="sub-h">
         <div className="ct">
-          <div className="ptn-strip-head">
+          <div className="sub-note">
+            <a href="/flyers/niqs-2027-subscription.jpg" target="_blank" rel="noopener noreferrer" className="sub-flyer">
+              <img src="/flyers/niqs-2027-subscription.jpg" alt="NIQS 2027 annual membership subscription: payment by web portal, bank transfer or ATM card" loading="lazy" />
+            </a>
             <div>
-              <div className="ey">Our Partners</div>
-              <h2 className="sh" id="ptn-strip-h" style={{ marginBottom: 0 }}>
-                {partners.length > 0 ? <>Building With <em>NIQS</em></> : <>Partner With <em>NIQS</em></>}
-              </h2>
+              <div className="ey">Members</div>
+              <h2 className="sh" id="sub-h">2027 Annual Subscription <em>Payment</em></h2>
+              <p className="sd" style={{ maxWidth: '100%' }}>
+                Please see the attached flyer for full details regarding your 2027 annual subscription. For your
+                convenience, you can easily make your payment using any of the three methods below:
+              </p>
+              <ol className="sub-steps">
+                <li>
+                  <strong>Online Web Portal</strong> &ndash;{' '}
+                  <a href="https://portal.niqsng.org/" target="_blank" rel="noopener noreferrer">Click Here to Pay Online</a>.
+                  Simply log in using your Membership Number and Password. Having trouble logging in? Click on
+                  &ldquo;Forgot Password&rdquo; on the portal page to reset your credentials.
+                </li>
+                <li>
+                  <strong>Direct Bank Transfer</strong> &ndash; You can make a direct deposit or transfer to the
+                  Institute&rsquo;s official account:
+                  <dl className="sub-acct">
+                    <dt>Account Name</dt><dd>Nigerian Institute of Quantity Surveyors</dd>
+                    <dt>Bank</dt><dd>First Bank Plc</dd>
+                    <dt>Account Number</dt><dd>1000052178</dd>
+                  </dl>
+                  <em>Important:</em> To help us update your records promptly, please forward your payment receipt
+                  or evidence of transfer to <a href="mailto:finance@niqs.org.ng">finance@niqs.org.ng</a>.
+                </li>
+                <li>
+                  <strong>In-Person at NIQS Offices</strong> &ndash; Visit any of our offices (Abuja or Lagos) to pay
+                  seamlessly via POS using your ATM card.
+                </li>
+              </ol>
+              <p className="sd" style={{ maxWidth: '100%', marginBottom: 0 }}>
+                Thank you for your continued commitment to the Institute.<br />&mdash; Treasurer
+              </p>
             </div>
-            <Link to="/partnership" className="btn bo">
-              {partners.length > 0 ? 'All Partners →' : 'Partnership Opportunities →'}
-            </Link>
           </div>
-
-          {partners.length > 0 ? (
-            <div className="ptn-logos">
-              {partners.map(p => (
-                <Link key={p._id} to={`/partnership/${p._id}`} className="ptn-logo" title={p.name}>
-                  {p.logo
-                    ? <img src={p.logo} alt={p.name} loading="lazy" />
-                    : <span className="ptn-logo-name">{p.name}</span>}
-                </Link>
-              ))}
-            </div>
-          ) : (
-            <div className="ptn-cta">
-              <div>
-                <h3>Become a Foundation Partner of NIQS</h3>
-                <p>
-                  NIQS is opening its platform to organisations committed to raising the bar in
-                  Nigeria's construction industry. Partner with the home of {memberCopy} quantity
-                  surveyors and put your brand before the industry's decision-makers.
-                </p>
-              </div>
-              <div className="ptn-cta-btns">
-                <Link to="/partnership" className="btn bp">Explore Partnership Tiers</Link>
-                <Link to="/contact" className="btn bo" style={{ borderColor: 'rgba(255,255,255,.4)', color: '#fff' }}>Contact the Secretariat</Link>
-              </div>
-            </div>
-          )}
         </div>
       </section>
 
-      {/* ── QUOTE ── */}
-      <section style={{ background: '#fff', padding: '4rem 0' }}>
+      {/* ── SPONSORS & PARTNERS ── Small logos, each linking to the company's own
+          site, then the call to partner (4 Nov 2026; data/sponsors.js). */}
+      <section className="ptn-strip" aria-labelledby="ptn-strip-h">
         <div className="ct">
-          <div className="qblock">
-            <div className="qtext">
-              &ldquo;The Nigerian Institute of Quantity Surveyors remains committed to producing world-class professionals who will drive the sustainable development of our nation&rsquo;s built environment.&rdquo;
+          <div className="ptn-strip-head" style={{ justifyContent: 'center', textAlign: 'center' }}>
+            <div>
+              <div className="ey" style={{ justifyContent: 'center' }}>Sponsors &amp; Partners</div>
+              <h2 className="sh" id="ptn-strip-h" style={{ marginBottom: 0 }}>Our Sponsors <em>&amp; Partners</em></h2>
             </div>
-            <div className="qattr">— The President, Nigerian Institute of Quantity Surveyors</div>
+          </div>
+          <div className="spn-logos">
+            {sponsors.map(p => (p.url ? (
+              <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer" className="spn-logo" title={p.name}>
+                <img src={p.logo} alt={p.name} loading="lazy" />
+              </a>
+            ) : (
+              <span key={p.name} className="spn-logo" title={p.name}>
+                <img src={p.logo} alt={p.name} loading="lazy" />
+              </span>
+            )))}
+          </div>
+          <div className="spn-cta">
+            <h3>Partner With <em>NIQS</em></h3>
+            <Link to="/partnership" className="btn bp">View Partnership Opportunities &rarr;</Link>
           </div>
         </div>
       </section>

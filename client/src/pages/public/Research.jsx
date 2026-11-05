@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import PageHero from '../../components/common/PageHero';
 import API from '../../api/axios';
 import Icon from '../../components/common/Icon';
+import { PUBLICATIONS, BRANDED_ITEMS, naira } from '../../data/publications';
 
 /* Research & Development, restructured at the October 2026 review:
    - QS Connect is the Institute's magazine and now lives under News &
@@ -25,11 +26,19 @@ function PurchaseCta() {
 export default function Research() {
   const [journals, setJournals] = useState([]);
   const [status, setStatus] = useState('loading');
+  /* Abstracts of Vol. 65 (2019) to Vol. 71 (2026), from the Secretariat's
+     "QS JOURNAL ABSTRACTS.docx" (Nov 2026). Served as a static file so the
+     82 abstracts load with this page only, not with every page of the site. */
+  const [issues, setIssues] = useState([]);
 
   useEffect(() => {
     API.get('/journals')
       .then(r => { setJournals(r.data?.journals || []); setStatus('ready'); })
       .catch(() => { setJournals([]); setStatus('error'); });
+    fetch('/data/journal-abstracts.json')
+      .then(r => (r.ok ? r.json() : []))
+      .then(d => setIssues(Array.isArray(d) ? [...d].reverse() : []))
+      .catch(() => setIssues([]));
   }, []);
 
   return (
@@ -50,12 +59,21 @@ export default function Research() {
           <p className="sd" style={{ marginBottom: '1.5rem' }}>
             Standards, guides and reference works published by the Nigerian Institute of Quantity Surveyors. {PURCHASE_NOTE}
           </p>
-          {/* No catalogue is held on the site yet: the Secretariat is supplying the
-              list of publications the Institute sells. Until then, no sample titles. */}
-          <div style={{ border: '1px dashed var(--color-bdr)', borderRadius: 12, padding: '1.6rem', textAlign: 'center', color: 'var(--color-txt-2)', fontSize: '.85rem' }}>
-            The publications catalogue will be listed here shortly.
-            <div><PurchaseCta /></div>
+          {/* The Secretariat's price list (NIQS PUBLICATIONS.xlsx, Nov 2026). */}
+          <div className="pub-cols">
+            {[['Books & Proceedings', PUBLICATIONS], ['NIQS Branded Items', BRANDED_ITEMS]].map(([h, list]) => (
+              <div key={h}>
+                <h3 className="pub-h">{h}</h3>
+                <table className="pub-table">
+                  <thead><tr><th scope="col">Item</th><th scope="col">Price</th></tr></thead>
+                  <tbody>
+                    {list.map(it => <tr key={it.title}><td>{it.title}</td><td>{naira(it.price)}</td></tr>)}
+                  </tbody>
+                </table>
+              </div>
+            ))}
           </div>
+          <PurchaseCta />
         </div>
       </section>
 
@@ -69,10 +87,36 @@ export default function Research() {
             research, and the built environment. Abstracts are shown here; {PURCHASE_NOTE.charAt(0).toLowerCase() + PURCHASE_NOTE.slice(1)}
           </p>
 
+          {issues.length > 0 && (
+            <div className="jrn-issues">
+              {issues.map((iss, k) => (
+                <details key={`${iss.volume}-${iss.issue}`} className="jrn-issue" open={k === 0}>
+                  <summary>
+                    <span className="jrn-vol">Vol. {iss.volume}{iss.issue ? `, ${/&/.test(iss.issue) ? 'Issues' : 'Issue'} ${iss.issue}` : ''}</span>
+                    <span className="jrn-date">{iss.date}</span>
+                    <span className="jrn-count">{iss.papers.length} papers</span>
+                  </summary>
+                  <ol className="jrn-papers">
+                    {iss.papers.map((p, i) => (
+                      <li key={i}>
+                        <details>
+                          <summary><span className="jrn-title">{p.title}</span><span className="jrn-auth">{p.authors}</span></summary>
+                          <p><strong>Abstract.</strong> {p.abstract}</p>
+                        </details>
+                      </li>
+                    ))}
+                  </ol>
+                </details>
+              ))}
+            </div>
+          )}
+
           {journals.length === 0 ? (
-            <p style={{ color: 'var(--color-txt-3)', fontSize: '.85rem' }}>
-              {status === 'loading' ? 'Loading…' : 'Abstracts of published editions will be listed here shortly.'}
-            </p>
+            issues.length === 0 && (
+              <p style={{ color: 'var(--color-txt-3)', fontSize: '.85rem' }}>
+                {status === 'loading' ? 'Loading…' : 'Abstracts of published editions will be listed here shortly.'}
+              </p>
+            )
           ) : (
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: '1.2rem' }}>
               {journals.map(j => (

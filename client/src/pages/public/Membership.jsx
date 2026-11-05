@@ -1,77 +1,15 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import PageHero from '../../components/common/PageHero';
 import MemberLookup from '../../components/qs/MemberLookup';
 import MEMBERSHIP_REQUIREMENTS, { APPLICATION_FLOWS } from '../../data/membershipRequirements';
 
-const categories = [
-  {
-    title: 'Probationer',
-    type: 'Entry Level',
-    price: '₦25,000',
-    period: 'Annual Dues',
-    featured: false,
-    requirements: [
-      'HND or B.Sc in Quantity Surveying from a recognised institution',
-      'Must be registered with QSRBN or in the process of registration',
-      'Two passport photographs and valid government-issued ID',
-      'Completed application form with academic transcripts',
-    ],
-    benefits: [
-      'Access to NIQS CPD events and workshops',
-      'Eligibility to sit for professional examinations (GDE/TPC)',
-      'NIQS membership certificate and ID card',
-      'Access to the NIQS member portal',
-      'Subscription to the QS Journal',
-    ],
-  },
-  {
-    title: 'Graduate Member',
-    type: 'MNIQS',
-    price: '₦50,000',
-    period: 'Annual Dues',
-    featured: true,
-    requirements: [
-      'Passed the Test of Professional Competence (TPC)',
-      'Minimum of 2 years post-qualification experience',
-      'Registered with QSRBN',
-      'Endorsed by two FNIQS members',
-      'Completed application with professional portfolio',
-    ],
-    benefits: [
-      'Full voting rights at AGM and chapter meetings',
-      'Use of MNIQS designation',
-      'Eligible to practise as a corporate quantity surveyor',
-      'Access to reciprocity agreements with international bodies',
-      'Priority access to CPD, conferences, and networking events',
-      'Professional indemnity resources and guidance',
-      'Listing in the NIQS directory of practitioners',
-    ],
-  },
-  {
-    title: 'Fellow',
-    type: 'FNIQS',
-    price: '₦100,000',
-    period: 'Annual Dues',
-    featured: false,
-    requirements: [
-      'Minimum of 10 years as MNIQS in good standing',
-      'Demonstrated outstanding contribution to the profession',
-      'Nominated by the Fellowship Committee or NEC',
-      'Evidence of leadership in QS practice, academia, or public service',
-      'Approval by the National Executive Council',
-    ],
-    benefits: [
-      'All MNIQS benefits plus Fellowship privileges',
-      'Use of FNIQS designation',
-      'Eligibility for NEC and NPC positions',
-      'Invitation to Fellowship investiture ceremony',
-      'Mentorship programme participation as a mentor',
-      'Enhanced international recognition and reciprocity',
-      'Voting rights on constitutional amendments',
-    ],
-  },
-];
+/* The Membership page, in the order the Secretariat set on 4 Nov 2026
+   (Gloria Ifiorah): the category strip, Eligibility & Requirements,
+   Application Process (each route on its own line, steps as bullets), then
+   the QS Register. The "Choose Your Category" price cards came off: their
+   fees and benefits were not the Institute's. */
+const CATEGORY_STRIP = ['Student', 'Technician', 'Probationer', 'Member', 'Fellow', 'Honorary Fellow'];
+const STRIP_LABEL = { 'Honorary Fellow': 'Hon. Fellow' };
 
 /* One requirement block from data/membershipRequirements.js. */
 function ReqBlock({ b }) {
@@ -88,107 +26,84 @@ function ReqBlock({ b }) {
 
 export default function Membership() {
   const [openCat, setOpenCat] = useState(MEMBERSHIP_REQUIREMENTS[0]?.tab);
+  const showCategory = (tab) => {
+    setOpenCat(tab);
+    requestAnimationFrame(() => document.getElementById('eligibility')?.scrollIntoView({ behavior: 'smooth', block: 'start' }));
+  };
   return (
     <>
       <PageHero
         label="Join NIQS"
-        title="Membership Categories"
+        title="Membership"
         titleHighlight="Membership"
         backgroundImage="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1400&q=80&fit=crop"
       />
 
-      {/* Categories */}
+      {/* a. Membership Categories */}
       <section style={{ background: '#fff' }}>
-        <div className="ct" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
-          <div style={{ textAlign: 'center', maxWidth: 640, margin: '0 auto 3rem' }}>
-            <div className="ey" style={{ justifyContent: 'center' }}>Membership</div>
-            <h2 className="sh">Choose Your <em>Category</em></h2>
-            <p className="sd" style={{ maxWidth: '100%' }}>
-              Choose the membership category that matches your professional stage. Each level
-              offers increasing benefits and recognition within the profession.
-            </p>
+        <div className="ct" style={{ paddingTop: '4.5rem', paddingBottom: '3rem', textAlign: 'center' }}>
+          <h2 className="sh">Membership <em>Categories</em></h2>
+          <div className="mcat-strip" role="list">
+            {CATEGORY_STRIP.map(tab => (
+              <button key={tab} type="button" role="listitem" className={`mcat-chip${openCat === tab ? ' on' : ''}`} onClick={() => showCategory(tab)}>
+                {STRIP_LABEL[tab] || tab}
+              </button>
+            ))}
           </div>
+        </div>
+      </section>
 
-          <div className="memcat">
-            {categories.map((cat, i) => (
-              <div className={`mcat${cat.featured ? ' ft' : ''}`} key={i}>
-                <div className="mcat-type">{cat.type}</div>
-                <h3>{cat.title}</h3>
-                <p style={{ fontSize: '.82rem', color: 'var(--color-txt-3)', marginBottom: '.5rem' }}>
-                  <span style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.5rem', color: 'var(--color-navy)' }}>{cat.price}</span>
-                  {'  '}<span style={{ fontSize: '.76rem' }}>{cat.period}</span>
-                </p>
+      {/* b. Eligibility & Requirements */}
+      <section id="eligibility" className="section-alt" style={{ scrollMarginTop: '6rem' }}>
+        <div className="ct" style={{ paddingTop: '4.5rem', paddingBottom: '4.5rem', maxWidth: 980 }}>
+          <h2 className="sh">Membership Eligibility &amp; <em>Requirements</em></h2>
+          <p className="sd" style={{ marginBottom: '1.4rem' }}>
+            Select a membership category to see who is eligible and what the application needs.
+          </p>
+          <div className="mreq">
+            {MEMBERSHIP_REQUIREMENTS.map(c => {
+              const open = openCat === c.tab;
+              return (
+                <div key={c.tab} className={`mreq-item${open ? ' open' : ''}`}>
+                  <button type="button" className="mreq-btn" aria-expanded={open} onClick={() => setOpenCat(open ? null : c.tab)}>
+                    <span>{c.title}</span><span className="mreq-ic" aria-hidden="true">{open ? '−' : '+'}</span>
+                  </button>
+                  {open && <div className="mreq-body">{c.blocks.map((b, i) => <ReqBlock key={i} b={b} />)}</div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
 
-                <p style={{ fontSize: '.8rem', color: 'var(--color-txt-2)', marginBottom: '1.2rem', borderBottom: '1px solid var(--color-bdr)', paddingBottom: '1rem' }}>Requirements</p>
-                <ul className="mcat-list" style={{ marginBottom: '1.2rem' }}>
-                  {cat.requirements.map((r, j) => <li key={j}>{r}</li>)}
-                </ul>
-
-                <p style={{ fontSize: '.8rem', color: 'var(--color-txt-2)', marginBottom: '1.2rem', borderBottom: '1px solid var(--color-bdr)', paddingBottom: '1rem' }}>Benefits</p>
-                <ul className="mcat-list" style={{ marginBottom: '2rem' }}>
-                  {cat.benefits.map((b, j) => <li key={j}>{b}</li>)}
-                </ul>
-
-                <Link to="/contact" className={`btn ${cat.featured ? 'bg' : 'bo'}`} style={{ display: 'block', textAlign: 'center' }}>
-                  Apply Now
-                </Link>
+      {/* c-d. Application Process: one route per line, steps as bullets.
+          Both open the membership portal in a new tab. */}
+      <section style={{ background: '#fff' }}>
+        <div className="ct" style={{ paddingTop: '4.5rem', paddingBottom: '4.5rem', maxWidth: 980 }}>
+          <div className="ey">Application Process</div>
+          <h2 className="sh">How to <em>Apply</em></h2>
+          <div className="mflow">
+            {APPLICATION_FLOWS.map(f => (
+              <div className="mflow-card" key={f.key}>
+                <h3 className="mflow-h">{f.title}</h3>
+                <ul className="mreq-list mflow-steps">{f.steps.map((st, i) => <li key={i}>{st}</li>)}</ul>
+                <a href={f.href} target="_blank" rel="noopener noreferrer" className="btn bg">Apply Now</a>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Live register figures (MembershipStats) used to sit here. Members only
-          since the October 2026 review — see the portal dashboard. */}
-
-      {/* How to Apply + Search */}
+      {/* e. QS Register */}
       <section className="section-alt">
-        <div className="ct" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
-          <div className="tc2">
-            <div>
-              <div className="ey">Application Process</div>
-              <h2 className="sh">How to <em>Apply</em></h2>
-              {/* The Secretariat's two routes (Oct 2026): new members register on
-                  the membership portal, existing members upgrade from their
-                  dashboard. Both open the portal in a new tab. */}
-              <div className="mflow">
-                {APPLICATION_FLOWS.map(f => (
-                  <div className="mflow-card" key={f.key}>
-                    <h3 className="mflow-h">{f.title}</h3>
-                    <ol className="mreq-list">{f.steps.map((s, i) => <li key={i}>{s}</li>)}</ol>
-                    <a href={f.href} target="_blank" rel="noopener noreferrer" className="btn bg">Apply Now</a>
-                  </div>
-                ))}
-              </div>
-              <h3 className="sh" style={{ fontSize: '1.4rem', margin: '2.2rem 0 .6rem' }}>Eligibility &amp; <em>Requirements</em></h3>
-              <p className="sd" style={{ marginBottom: '1.4rem' }}>
-                Select a membership category to see who is eligible and what the application needs.
-              </p>
-              <div className="mreq">
-                {MEMBERSHIP_REQUIREMENTS.map(c => {
-                  const open = openCat === c.tab;
-                  return (
-                    <div key={c.tab} className={`mreq-item${open ? ' open' : ''}`}>
-                      <button type="button" className="mreq-btn" aria-expanded={open} onClick={() => setOpenCat(open ? null : c.tab)}>
-                        <span>{c.title}</span><span className="mreq-ic" aria-hidden="true">{open ? '−' : '+'}</span>
-                      </button>
-                      {open && <div className="mreq-body">{c.blocks.map((b, i) => <ReqBlock key={i} b={b} />)}</div>}
-                    </div>
-                  );
-                })}
-              </div>
-            </div>
-
-            <div>
-              <div className="ey">QS Register</div>
-              <h2 className="sh">Verify a <em>Member</em></h2>
-              <p style={{ fontSize: '.85rem', color: 'var(--color-txt-2)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
-                Verify a quantity surveyor's membership status and registration with NIQS. Enter
-                the practitioner's name or membership number to search.
-              </p>
-              <MemberLookup />
-            </div>
-          </div>
+        <div className="ct" style={{ paddingTop: '4.5rem', paddingBottom: '4.5rem', maxWidth: 980 }}>
+          <div className="ey">QS Register</div>
+          <h2 className="sh">Verify a <em>Member</em></h2>
+          <p style={{ fontSize: '.85rem', color: 'var(--color-txt-2)', marginBottom: '1.5rem', lineHeight: 1.7 }}>
+            Verify a quantity surveyor's membership status and registration with NIQS. Enter
+            the practitioner's name or membership number to search.
+          </p>
+          <MemberLookup />
         </div>
       </section>
     </>
