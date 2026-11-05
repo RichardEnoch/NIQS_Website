@@ -4,6 +4,7 @@ import useNews, { NEWS_FALLBACK_IMAGE } from '../../hooks/useNews';
 import PageHero from '../../components/common/PageHero';
 import API from '../../api/axios';
 import { NEWS_CATEGORIES, newsCategoryLabel } from '../../data/newsCategories';
+import { qscPageCount } from '../../data/qsConnectPages';
 
 const CATEGORIES = [{ value: 'All', label: 'All' }, ...NEWS_CATEGORIES];
 
@@ -28,21 +29,40 @@ function QSConnect() {
         <div className="ey">Magazine</div>
         <h2 className="sh">QS <em>Connect</em></h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))', gap: '1.2rem', marginTop: '1.5rem' }}>
-          {issues.map(issue => (
-            <div key={issue._id} className="card">
-              {issue.coverImage && <img src={issue.coverImage} alt={issue.title} style={{ width: '100%', height: 140, objectFit: 'cover' }} />}
-              <div style={{ padding: '1rem' }}>
-                <div className="card-title">{issue.title}</div>
-                {issue.issueDate && <div style={{ fontSize: '.7rem', color: 'var(--color-txt-3)', marginTop: 4 }}>{issue.issueDate}</div>}
-                {issue.fileUrl && (
-                  <a href={issue.fileUrl} target="_blank" rel="noopener noreferrer" className="btn bp"
-                    style={{ display: 'inline-flex', marginTop: '.7rem', padding: '.45rem 1rem', fontSize: '.72rem', textDecoration: 'none' }}>
-                    Read issue
-                  </a>
-                )}
+          {issues.map(issue => {
+            /* Editions with rendered pages open in the on-site reader; the
+               rest (e.g. a new upload not yet rendered) open their PDF. */
+            const reader = qscPageCount(issue.volume) > 0;
+            const cover = issue.coverImage && <img src={issue.coverImage} alt={issue.title} loading="lazy" style={{ width: '100%', aspectRatio: '595 / 842', objectFit: 'cover', display: 'block' }} />;
+            return (
+              <div key={issue._id} className="card">
+                {reader ? <Link to={`/qs-connect/${issue.volume}`}>{cover}</Link> : cover}
+                <div style={{ padding: '1rem' }}>
+                  <div className="card-title">{issue.title}</div>
+                  {issue.issueDate && <div style={{ fontSize: '.7rem', color: 'var(--color-txt-3)', marginTop: 4 }}>{issue.issueDate}</div>}
+                  <div style={{ display: 'flex', gap: '.5rem', alignItems: 'center', flexWrap: 'wrap', marginTop: '.7rem' }}>
+                    {reader ? (
+                      <Link to={`/qs-connect/${issue.volume}`} className="btn bp"
+                        style={{ display: 'inline-flex', padding: '.45rem 1rem', fontSize: '.72rem', textDecoration: 'none' }}>
+                        Read issue
+                      </Link>
+                    ) : issue.fileUrl && (
+                      <a href={issue.fileUrl} target="_blank" rel="noopener noreferrer" className="btn bp"
+                        style={{ display: 'inline-flex', padding: '.45rem 1rem', fontSize: '.72rem', textDecoration: 'none' }}>
+                        Read issue
+                      </a>
+                    )}
+                    {reader && issue.fileUrl && (
+                      <a href={issue.fileUrl} target="_blank" rel="noopener noreferrer" download
+                        style={{ fontSize: '.72rem', fontWeight: 700, color: 'var(--color-navy)' }}>
+                        PDF
+                      </a>
+                    )}
+                  </div>
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </section>

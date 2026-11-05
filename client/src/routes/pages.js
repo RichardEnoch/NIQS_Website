@@ -38,6 +38,7 @@ const load = {
   LibraryItem:      () => import('../pages/public/LibraryItem'),
   News:             () => import('../pages/public/News'),
   NewsArticle:      () => import('../pages/public/NewsArticle'),
+  QSConnectReader:  () => import('../pages/public/QSConnectReader'),
   Events:           () => import('../pages/public/Events'),
   EventRegister:    () => import('../pages/public/EventRegister'),
   EventAttend:      () => import('../pages/public/EventAttend'),
@@ -166,6 +167,7 @@ const byPath = {
  */
 const byPrefix = [
   ['/news/', load.NewsArticle],
+  ['/qs-connect/', load.QSConnectReader],
   ['/library/', load.LibraryItem],
   ['/chapters/', load.ChapterDetail],
   ['/partnership/', load.PartnerDetail],
