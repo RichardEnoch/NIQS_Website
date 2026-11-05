@@ -5,6 +5,8 @@ import PageHero from '../../components/common/PageHero';
 import { SkeletonGrid, SkeletonText } from '../../components/common/Skeleton';
 import Icon from '../../components/common/Icon';
 import { useMemberCopy } from '../../hooks/useMembershipStats';
+import useChapterCount, { CHAPTERS_FALLBACK } from '../../hooks/useChapterCount';
+import { sponsors, affiliates } from '../../data/sponsors';
 
 const tierColors = {
   platinum: '#6b7280',
@@ -21,54 +23,68 @@ const tierColors = {
    publish before an agreement exists. Tiers with no partners are simply not
    shown; the empty state below invites enquiries instead. */
 
+/* Tiers and benefits word for word from the Secretariat's PARTNERSHIP.docx
+   (4 Nov 2026), which replaced the earlier draft tiers and their prices; the
+   document gives no prices, so none are shown. */
 const tiers = [
   {
-    name: 'Platinum',
-    price: '₦10,000,000+',
-    period: 'per annum',
+    name: 'Platinum Partner',
     platinum: true,
     icon: 'diamond',
     benefits: [
-      'Premier branding at all NIQS national events',
-      'Exclusive naming rights for one major NIQS programme',
-      'Full-page advertisement in all NIQS publications',
-      'Speaking slot at the Annual Conference',
-      'Logo on NIQS website homepage',
-      'Access to NIQS membership database for recruitment',
-      'VIP hospitality at all NIQS events (10 seats)',
-      'Quarterly meetings with NIQS leadership',
+      'Headline Platinum Sponsor status',
+      'Logo placement on all event banners',
+      'Full-page brochure ad',
+      '15-minute speaking slot',
+      '1-minute promotional video slot',
+      'Company logo on NIQS partnership page',
+      'Full-page color ads in the 2027 calendar',
+      'Full-page color ads in an edition of QS Connect',
+      '2 complimentary delegate slots',
+      '2 complimentary guest passes to Fellows investiture dinner',
+      'Roll-up banners display',
+      'Official brand recognition',
     ],
   },
   {
-    name: 'Gold',
-    price: '₦5,000,000+',
-    period: 'per annum',
+    name: 'Gold Partner',
     platinum: false,
     icon: 'trophy',
     benefits: [
-      'Prominent branding at NIQS national events',
-      'Half-page advertisement in NIQS publications',
-      'Logo on NIQS website partners page',
-      'Exhibition space at the Annual Conference',
-      'Access to NIQS CPD workshops for staff training',
-      'VIP hospitality at NIQS events (5 seats)',
-      'Bi-annual meetings with NIQS leadership',
+      'Prominent Gold sponsor status',
+      'Logo placement on all event banners',
+      'Full-page brochure ad',
+      '10-minute speaking slot',
+      'Company logo on NIQS partnership page',
+      'Full-page color ads in the 2027 calendar',
+      '1 complimentary delegate slot',
+      '1 complimentary guest pass to Fellows investiture dinner',
+      'Official brand recognition',
     ],
   },
   {
-    name: 'Silver',
-    price: '₦2,000,000+',
-    period: 'per annum',
+    name: 'Silver Partner',
     platinum: false,
     icon: 'award',
     benefits: [
-      'Branding at selected NIQS events',
-      'Quarter-page advertisement in NIQS Journal',
-      'Logo on NIQS website partners page',
-      'Complimentary conference registration (3 delegates)',
-      'Newsletter mention to NIQS membership',
-      'Certificate of Silver Partnership',
+      'Silver sponsor status',
+      'Logo placement on event banners',
+      'Full-page brochure ad',
+      '5-minute speaking slot',
+      '2 complimentary guest passes to Induction dinner',
+      'Official brand recognition',
     ],
+  },
+  {
+    name: 'In-Kind Sponsorship',
+    platinum: false,
+    icon: 'handshake',
+    intro: 'Sponsorship of any/all of the following items:',
+    benefits: [
+      'Workshop Materials', 'Tea Breaks', 'Lunch/Dinner', 'AGM/BGM Refreshments', 'Flight Tickets',
+      'Hotel Accommodation', 'Exhibition Booths Construction', 'Logistics Support etc.',
+    ],
+    note: 'In-Kind support comes with official brand recognition.',
   },
 ];
 
@@ -88,6 +104,7 @@ function LogoBlock({ partner, size = 'md' }) {
 
 export default function Partnership() {
   const memberCopy = useMemberCopy();
+  const chapterCount = useChapterCount() ?? CHAPTERS_FALLBACK;
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -108,7 +125,6 @@ export default function Partnership() {
   const platinum = dbPlatinum;
   const gold     = dbGold;
   const others   = dbOthers;
-  const noPartnersYet = !loading && partners.length === 0;
 
   return (
     <>
@@ -132,19 +148,19 @@ export default function Partnership() {
                 body in construction cost management.
               </p>
               <p className="sd" style={{ marginBottom: '1.2rem' }}>
-                With {memberCopy} members across its state chapters, NIQS provides unparalleled access to
-                the quantity surveying profession in Nigeria and across West Africa.
+                With {memberCopy} members across {chapterCount} state chapters, NIQS provides unparalleled access to
+                quantity surveying professions in Nigeria, Africa and across the World.
               </p>
               <p className="sd" style={{ marginBottom: '2rem' }}>
                 Whether you are a construction firm, financial institution, technology provider,
                 or government agency, NIQS offers tailored packages to meet your objectives.
               </p>
-              <Link to="/contact" className="btn bg">Enquire Now</Link>
+              <a href="mailto:marketing@niqs.org.ng" className="btn bg">Enquire Now</a>
             </div>
             <div className="reveal d1">
               <img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=700&q=80&fit=crop"
-                alt="Partnership handshake"
+                src="/about/niqs-secretariat-reception.jpg"
+                alt="Reception at the NIQS National Secretariat"
                 style={{ width: '100%', borderRadius: 14, objectFit: 'cover', border: '1px solid var(--color-bdr)' }}
               />
             </div>
@@ -166,25 +182,22 @@ export default function Partnership() {
         </section>
       )}
 
-      {/* ── No partners on file yet ── */}
-      {noPartnersYet && (
-        <section className="section-alt">
-          <div className="ct" style={{ paddingTop: '4.5rem', paddingBottom: '4.5rem' }}>
-            <div className="ptn-cta">
-              <div>
-                <h3>Be Among the First Foundation Partners of NIQS</h3>
-                <p>
-                  Partner profiles will appear here as agreements are concluded. Organisations
-                  interested in a partnership tier can speak to the National Secretariat today.
-                </p>
-              </div>
-              <div className="ptn-cta-btns">
-                <Link to="/contact" className="btn bp">Enquire Now</Link>
-              </div>
-            </div>
+      {/* ── Sponsors & partners (data/sponsors.js), linking to their sites ── */}
+      <section className="section-alt">
+        <div className="ct" style={{ paddingTop: '4.5rem', paddingBottom: '4.5rem', textAlign: 'center' }}>
+          <div className="ey" style={{ justifyContent: 'center' }}>Sponsors &amp; Partners</div>
+          <h2 className="sh">Our Sponsors <em>&amp; Partners</em></h2>
+          <div className="spn-logos">
+            {sponsors.map(p => (p.url ? (
+              <a key={p.name} href={p.url} target="_blank" rel="noopener noreferrer" className="spn-logo" title={p.name}>
+                <img src={p.logo} alt={p.name} loading="lazy" />
+              </a>
+            ) : (
+              <span key={p.name} className="spn-logo" title={p.name}><img src={p.logo} alt={p.name} loading="lazy" /></span>
+            )))}
           </div>
-        </section>
-      )}
+        </div>
+      </section>
 
       {/* ── Platinum Partners ── */}
       {!loading && platinum.length > 0 && (
@@ -358,8 +371,10 @@ export default function Partnership() {
             <div className="ey reveal" style={{ justifyContent: 'center' }}>Partnership Tiers</div>
             <h2 className="sh reveal d1">Choose Your <em>Partnership Level</em></h2>
             <p className="sd reveal d2" style={{ maxWidth: '100%' }}>
-              Choose the tier that aligns with your organisation's goals and budget. All partners
-              receive formal certification and exclusive benefits.
+              Choose the Partnership Level that best aligns with your organisation's goals and budget. Position
+              your organisation, gain direct, high-impact visibility and strategic market reach among key
+              decision-makers, industry leaders, and top-tier professionals driving the future of construction
+              and development.
             </p>
           </div>
 
@@ -370,14 +385,11 @@ export default function Partnership() {
                   <div style={{ display: 'flex', gap: '1rem', alignItems: 'center' }}>
                     <div style={{ color: 'var(--color-gold)' }}><Icon name={tier.icon} size="xl" /></div>
                     <div>
-                      <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.15rem', color: 'var(--color-navy)', letterSpacing: '-.03em' }}>{tier.name} Partner</div>
-                      <div style={{ fontSize: '.72rem', color: 'var(--color-txt-3)' }}>{tier.period}</div>
+                      <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.15rem', color: 'var(--color-navy)', letterSpacing: '-.03em' }}>{tier.name}</div>
+                      {tier.intro && <div style={{ fontSize: '.78rem', color: 'var(--color-txt-3)' }}>{tier.intro}</div>}
                     </div>
                   </div>
-                  <div style={{ textAlign: 'right' }}>
-                    <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 800, fontSize: '1.4rem', color: tier.platinum ? 'var(--color-gold)' : 'var(--color-navy)', letterSpacing: '-.04em' }}>{tier.price}</div>
-                    <Link to="/contact" className="btn bg" style={{ marginTop: '.5rem', padding: '6px 18px', fontSize: '.76rem' }}>Inquire</Link>
-                  </div>
+                  <a href="mailto:marketing@niqs.org.ng" className="btn bg" style={{ padding: '6px 18px', fontSize: '.76rem' }}>Inquire</a>
                 </div>
                 <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: '.35rem' }}>
                   {tier.benefits.map((b, j) => (
@@ -387,6 +399,23 @@ export default function Partnership() {
                     </div>
                   ))}
                 </div>
+                {tier.note && <p style={{ fontSize: '.8rem', color: 'var(--color-txt-2)', margin: '.9rem 0 0', fontStyle: 'italic' }}>{tier.note}</p>}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Affiliate bodies (AFFILIATE BODIES.docx, 4 Nov 2026) ── */}
+      <section style={{ background: '#fff' }}>
+        <div className="ct" style={{ paddingTop: '4.5rem', paddingBottom: '4.5rem', textAlign: 'center' }}>
+          <div className="ey" style={{ justifyContent: 'center' }}>Affiliations</div>
+          <h2 className="sh">Affiliate / Member of the <em>Following Bodies</em></h2>
+          <div className="aff-logos">
+            {affiliates.map(a => (
+              <div className="aff-logo" key={a.name}>
+                <div className="aff-logo-img"><img src={a.logo} alt={a.name} loading="lazy" /></div>
+                <span>{a.name}</span>
               </div>
             ))}
           </div>
@@ -399,12 +428,12 @@ export default function Partnership() {
           <div className="ctaw">
             <h2>Become a <em>Strategic Partner</em></h2>
             <p>
-              Interested in partnering with NIQS? Contact our partnerships team to discuss
-              how your organisation can benefit from alignment with Nigeria's foremost QS body.
+              Contact our Marketing Team to explore strategic collaboration opportunities and discuss how we
+              can build a mutually beneficial partnership.
             </p>
             <div className="ctarow">
-              <Link to="/contact" className="btn bg">Contact Us Today</Link>
-              <a href="mailto:partnerships@niqs.org.ng" className="btn bo" style={{ color: '#fff', borderColor: 'rgba(255,255,255,.3)' }}>partnerships@niqs.org.ng</a>
+              <a href="mailto:marketing@niqs.org.ng" className="btn bg">Contact Us Today</a>
+              <a href="mailto:marketing@niqs.org.ng" className="btn bo" style={{ color: '#fff', borderColor: 'rgba(255,255,255,.3)' }}>marketing@niqs.org.ng</a>
             </div>
           </div>
         </div>

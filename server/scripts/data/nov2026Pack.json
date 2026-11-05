@@ -1,0 +1,1263 @@
+{
+  "_source": "Gloria Ifiorah (Deputy Executive Secretary, Corporate Affairs & Advocacy), email of 4 Nov 2026 13:58 WAT, and the Drive folder MATERIALS / MATERIAL - BATCH 2 it links to. 'basis' says where each value comes from; 'inferred' marks a name order ADLM read from the name itself, for the Secretariat to confirm.",
+  "renames": [
+    {
+      "scope": "chapter",
+      "state": "Borno State",
+      "from": "QS B. Tanko, MNIQS",
+      "to": "QS Tahir B. Tanko, MNIQS",
+      "basis": "photo caption, PENDING - ALL CHAPTER CORRECTIONS (4 Nov)"
+    },
+    {
+      "scope": "chapter",
+      "state": "Borno State",
+      "from": "QS A. Muhammad, MNIQS",
+      "to": "QS Abdullahi Muhammad, MNIQS",
+      "basis": "first name from the Borno chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Borno State",
+      "from": "S. Simon",
+      "to": "Stephen Simon",
+      "basis": "first name from the Borno chapter pack; no QS, as the Oct correction gave it"
+    },
+    {
+      "scope": "chapter",
+      "state": "Borno State",
+      "from": "QS T. Idris, MNIQS",
+      "to": "QS Tijani Idris, MNIQS",
+      "basis": "Borno chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Borno State",
+      "from": "QS D. Wadai, MNIQS",
+      "to": "QS Dauda Wadai, MNIQS",
+      "basis": "Borno chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Borno State",
+      "from": "QS I. A. Modu, MNIQS",
+      "to": "QS Ibrahim Alhaji Modu, MNIQS",
+      "basis": "Borno chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Borno State",
+      "from": "QS Y. A. Margima, MNIQS",
+      "to": "QS Yakubu Askarju Margima, MNIQS",
+      "basis": "Borno chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS Francis O. Okorho, FNIQS",
+      "to": "QS Francis Ogheneyare Okorho, FNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS A. O. Andrew, MNIQS",
+      "to": "QS Akpomiemie Oghenemene Andrew, MNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS F. E. Jegbe, MNIQS",
+      "to": "QS Fortune Eguonoghene Jegbe, MNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS E. E. Ikhide, MNIQS",
+      "to": "QS Emily Ekata Ikhide, MNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS O. N. Joe, MNIQS",
+      "to": "QS Omaghomi Noyo Joe, MNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS Omoh-Paul I., MNIQS",
+      "to": "QS Omoh-Paul Igbebo, MNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS I. P. U.N., MNIQS",
+      "to": "QS Ibatere Prosper U.N., MNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "N. S. Ifechukwude",
+      "to": "Nwazodoni Samuel Ifechukwude",
+      "basis": "Delta chapter pack; no QS, as the Oct correction gave it"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS P. Olorunfemi, MNIQS",
+      "to": "QS Paul Olorunfemi, MNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS N. E. Ifeoma, MNIQS",
+      "to": "QS Nneli Esther Ifeoma, MNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS Dr. C. O. Aduze, FNIQS",
+      "to": "QS Dr. Clement Onowono Aduze, FNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS M. O. Izevbokun, FNIQS",
+      "to": "QS Martins Osa Izevbokun, FNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Delta State",
+      "from": "QS S. P. Onoriode, FNIQS",
+      "to": "QS Siakpere Patrick Onoriode, FNIQS",
+      "basis": "Delta chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kogi State",
+      "from": "QS A. A. Samuel, MNIQS",
+      "to": "QS Audu Akoji Samuel, MNIQS",
+      "basis": "Kogi chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kogi State",
+      "from": "QS O. I. Bayo, MNIQS",
+      "to": "QS Ogunseemi Isreal Bayo, MNIQS",
+      "basis": "Kogi chapter pack (spelling as supplied)"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kogi State",
+      "from": "QS E. K. Jeremiah, MNIQS",
+      "to": "QS Egamana Kabo Jeremiah, MNIQS",
+      "basis": "Kogi chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kogi State",
+      "from": "QS M. Hadiza, MNIQS",
+      "to": "QS Mohammad Hadiza, MNIQS",
+      "basis": "Kogi chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kogi State",
+      "from": "QS O. Samuel, MNIQS",
+      "to": "QS Omowunmi Samuel, MNIQS",
+      "basis": "Kogi chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kogi State",
+      "from": "O. Casimir",
+      "to": "Onimisi Casimir",
+      "basis": "Kogi chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ogun State",
+      "from": "QS E. Ola-Ade, FNIQS",
+      "to": "QS Esther Ola-Ade, FNIQS",
+      "basis": "Ogun chapter pack; NPC roster 'QS Esther O. Ola-Ade'"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ogun State",
+      "from": "QS Lukman Adewunmi",
+      "to": "Lukman Adewunmi",
+      "basis": "PENDING - CORRECTIONS FOR ALL CHAPTERS.docx: remove QS"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ogun State",
+      "from": "QS Azeez Mustapha",
+      "to": "Azeez Mustapha",
+      "basis": "PENDING - CORRECTIONS FOR ALL CHAPTERS.docx: remove QS"
+    },
+    {
+      "scope": "chapter",
+      "state": "Zamfara State",
+      "from": "A. Ibrahim",
+      "to": "Abdurrahman Ibrahim",
+      "basis": "Zamfara chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Rivers State",
+      "from": "I. S. Nwachukwu",
+      "to": "Izidor Smith Nwachukwu",
+      "basis": "Rivers chapter pack"
+    },
+    {
+      "scope": "chapter",
+      "state": "Imo State",
+      "from": "QS Egbujor Jane, MNQIS",
+      "to": "QS Egbujor Jane, MNIQS",
+      "basis": "post-nominal typo (MNQIS)"
+    },
+    {
+      "scope": "national",
+      "title": "Sokoto State Chapter Chairman",
+      "from": "QS Sule Umar, FNIQS",
+      "to": "QS Umar Sule, FNIQS",
+      "basis": "Secretariat's photo caption and the chapter record"
+    },
+    {
+      "scope": "npc",
+      "title": "Sokoto-Kebbi State Chapter Chairman",
+      "from": "QS Sule Umar, FNIQS",
+      "to": "QS Umar Sule, FNIQS",
+      "basis": "Secretariat's photo caption and the chapter record"
+    },
+    {
+      "scope": "national",
+      "title": "Oyo State Chapter Chairman",
+      "from": "QS Kolawole Kayode Oluwade, FNIQS",
+      "to": "QS Abass Adelayo, MNIQS",
+      "basis": "new Oyo chairman (OYO STATE CHAPTER - NEW, 4 Nov); NPC roster already lists 'QS Adelayo F. Abass'"
+    }
+  ],
+  "addQS": [
+    {
+      "scope": "chapter",
+      "state": "Niger State",
+      "basis": "PENDING - CORRECTIONS FOR ALL CHAPTERS.docx: add QS in front of all the members of the Niger chapter"
+    }
+  ],
+  "displayOverrides": [
+    {
+      "scope": "chapter",
+      "state": "Kogi State",
+      "name": "Lawal Rashidat",
+      "shortName": "Rashidat Lawal",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kwara State",
+      "name": "QS Dr T. O. O. Olowa, FNIQS",
+      "shortName": "QS Dr Theophilus O. Olowa, FNIQS",
+      "basis": "NPC roster 'QS Theophilus O. Olowa'"
+    },
+    {
+      "scope": "chapter",
+      "state": "Niger State",
+      "name": "QS Musa Umar Dantani, MNIQS",
+      "shortName": "QS Umar D. Musa, MNIQS",
+      "basis": "NPC roster 'QS Umar D. Musa'"
+    },
+    {
+      "scope": "chapter",
+      "state": "Niger State",
+      "name": "QS Abdulsalam Asmau, MNIQS",
+      "shortName": "QS Asmau Abdulsalam, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Niger State",
+      "name": "QS Abdulmalik Amina, MNIQS",
+      "shortName": "QS Amina Abdulmalik, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Niger State",
+      "name": "QS Ayenajeyi Philemon Tolonu, MNIQS",
+      "shortName": "QS Philemon T. Ayenajeyi, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Edo State",
+      "name": "QS Dr. Ogbu Chukwuemeka Patrick, MNIQS",
+      "shortName": "QS Dr. Chukwuemeka P. Ogbu, MNIQS",
+      "basis": "NEC record 'QS Dr. Chukwuemeka Patrick Ogbu'"
+    },
+    {
+      "scope": "chapter",
+      "state": "Anambra State",
+      "name": "QS Oduenyi Donatus Chidi, MNIQS",
+      "shortName": "QS Donatus C. Oduenyi, MNIQS",
+      "basis": "NEC record 'QS Donatus Chidi Oduenyi'"
+    },
+    {
+      "scope": "chapter",
+      "state": "Anambra State",
+      "name": "QS Akudoro Nnaemeka, MNIQS",
+      "shortName": "QS Nnaemeka Akudoro, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Anambra State",
+      "name": "QS Nwobu Ifeanyi, MNIQS",
+      "shortName": "QS Ifeanyi Nwobu, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Anambra State",
+      "name": "QS Anosike Ifeoma, MNIQS",
+      "shortName": "QS Ifeoma Anosike, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Anambra State",
+      "name": "QS Onwuvunka Emmanuel, MNIQS",
+      "shortName": "QS Emmanuel Onwuvunka, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Anambra State",
+      "name": "QS Obiano Vivian Chikaodili, MNIQS",
+      "shortName": "QS Vivian C. Obiano, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Anambra State",
+      "name": "QS Madueke Chiedu, MNIQS",
+      "shortName": "QS Chiedu Madueke, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ekiti State",
+      "name": "QS Ajayi Adeife Oluyemi, MNIQS",
+      "shortName": "QS Adeife O. Ajayi, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ekiti State",
+      "name": "QS Abe Adekunle, MNIQS",
+      "shortName": "QS Adekunle Abe, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ekiti State",
+      "name": "QS Kolawole Sunday Benjami, MNIQS",
+      "shortName": "QS Sunday B. Kolawole, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ekiti State",
+      "name": "QS Olanbiwonnu Olayide, MNIQS",
+      "shortName": "QS Olayide Olanbiwonnu, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ekiti State",
+      "name": "QS Adebayo B. O, MNIQS",
+      "shortName": "QS B. O. Adebayo, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Imo State",
+      "name": "QS Dr. Amuda Ogochukwu, FNIQS",
+      "shortName": "QS Dr. Ogochukwu Amuda, FNIQS",
+      "basis": "NPC roster 'QS Ogochukwu A. Amuda'"
+    },
+    {
+      "scope": "chapter",
+      "state": "Imo State",
+      "name": "QS Ihezie Dennis N., MNIQS",
+      "shortName": "QS Dennis N. Ihezie, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Imo State",
+      "name": "QS Dr. Ejekwu Tobechi, MNIQS",
+      "shortName": "QS Dr. Tobechi Ejekwu, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Imo State",
+      "name": "QS Dr. Ohamma Victor, MNIQS",
+      "shortName": "QS Dr. Victor Ohamma, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Imo State",
+      "name": "QS Egbujor Jane, MNIQS",
+      "shortName": "QS Jane Egbujor, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Imo State",
+      "name": "Mbamaonyeukwu Prisca Chiamaka",
+      "shortName": "Prisca C. Mbamaonyeukwu",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Benue State",
+      "name": "QS Aliegba Benjamin A., MNIQS",
+      "shortName": "QS Benjamin A. Aliegba, MNIQS",
+      "basis": "NPC roster"
+    },
+    {
+      "scope": "chapter",
+      "state": "Bauchi State",
+      "name": "QS Abdulhamid Mohammed, MNIQS",
+      "shortName": "QS Mohammed Abdulhamid, MNIQS",
+      "basis": "NPC roster"
+    },
+    {
+      "scope": "chapter",
+      "state": "Bayelsa State",
+      "name": "QS Amangala Mabel Morris, FNIQS",
+      "shortName": "QS Mabel M. Amangala, FNIQS",
+      "basis": "NPC roster"
+    },
+    {
+      "scope": "chapter",
+      "state": "Bayelsa State",
+      "name": "QS Kubiat-Sifon Thompson, MNIQS",
+      "shortName": "QS Kubiat-Sifon Thompson, MNIQS",
+      "basis": "hyphenated first name, not a surname"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ondo State",
+      "name": "QS Fadiyimu Akinlolu Oyebobola, FNIQS",
+      "shortName": "QS Akinlolu O. Fadiyimu, FNIQS",
+      "basis": "NPC roster"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ondo State",
+      "name": "QS Ayinla Olasunkanmi, MNIQS",
+      "shortName": "QS Olasunkanmi Ayinla, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ondo State",
+      "name": "QS Gbadebo Bunmi, MNIQS",
+      "shortName": "QS Bunmi Gbadebo, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ondo State",
+      "name": "QS Akinsanmi Taiwo Mary, MNIQS",
+      "shortName": "QS Taiwo M. Akinsanmi, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ondo State",
+      "name": "QS Oganah Endurance, MNIQS",
+      "shortName": "QS Endurance Oganah, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ondo State",
+      "name": "QS Olanitori Morolayo-Olayemi, MNIQS",
+      "shortName": "QS Morolayo-Olayemi Olanitori, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ondo State",
+      "name": "QS Jayeoba Oluyemisi, MNIQS",
+      "shortName": "QS Oluyemisi Jayeoba, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ondo State",
+      "name": "QS Momoh Temitope, FNIQS",
+      "shortName": "QS Temitope Momoh, FNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ondo State",
+      "name": "QS Aina Olanrewaju, MNIQS",
+      "shortName": "QS Olanrewaju Aina, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "QS Agha Kalu Agwu, MNIQS",
+      "shortName": "QS Kalu A. Agha, MNIQS",
+      "basis": "NPC roster"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "QS Nwafor Eric Eze, MNIQS",
+      "shortName": "QS Eric E. Nwafor, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "QS Eze Clinton Ogbonnia, MNIQS",
+      "shortName": "QS Clinton O. Eze, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "Miss Agha Charity C.",
+      "shortName": "Charity C. Agha",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "QS Adeniyi Gbenga, MNIQS",
+      "shortName": "QS Gbenga Adeniyi, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "Mr Aliechem Reuben C.",
+      "shortName": "Reuben C. Aliechem",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "Mr Abrams Ikechukwu D.",
+      "shortName": "Ikechukwu D. Abrams",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "QS Onya Benjamin Chinedu, MNIQS",
+      "shortName": "QS Benjamin C. Onya, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "QS Chukwu Patrick Oko, MNIQS",
+      "shortName": "QS Patrick O. Chukwu, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Ebonyi State",
+      "name": "QS Anikwe Nnaemeka J., MNIQS",
+      "shortName": "QS Nnaemeka J. Anikwe, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Abia State",
+      "name": "QS Ukawuba Anthony I., MNIQS",
+      "shortName": "QS Anthony I. Ukawuba, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Abia State",
+      "name": "QS Wamah Kelechi Prince, MNIQS",
+      "shortName": "QS Kelechi P. Wamah, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Abia State",
+      "name": "QS Okorie Bassey O., MNIQS",
+      "shortName": "QS Bassey O. Okorie, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kwara State",
+      "name": "QS Abdulganiyu Sekinat Titilayo, MNIQS",
+      "shortName": "QS Sekinat T. Abdulganiyu, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kwara State",
+      "name": "QS Olorunlogbon Olayemi, MNIQS",
+      "shortName": "QS Olayemi Olorunlogbon, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kwara State",
+      "name": "QS Adeoti Bashir Olanrewaju, MNIQS",
+      "shortName": "QS Bashir O. Adeoti, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kwara State",
+      "name": "QS Afolabi Iyabo Tina, MNIQS",
+      "shortName": "QS Iyabo T. Afolabi, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kwara State",
+      "name": "QS Giwa Yusuf, MNIQS",
+      "shortName": "QS Yusuf Giwa, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kwara State",
+      "name": "QS Bagbansoro Uthman, MNIQS",
+      "shortName": "QS Uthman Bagbansoro, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Kwara State",
+      "name": "QS Muhammed Naja'atu, MNIQS",
+      "shortName": "QS Naja'atu Muhammed, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Lagos State",
+      "name": "QS Adewumi Samuel, MNIQS",
+      "shortName": "QS Samuel Adewumi, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Yobe State",
+      "name": "QS Olubummo Adeniyi Sola, MNIQS",
+      "shortName": "QS Adeniyi S. Olubummo, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Rivers State",
+      "name": "QS Egwuonwu Obinna Goodnews, MNIQS",
+      "shortName": "QS Obinna G. Egwuonwu, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Rivers State",
+      "name": "QS Okwukwu Precious Oma, MNIQS",
+      "shortName": "QS Precious O. Okwukwu, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "chapter",
+      "state": "Rivers State",
+      "name": "QS Obilor Romanus Amaechi, MNIQS",
+      "shortName": "QS Romanus A. Obilor, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "waqsn",
+      "name": "QS Aluko Veronica Mojisola, FNIQS",
+      "shortName": "QS Veronica M. Aluko, FNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "waqsn",
+      "name": "QS Udoette Unyimeabasi, FNIQS",
+      "shortName": "QS Unyimeabasi Udoette, FNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "waqsn",
+      "name": "QS Otunola Bunmi Tayo, MNIQS",
+      "shortName": "QS Bunmi T. Otunola, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "waqsn",
+      "name": "QS Chime Grace, MNIQS",
+      "shortName": "QS Grace Chime, MNIQS",
+      "basis": "Gloria's email writes 'QS Grace Chime'"
+    },
+    {
+      "scope": "waqsn",
+      "name": "QS Ikpefan Augustina, MNIQS",
+      "shortName": "QS Augustina Ikpefan, MNIQS",
+      "basis": "Gloria's email writes 'QS Augustina Ikpefan'"
+    },
+    {
+      "scope": "waqsn",
+      "name": "QS Okoh Monisola Rachel, FNIQS",
+      "shortName": "QS Monisola R. Okoh, FNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "waqsn",
+      "name": "QS Anyigor Bridget Ifunanya, MNIQS",
+      "shortName": "QS Ifunanya B. Anyigor, MNIQS",
+      "basis": "YQSF record 'Ifunanya Bridget Anyigor'"
+    },
+    {
+      "scope": "waqsn",
+      "name": "QS Okwukwu Precious Oma, MNIQS",
+      "shortName": "QS Precious O. Okwukwu, MNIQS",
+      "basis": "inferred"
+    },
+    {
+      "scope": "national",
+      "name": "QS Agha Kalu Agwu, MNIQS",
+      "shortName": "QS Kalu A. Agha, MNIQS",
+      "basis": "NPC roster"
+    },
+    {
+      "scope": "npc",
+      "name": "QS Gyadi-Gyadi S. Musa, MNIQS",
+      "shortName": "QS Gyadi-Gyadi S. Musa, MNIQS",
+      "basis": "NPC roster already in the agreed order; kept as written"
+    },
+    {
+      "scope": "national",
+      "name": "QS Abass Adelayo, MNIQS",
+      "shortName": "QS Adelayo Abass, MNIQS",
+      "basis": "NPC roster 'QS Adelayo F. Abass'"
+    }
+  ],
+  "rosters": {
+    "Kaduna Chapter": {
+      "state": "Kaduna State",
+      "group": "kaduna",
+      "basis": "CHAPTERS / KADUNA STATE CHAPTER - NEW (new executives, 4 Nov)",
+      "members": [
+        [
+          "saidu-mohammed-minin",
+          "QS Saidu Mohammed Minin, MNIQS",
+          "Chapter Chairman",
+          ""
+        ],
+        [
+          "jonathan-a-daniel",
+          "QS Jonathan A. Daniel, FNIQS",
+          "Deputy Chairman",
+          ""
+        ],
+        [
+          "maryam-nadabo",
+          "QS Maryam Nadabo, MNIQS",
+          "General Secretary",
+          ""
+        ],
+        [
+          "habu-david-obadiah",
+          "QS Habu David Obadiah, MNIQS",
+          "Assistant General Secretary",
+          ""
+        ],
+        [
+          "lawal-abdulkadir-babale",
+          "QS Lawal Abdulkadir Babale, FNIQS",
+          "Treasurer",
+          ""
+        ],
+        [
+          "oluwasakin-t-olusanya",
+          "QS Oluwasakin T. Olusanya, FNIQS",
+          "Financial Secretary",
+          ""
+        ],
+        [
+          "ibraheem-yakubu",
+          "QS Ibraheem Yakubu, MNIQS",
+          "Public Relations Secretary",
+          ""
+        ],
+        [
+          "ombugadu-tsaku",
+          "QS Ombugadu Tsaku, MNIQS",
+          "Research & Development Secretary",
+          ""
+        ],
+        [
+          "kogi-timothy-marcus",
+          "QS Kogi Timothy Marcus, MNIQS",
+          "Ex-Officio I",
+          ""
+        ],
+        [
+          "yusuf-musa-uba",
+          "QS Yusuf Musa Uba, MNIQS",
+          "Ex-Officio II",
+          ""
+        ]
+      ]
+    },
+    "Oyo Chapter": {
+      "state": "Oyo State",
+      "group": "oyo",
+      "basis": "CHAPTERS / OYO STATE CHAPTER - NEW (new executives, 4 Nov)",
+      "members": [
+        [
+          "abass-adelayo",
+          "QS Abass Adelayo, MNIQS",
+          "Chairman",
+          "QS Adelayo Abass, MNIQS"
+        ],
+        [
+          "ogundeji-emmanuel-segun",
+          "QS Ogundeji Emmanuel Segun, FNIQS",
+          "Deputy Chairman",
+          "QS Emmanuel S. Ogundeji, FNIQS"
+        ],
+        [
+          "afe-peter",
+          "QS Afe Peter, MNIQS",
+          "General Secretary",
+          "QS Peter Afe, MNIQS"
+        ],
+        [
+          "adigun-olaitan-paul",
+          "QS Adigun Olaitan Paul, MNIQS",
+          "Assistant General Secretary",
+          "QS Olaitan P. Adigun, MNIQS"
+        ],
+        [
+          "balogun-margret",
+          "QS Balogun Margret, FNIQS",
+          "Treasurer",
+          "QS Margret Balogun, FNIQS"
+        ],
+        [
+          "hezekiah-olatunji",
+          "QS Hezekiah Olatunji, MNIQS",
+          "Financial Secretary",
+          ""
+        ],
+        [
+          "onifade-oludotun",
+          "QS Onifade Oludotun, MNIQS",
+          "Publicity Relations Secretary",
+          "QS Oludotun Onifade, MNIQS"
+        ],
+        [
+          "adeyeye-damilare-samuel",
+          "QS Adeyeye Damilare Samuel, MNIQS",
+          "Research & Development Secretary",
+          "QS Damilare S. Adeyeye, MNIQS"
+        ],
+        [
+          "opatoki-oluwatoyin-hannah",
+          "QS Opatoki Oluwatoyin Hannah, MNIQS",
+          "Welfare Secretary",
+          "QS Oluwatoyin H. Opatoki, MNIQS"
+        ],
+        [
+          "agboola-tolu",
+          "QS Agboola Tolu, MNIQS",
+          "Ex-Officio I",
+          "QS Tolu Agboola, MNIQS"
+        ],
+        [
+          "leo-olagbaye-feyisetan",
+          "QS Dr. Leo-Olagbaye Feyisetan, FNIQS",
+          "Ex-Officio II",
+          ""
+        ],
+        [
+          "egbedayo-olufunmilayo",
+          "QS Egbedayo Olufunmilayo, MNIQS",
+          "Co-opted WAQSN Representative",
+          "QS Olufunmilayo Egbedayo, MNIQS"
+        ],
+        [
+          "morakinyo-victoria-mercy",
+          "QS Morakinyo Victoria Mercy, MNIQS",
+          "Co-opted YQSF Representative",
+          "QS Victoria M. Morakinyo, MNIQS"
+        ]
+      ]
+    },
+    "Osun Chapter": {
+      "state": "Osun State",
+      "group": "osun",
+      "basis": "CHAPTERS / OSUN CHAPTER NEW SENATE (new executives, 4 Nov)",
+      "members": [
+        [
+          "olayinka-kingsley-otaru",
+          "QS Olayinka Kingsley-Otaru, FNIQS",
+          "Chapter Chairperson",
+          ""
+        ],
+        [
+          "oladele-ayinde-opatunji",
+          "QS Oladele Ayinde Opatunji, FNIQS",
+          "Deputy Chairman",
+          ""
+        ],
+        [
+          "oyeniran-taofeek-bamidele",
+          "QS Oyeniran Taofeek Bamidele, MNIQS",
+          "General Secretary",
+          "QS Taofeek B. Oyeniran, MNIQS"
+        ],
+        [
+          "sanusi-isaac-olakunle",
+          "Sanusi Isaac Olakunle",
+          "Assistant General Secretary",
+          "Isaac O. Sanusi"
+        ],
+        [
+          "oladosu-ismaila-damilola",
+          "QS Oladosu Ismaila Damilola, MNIQS",
+          "Treasurer",
+          "QS Ismaila D. Oladosu, MNIQS"
+        ],
+        [
+          "adejumobi-muideen-kolade",
+          "QS Adejumobi Muideen Kolade, MNIQS",
+          "Financial Secretary",
+          "QS Muideen K. Adejumobi, MNIQS"
+        ],
+        [
+          "salaudeen-abd-rasheed-adekunle",
+          "QS Salaudeen Abd-Rasheed Adekunle, MNIQS",
+          "Public Relations Secretary",
+          "QS Abd-Rasheed A. Salaudeen, MNIQS"
+        ],
+        [
+          "olumide-oyewo",
+          "QS Olumide Oyewo, MNIQS",
+          "Research & Development Secretary",
+          ""
+        ],
+        [
+          "fasanmoye-joy-oluwaseyi",
+          "QS Fasanmoye Joy Oluwaseyi, MNIQS",
+          "Welfare Secretary",
+          "QS Joy O. Fasanmoye, MNIQS"
+        ],
+        [
+          "nofiu-abiodun-musa",
+          "QS Dr. Nofiu Abiodun Musa, MNIQS",
+          "Ex-Officio",
+          ""
+        ],
+        [
+          "adenike-ademiluyi",
+          "QS Adenike Ademiluyi, MNIQS",
+          "Ex-Officio (WAQSN)",
+          ""
+        ]
+      ]
+    }
+  },
+  "portraits": [
+    {
+      "file": "pending/borno-tahir-b-tanko.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Borno State",
+        "title": "Deputy Chairman"
+      }
+    },
+    {
+      "file": "pending/cross-river-njumamaku-b-ekanem.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Cross River State",
+        "title": "Ex-Officio I"
+      }
+    },
+    {
+      "file": "pending/enugu-okechukwu-ekwelem.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Enugu State",
+        "title": "Deputy Chairman"
+      }
+    },
+    {
+      "file": "pending/kogi-lawal-rashidat.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Kogi State",
+        "title": "Financial Secretary"
+      }
+    },
+    {
+      "file": "pending/ogun-temitayo-fasasi.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Ogun State",
+        "title": "Deputy Chairman"
+      }
+    },
+    {
+      "file": "pending/plateau-nentawe-gobur.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Plateau State",
+        "title": "Public Relations Officer"
+      }
+    },
+    {
+      "file": "pending/plateau-panmwa-gupai.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Plateau State",
+        "title": "Treasurer"
+      }
+    },
+    {
+      "file": "pending/sokoto-umar-sule.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Sokoto State",
+        "title": "Chapter Chairman"
+      }
+    },
+    {
+      "file": "pending/sokoto-umar-sule.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "national",
+        "title": "Sokoto State Chapter Chairman"
+      }
+    },
+    {
+      "file": "oyo/abass-adelayo.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "national",
+        "title": "Oyo State Chapter Chairman"
+      }
+    },
+    {
+      "file": "pastpres/hussaini-a-dikko.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "bot",
+        "title": "Chairman"
+      }
+    },
+    {
+      "file": "pastpres/hussaini-a-dikko.jpg",
+      "model": "PastPresident",
+      "filter": {
+        "name": "QS Hussaini A. Dikko, FNIQS"
+      }
+    },
+    {
+      "file": "pastpres/mercy-iyortyer.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "bot",
+        "name": "QS Mercy T. Iyortyer, FNIQS, PPNIQS"
+      }
+    },
+    {
+      "file": "pastpres/mercy-iyortyer.jpg",
+      "model": "PastPresident",
+      "filter": {
+        "name": "QS Mercy Iyortyer, FNIQS"
+      }
+    },
+    {
+      "file": "pastpres/godson-o-moneke.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "bot",
+        "name": "QS Godson Onyebueke Moneke, FNIQS"
+      }
+    },
+    {
+      "file": "pastpres/tony-v-ndah.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "bot",
+        "name": "QS Anthony V. Ndah, FNIQS"
+      }
+    },
+    {
+      "file": "pastpres/oladimeji-o-garuba.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "bot",
+        "name": "QS Oladimeji Olumuyiwa Garuba, FNIQS"
+      }
+    },
+    {
+      "file": "waqsn/priscilla-o-okeke.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "waqsn",
+        "name": "QS Priscilla O. Okeke, FNIQS"
+      }
+    },
+    {
+      "file": "waqsn/olufunke-omowumi-ojolowo.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "waqsn",
+        "name": "QS Olufunke Omowumi Ojolowo, MNIQS"
+      }
+    },
+    {
+      "file": "waqsn/otunola-bunmi-tayo.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "waqsn",
+        "name": "QS Otunola Bunmi Tayo, MNIQS"
+      }
+    },
+    {
+      "file": "waqsn/chime-grace.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "waqsn",
+        "name": "QS Chime Grace, MNIQS"
+      }
+    },
+    {
+      "file": "waqsn/maria-musa-mukaddas.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "waqsn",
+        "name": "QS Maria Musa Mukaddas, MNIQS"
+      }
+    },
+    {
+      "file": "waqsn/hadiza-larai-muhammed.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "waqsn",
+        "name": "QS Hadiza Larai Muhammed, MNIQS"
+      }
+    },
+    {
+      "file": "waqsn/ikpefan-augustina.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "waqsn",
+        "name": "QS Ikpefan Augustina, MNIQS"
+      }
+    },
+    {
+      "file": "waqsn/idayat-o-oladipo.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "waqsn",
+        "name": "QS Idayat O. Oladipo, MNIQS"
+      }
+    },
+    {
+      "file": "katsina/abubakar-yahaya-kusada.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Katsina State",
+        "title": "Chapter Chairman"
+      }
+    },
+    {
+      "file": "katsina/kabir-bawale-nasiru.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Katsina State",
+        "title": "Financial Secretary"
+      }
+    },
+    {
+      "file": "katsina/maryam-muaazu.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Katsina State",
+        "title": "Welfare Director"
+      }
+    },
+    {
+      "file": "katsina/shamsuddeen-hassan.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Katsina State",
+        "title": "Immediate Past Chairman"
+      }
+    },
+    {
+      "file": "katsina/shehu-samaila.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Katsina State",
+        "title": "Ex-Officio I"
+      }
+    },
+    {
+      "file": "katsina/sadiya-sani-yaradua.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Katsina State",
+        "title": "WAQS Coordinator"
+      }
+    }
+  ],
+  "chapterContacts": {
+    "Kaduna Chapter": {
+      "address": "Ministry of Public Works and Infrastructure Complex, Sokoto Road, Kaduna State",
+      "phone": "0706 3139 686, 0708 8086 810",
+      "email": "niqskdchapter@gmail.com",
+      "basis": "CHAPTER PROFILE TEMPLATE SECOND BATCH.docx"
+    }
+  }
+}

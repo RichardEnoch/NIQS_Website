@@ -1,72 +1,59 @@
 /**
- * International reciprocity and mutual-recognition agreements.
+ * The Institute's signed agreements.
  *
  * Single source of truth: the Reciprocity page renders the list and the Home
- * page's hero tile counts it. They previously disagreed — the tile claimed "15+"
- * against a list of twelve — which is exactly what a second copy of a number
- * buys you. Add or remove an agreement here and both surfaces follow.
+ * page's hero tile counts it, so the two can never disagree.
+ *
+ * Replaced on 5 Nov 2026 with the seven agreements the Secretariat sent
+ * (Drive: MATERIAL - BATCH 2 / RECIPROCITY AGREEMENT, 4 Nov 2026), when NIQS
+ * asked for the Home page tile to read 7. The twelve entries before this were
+ * placeholder text written before the documents arrived. Each entry below is
+ * taken from the signed document itself: parties, type and date of signature.
+ * Add an agreement here when the Secretariat sends its signed copy.
  */
 
 export const agreements = [
   {
-    body: 'Royal Institution of Chartered Surveyors (RICS)',
-    country: 'United Kingdom', year: '2005', flag: '🇬🇧',
-    desc: 'Full reciprocity for FNIQS members to attain MRICS status through an assessment of professional competence.',
-  },
-  {
     body: 'Australian Institute of Quantity Surveyors (AIQS)',
-    country: 'Australia', year: '2012', flag: '🇦🇺',
-    desc: 'Mutual recognition agreement enabling members to practice in either jurisdiction subject to local requirements.',
-  },
-  {
-    body: 'Singapore Institute of Surveyors and Valuers (SISV)',
-    country: 'Singapore', year: '2015', flag: '🇸🇬',
-    desc: 'Professional reciprocity covering quantity surveying practice and professional development.',
-  },
-  {
-    body: 'Ghana Institution of Surveyors (GhIS)',
-    country: 'Ghana', year: '2008', flag: '🇬🇭',
-    desc: 'Bilateral agreement for mutual recognition of professional qualifications within West Africa.',
-  },
-  {
-    body: 'Institute of Quantity Surveyors of Kenya (IQSK)',
-    country: 'Kenya', year: '2010', flag: '🇰🇪',
-    desc: 'East-West African partnership for professional exchange and standards harmonisation.',
-  },
-  {
-    body: 'Association of South African Quantity Surveyors (ASAQS)',
-    country: 'South Africa', year: '2014', flag: '🇿🇦',
-    desc: 'Reciprocity for qualified members to practice across both countries.',
-  },
-  {
-    body: 'Hong Kong Institute of Surveyors (HKIS)',
-    country: 'Hong Kong', year: '2017', flag: '🇭🇰',
-    desc: 'Agreement covering professional recognition and collaborative research initiatives.',
-  },
-  {
-    body: 'Chartered Institute of Building (CIOB)',
-    country: 'United Kingdom', year: '2019', flag: '🇬🇧',
-    desc: 'MoU for joint CPD programmes and shared professional development resources.',
-  },
-  {
-    body: 'Pacific Association of Quantity Surveyors (PAQS)',
-    country: 'International', year: '2016', flag: '🌏',
-    desc: 'Membership in the Pacific rim QS alliance for international collaboration.',
-  },
-  {
-    body: 'International Cost Engineering Council (ICEC)',
-    country: 'International', year: '2003', flag: '🌐',
-    desc: 'Affiliation with the global body for cost engineering and quantity surveying.',
+    kind: 'Mutual Recognition Agreement',
+    country: 'Australia', signed: 'September 2022', flag: '🇦🇺',
+    desc: 'Recognises equivalence in membership entry and advancement standards: corporate members of either institute may be elected to the other, subject to CPD compliance, good standing and a professional interview.',
   },
   {
     body: 'New Zealand Institute of Quantity Surveyors (NZIQS)',
-    country: 'New Zealand', year: '2018', flag: '🇳🇿',
-    desc: 'Mutual recognition and professional exchange framework.',
+    kind: 'Reciprocity Agreement',
+    country: 'New Zealand', signed: 'September 2023', flag: '🇳🇿',
+    desc: 'Members in good standing of either institute may be elected to the other after local practice experience and a professional competence interview. The institutes also exchange research and knowledge.',
   },
   {
-    body: 'Canadian Institute of Quantity Surveyors (CIQS)',
-    country: 'Canada', year: '2021', flag: '🇨🇦',
-    desc: 'Partnership for professional development and knowledge sharing.',
+    body: 'Royal Institution of Surveyors Malaysia, Quantity Surveying Division (RISMQS)',
+    kind: 'Certificate of Collaboration',
+    country: 'Malaysia', signed: 'September 2023', flag: '🇲🇾',
+    desc: 'Cooperation on standards, codes of practice and ethics, joint workshops, seminars, research and CPD, the sharing of cost information, and work towards a mutual recognition agreement.',
+  },
+  {
+    body: 'Qatar Green Building Council (QGBC)',
+    kind: 'Memorandum of Understanding',
+    country: 'Qatar', signed: 'October 2018', flag: '🇶🇦',
+    desc: 'Professional collaboration on sustainability and cost and value management in the built environment, training, the exchange of industry experience, certification of qualifying members, and joint research.',
+  },
+  {
+    body: 'Border Communities Development Agency (BCDA)',
+    kind: 'Memorandum of Understanding',
+    country: 'Nigeria', signed: 'March 2025', flag: '🇳🇬',
+    desc: 'A memorandum between the Institute and the Federal Government agency responsible for development in Nigeria’s border communities.',
+  },
+  {
+    body: 'Fiscal Responsibility Commission (FRC)',
+    kind: 'Memorandum of Understanding',
+    country: 'Nigeria', signed: 'June 2026', flag: '🇳🇬',
+    desc: 'A memorandum between the Institute and the Federal Government commission that oversees prudent management of public resources.',
+  },
+  {
+    body: 'SANA Group of Companies Limited',
+    kind: 'Memorandum of Understanding',
+    country: 'Nigeria', signed: 'March 2026', flag: '🇳🇬',
+    desc: 'Joint research, development and industry advancement in Nigeria, with SANA Academy.',
   },
 ];
 

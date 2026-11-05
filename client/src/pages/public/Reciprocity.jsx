@@ -17,12 +17,13 @@ export default function Reciprocity() {
       <section style={{ background: '#fff' }}>
         <div className="ct" style={{ paddingTop: '5rem', paddingBottom: '5rem' }}>
           <div style={{ textAlign: 'center', maxWidth: 680, margin: '0 auto 3rem' }}>
-            <div className="ey" style={{ justifyContent: 'center' }}>Global Reach</div>
-            <h2 className="sh">International <em>Partnerships</em></h2>
+            <div className="ey" style={{ justifyContent: 'center' }}>Agreements</div>
+            <h2 className="sh">Reciprocity &amp; <em>Partnerships</em></h2>
             <p className="sd" style={{ maxWidth: '100%' }}>
-              NIQS maintains reciprocity and mutual recognition agreements with {agreements.length} professional
-              bodies worldwide, enabling members to practice internationally and access global
-              professional development opportunities.
+              NIQS holds {agreements.length} signed agreements: reciprocity and mutual recognition
+              agreements with quantity surveying bodies abroad, which open international practice and
+              professional development to members, and memoranda of understanding with institutions
+              at home and abroad.
             </p>
           </div>
 
@@ -32,10 +33,9 @@ export default function Reciprocity() {
                 <div style={{ fontSize: '1.8rem', lineHeight: 1, flexShrink: 0 }}>{a.flag}</div>
                 <div>
                   <div style={{ fontFamily: 'var(--font-heading)', fontWeight: 700, fontSize: '.92rem', color: 'var(--color-navy)', marginBottom: '.3rem', letterSpacing: '-.02em' }}>{a.body}</div>
-                  <div style={{ display: 'flex', gap: '.6rem', alignItems: 'center', marginBottom: '.5rem' }}>
+                  <div style={{ display: 'flex', gap: '.6rem', alignItems: 'center', flexWrap: 'wrap', marginBottom: '.5rem' }}>
                     <span style={{ fontSize: '.68rem', fontWeight: 700, color: 'var(--color-gold)', textTransform: 'uppercase', letterSpacing: '.06em' }}>{a.country}</span>
-                    <span style={{ fontSize: '.62rem', color: 'var(--color-txt-3)' }}>Since {a.year}</span>
-                    <span className="pill" style={{ fontSize: '.56rem', padding: '1px 8px' }}>Active</span>
+                    <span style={{ fontSize: '.62rem', color: 'var(--color-txt-3)' }}>{a.kind} · signed {a.signed}</span>
                   </div>
                   <p style={{ fontSize: '.78rem', color: 'var(--color-txt-2)', lineHeight: 1.55, margin: 0 }}>{a.desc}</p>
                 </div>

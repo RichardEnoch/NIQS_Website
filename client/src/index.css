@@ -1522,3 +1522,76 @@
 
 /* NPC roster section headings (Oct 2026). */
 .roster-group { font-family: var(--font-heading); font-size: 1.05rem; font-weight: 700; color: var(--color-navy); margin: 0 0 .8rem; }
+
+/* NIQS review, 4 Nov 2026: Home page */
+.home-who { max-width: 820px; margin: 0 auto; text-align: center; }
+.home-who .ey { justify-content: center; }
+.home-who .sd { margin: 0 auto 1.6rem; line-height: 1.9; }
+
+/* Annual subscription notice: the Treasurer's flyer beside its write-up. */
+.sub-note { display: grid; grid-template-columns: minmax(220px, 340px) 1fr; gap: 2.5rem; align-items: start; }
+.sub-flyer { display: block; border-radius: 14px; overflow: hidden; border: 1px solid var(--color-bdr); box-shadow: var(--shadow-sm); }
+.sub-flyer img { display: block; width: 100%; height: auto; }
+.sub-steps { margin: 0 0 1.2rem; padding-left: 1.2rem; display: flex; flex-direction: column; gap: .9rem; font-size: .92rem; line-height: 1.75; color: var(--color-txt-2); }
+.sub-steps li::marker { color: var(--color-gold); font-weight: 800; }
+.sub-steps strong { color: var(--color-navy); }
+.sub-steps a { color: var(--color-navy); font-weight: 700; text-decoration: underline; }
+.sub-acct { display: grid; grid-template-columns: max-content 1fr; gap: .2rem 1rem; margin: .6rem 0 .7rem; padding: .8rem 1rem; background: var(--color-off); border-radius: 10px; font-size: .88rem; }
+.sub-acct dt { font-weight: 700; color: var(--color-txt-3); }
+.sub-acct dd { margin: 0; font-weight: 700; color: var(--color-navy); }
+@media (max-width: 760px) { .sub-note { grid-template-columns: 1fr; } .sub-flyer { max-width: 360px; margin: 0 auto; } }
+
+/* Sponsors & partners: small, full-colour logos linking out (NIQS asked that
+   they not overshadow the page), then the call to partner. */
+.spn-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: .9rem; margin-top: .4rem; }
+.spn-logo {
+  display: flex; align-items: center; justify-content: center; width: 132px; height: 76px; padding: .6rem .8rem;
+  background: #fff; border: 1px solid var(--color-bdr); border-radius: 12px; text-decoration: none;
+  transition: border-color .2s, box-shadow .2s, transform .2s;
+}
+.spn-logo img { max-height: 46px; max-width: 100%; object-fit: contain; }
+a.spn-logo:hover, a.spn-logo:focus-visible { border-color: var(--color-bdr-gold); box-shadow: var(--shadow-sm); transform: translateY(-2px); }
+.spn-cta { display: flex; flex-direction: column; align-items: center; gap: .9rem; margin-top: 2.4rem; text-align: center; }
+.spn-cta h3 { font-family: var(--font-heading); font-weight: 800; font-size: 1.4rem; color: var(--color-navy); margin: 0; letter-spacing: -.02em; }
+.spn-cta h3 em { color: var(--color-gold); font-style: normal; }
+.aff-logos { display: flex; flex-wrap: wrap; justify-content: center; gap: 1.2rem; }
+.aff-logo { display: flex; flex-direction: column; align-items: center; gap: .6rem; width: 180px; text-align: center; }
+.aff-logo-img { display: flex; align-items: center; justify-content: center; width: 100%; height: 96px; padding: .8rem; background: #fff; border: 1px solid var(--color-bdr); border-radius: 12px; }
+.aff-logo-img img { max-height: 70px; max-width: 100%; object-fit: contain; }
+.aff-logo span { font-size: .74rem; font-weight: 600; color: var(--color-txt-2); line-height: 1.4; }
+
+/* NIQS review, 4 Nov 2026: Membership page */
+.mcat-strip { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin-top: 1.4rem; }
+.mcat-chip {
+  padding: .65rem 1.3rem; border-radius: 999px; border: 1.5px solid var(--color-bdr); background: #fff;
+  font-family: var(--font-heading); font-weight: 700; font-size: .9rem; color: var(--color-navy); cursor: pointer;
+  transition: border-color .2s, background .2s, color .2s;
+}
+.mcat-chip:hover, .mcat-chip:focus-visible { border-color: var(--color-gold); }
+.mcat-chip.on { background: var(--color-navy); border-color: var(--color-navy); color: #fff; }
+.mflow-steps { list-style: disc; font-size: .88rem; }
+.mflow-steps li::marker { color: var(--color-gold); }
+
+/* Research page: publications price list and journal abstracts (Nov 2026). */
+.pub-cols { display: grid; grid-template-columns: 3fr 2fr; gap: 2rem; align-items: start; margin-bottom: 1rem; }
+.pub-h { font-family: var(--font-heading); font-weight: 700; font-size: 1rem; color: var(--color-navy); margin: 0 0 .7rem; }
+.pub-table { width: 100%; border-collapse: collapse; font-size: .82rem; background: #fff; border: 1px solid var(--color-bdr); border-radius: 12px; overflow: hidden; }
+.pub-table th { text-align: left; background: var(--color-off); color: var(--color-txt-3); font-size: .68rem; text-transform: uppercase; letter-spacing: .08em; padding: .6rem .9rem; }
+.pub-table td { padding: .55rem .9rem; border-top: 1px solid var(--color-bdr); color: var(--color-txt-2); vertical-align: top; }
+.pub-table td:last-child, .pub-table th:last-child { text-align: right; white-space: nowrap; font-weight: 700; color: var(--color-navy); }
+@media (max-width: 860px) { .pub-cols { grid-template-columns: 1fr; } }
+.jrn-issues { display: flex; flex-direction: column; gap: .7rem; margin-bottom: 2rem; }
+.jrn-issue { background: #fff; border: 1px solid var(--color-bdr); border-radius: 12px; }
+.jrn-issue > summary { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem 1rem; padding: 1rem 1.2rem; cursor: pointer; list-style: none; }
+.jrn-issue > summary::-webkit-details-marker { display: none; }
+.jrn-issue[open] > summary { border-bottom: 1px solid var(--color-bdr); }
+.jrn-vol { font-family: var(--font-heading); font-weight: 800; color: var(--color-navy); }
+.jrn-date { font-size: .78rem; color: var(--color-gold); font-weight: 700; text-transform: uppercase; letter-spacing: .06em; }
+.jrn-count { margin-left: auto; font-size: .74rem; color: var(--color-txt-3); }
+.jrn-papers { list-style: decimal; padding: .6rem 1.2rem .9rem 2.6rem; margin: 0; }
+.jrn-papers li { padding: .45rem 0; border-bottom: 1px dashed var(--color-bdr); font-size: .84rem; }
+.jrn-papers li:last-child { border-bottom: 0; }
+.jrn-papers summary { cursor: pointer; display: flex; flex-direction: column; gap: .15rem; }
+.jrn-title { font-weight: 700; color: var(--color-navy); line-height: 1.45; }
+.jrn-auth { font-size: .76rem; color: var(--color-txt-3); }
+.jrn-papers p { font-size: .8rem; line-height: 1.75; color: var(--color-txt-2); margin: .5rem 0 .2rem; text-align: justify; }
