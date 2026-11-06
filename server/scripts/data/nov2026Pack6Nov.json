@@ -1,0 +1,393 @@
+{
+  "_source": "Gloria Ifiorah's email of 6 Nov 2026 (Re: NIQS Website: Status as at 1 November 2026) and the Drive folder she linked (1Xtq-45glVIV2mlsAj8-jGPzNhd_B1OEw): NASARAWA, EDO, EKITI, IMO subfolders plus loose files. Portrait files are named <group>/<slug>.jpg after normalizePortraits.py; the source of each is listed in 'sources'.",
+  "retitles": [
+    {
+      "scope": "chapter",
+      "state": "Katsina State",
+      "from": "WAQS Coordinator",
+      "to": "WAQSN Coordinator",
+      "basis": "file name 'QS SADIYA SANI YAR'ADUA MNIQS - WAQSN COORDINATOR'"
+    }
+  ],
+  "rosters": {
+    "Nasarawa Chapter": {
+      "state": "Nasarawa State",
+      "group": "nasarawa",
+      "basis": "6 Nov: 'the chapter only ever sent initials - Full names has been uploaded to the drive' (NASARAWA CHAPTER file names)",
+      "members": [
+        [
+          "jibrin-mairiga",
+          "QS Jibrin Mairiga, MNIQS",
+          "Chapter Chairman",
+          ""
+        ],
+        [
+          "shuaibu-y-abdullahi",
+          "QS Shuaibu Y. Abdullahi, MNIQS",
+          "Deputy Chairman",
+          ""
+        ],
+        [
+          "isah-i-zakari",
+          "QS Isah I. Zakari, MNIQS",
+          "General Secretary",
+          ""
+        ],
+        [
+          "buba-a-suleiman",
+          "QS Buba A. Suleiman, MNIQS",
+          "Assistant General Secretary",
+          ""
+        ],
+        [
+          "mohammed-o-bilyaminu",
+          "QS Mohammed O. Bilyaminu, MNIQS",
+          "Treasurer",
+          ""
+        ],
+        [
+          "yusuf-danjuma-obiya",
+          "QS Yusuf Danjuma Obiya, MNIQS",
+          "Financial Secretary",
+          ""
+        ],
+        [
+          "abraham-e-alhassan",
+          "QS Abraham E. Alhassan, MNIQS",
+          "Public Relations Secretary",
+          ""
+        ],
+        [
+          "zaradeen-a-mohammed",
+          "QS Zaradeen A. Mohammed, MNIQS",
+          "YQSF Coordinator",
+          ""
+        ]
+      ]
+    },
+    "Edo Chapter": {
+      "state": "Edo State",
+      "group": "edo",
+      "basis": "6 Nov: Edo pictures 'available in the folder now' (EDO STATE CHAPTER, 9 executives; only 2 were on the site)",
+      "members": [
+        [
+          "chukwuemeka-patrick-ogbu",
+          "QS Dr. Chukwuemeka Patrick Ogbu, MNIQS",
+          "Chapter Chairman",
+          ""
+        ],
+        [
+          "eric-uhunmwangho",
+          "QS Eric Uhunmwangho, MNIQS",
+          "Deputy Chairman",
+          ""
+        ],
+        [
+          "mary-aiyemere-eruvwetere",
+          "QS Mary Aiyemere Eruvwetere, FNIQS",
+          "General Secretary",
+          ""
+        ],
+        [
+          "samuel-wade-ojeaga",
+          "QS Samuel Wade Ojeaga, MNIQS",
+          "Assistant General Secretary",
+          ""
+        ],
+        [
+          "catherine-osaretin-pius",
+          "QS Catherine Osaretin Pius, MNIQS",
+          "Treasurer",
+          ""
+        ],
+        [
+          "james-owolabi",
+          "QS James Owolabi, MNIQS",
+          "Financial Secretary",
+          ""
+        ],
+        [
+          "oladiyun-akinduro-olakunle",
+          "QS Dr. Oladiyun Akinduro Olakunle, FNIQS",
+          "Research & Development Secretary",
+          ""
+        ],
+        [
+          "adesuwa-jane-fregene",
+          "QS Adesuwa Jane Fregene, FNIQS",
+          "Ex-Officio I",
+          ""
+        ],
+        [
+          "paul-osikhena-ogbiti",
+          "QS Dr. Paul Osikhena Ogbiti, FNIQS",
+          "Ex-Officio II",
+          ""
+        ]
+      ]
+    },
+    "Ekiti Chapter": {
+      "state": "Ekiti State",
+      "group": "ekiti",
+      "basis": "6 Nov: Ekiti pictures 'available in the folder now' (names and titles unchanged; 7 of 8 had no photo)",
+      "members": [
+        [
+          "comfort-olubunmi-ade-ojo",
+          "QS Dr Ade-Ojo Comfort Olubunmi, FNIQS",
+          "Chapter Chairman",
+          ""
+        ],
+        [
+          "adeife-oluyemi-ajayi",
+          "QS Ajayi Adeife Oluyemi, MNIQS",
+          "Deputy Chairman",
+          "QS Adeife O. Ajayi, MNIQS"
+        ],
+        [
+          "adekunle-abe",
+          "QS Abe Adekunle, MNIQS",
+          "General Secretary",
+          "QS Adekunle Abe, MNIQS"
+        ],
+        [
+          "sunday-benjami-kolawole",
+          "QS Kolawole Sunday Benjami, MNIQS",
+          "Assistant General Secretary",
+          "QS Sunday B. Kolawole, MNIQS"
+        ],
+        [
+          "lydia-opeyemi-oni",
+          "QS Lydia Opeyemi Oni, MNIQS",
+          "Treasurer",
+          ""
+        ],
+        [
+          "olayide-olanbiwonnu",
+          "QS Olanbiwonnu Olayide, MNIQS",
+          "Financial Secretary",
+          "QS Olayide Olanbiwonnu, MNIQS"
+        ],
+        [
+          "b-o-adebayo",
+          "QS Adebayo B. O, MNIQS",
+          "Research & Development Secretary",
+          "QS B. O. Adebayo, MNIQS"
+        ],
+        [
+          "oluwaseyi-olufadeji",
+          "QS Oluwaseyi Olufadeji, MNIQS",
+          "WAQSN Coordinator",
+          ""
+        ]
+      ]
+    },
+    "Imo Chapter": {
+      "state": "Imo State",
+      "group": "imo",
+      "basis": "6 Nov: Imo pictures 'available in the folder now' (names and titles unchanged; none had a photo; five sources are HEIC)",
+      "members": [
+        [
+          "ogochukwu-amuda",
+          "QS Dr. Amuda Ogochukwu, FNIQS",
+          "Chapter Chairman",
+          "QS Dr. Ogochukwu Amuda, FNIQS"
+        ],
+        [
+          "dennis-n-ihezie",
+          "QS Ihezie Dennis N., MNIQS",
+          "Deputy Chairman",
+          "QS Dennis N. Ihezie, MNIQS"
+        ],
+        [
+          "tobechi-ejekwu",
+          "QS Dr. Ejekwu Tobechi, MNIQS",
+          "Secretary General",
+          "QS Dr. Tobechi Ejekwu, MNIQS"
+        ],
+        [
+          "victor-ohamma",
+          "QS Dr. Ohamma Victor, MNIQS",
+          "Welfare Secretary",
+          "QS Dr. Victor Ohamma, MNIQS"
+        ],
+        [
+          "victor-agbasonu",
+          "QS Victor Agbasonu, MNIQS",
+          "Financial Secretary",
+          ""
+        ],
+        [
+          "rex-ugulu",
+          "QS Dr. Rex Ugulu, MNIQS",
+          "SPDL",
+          ""
+        ],
+        [
+          "jane-egbujor",
+          "QS Egbujor Jane, MNIQS",
+          "Treasurer",
+          "QS Jane Egbujor, MNIQS"
+        ],
+        [
+          "newton-ij-onwusonye",
+          "QS Newton I.J Onwusonye, MNIQS",
+          "Public Relations Officer",
+          ""
+        ],
+        [
+          "prisca-c-mbamaonyeukwu",
+          "Mbamaonyeukwu Prisca Chiamaka",
+          "State YQSF Coordinator",
+          "Prisca C. Mbamaonyeukwu"
+        ]
+      ]
+    }
+  },
+  "portraits": [
+    {
+      "file": "nov6/fct-abdulrafiu-abdullahi.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "FCT",
+        "title": "YQSF Coordinator"
+      }
+    },
+    {
+      "file": "nov6/katsina-sadiya-sani-yaradua.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Katsina State",
+        "name": "QS Sadiya Sani Yar'Adua, MNIQS"
+      }
+    },
+    {
+      "file": "nov6/katsina-maryam-muazu.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "state": "Katsina State",
+        "name": "QS Maryam Mua'azu, MNIQS"
+      }
+    },
+    {
+      "file": "nov6/bot-godson-o-moneke.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "bot",
+        "name": "QS Godson Onyebueke Moneke, FNIQS"
+      }
+    },
+    {
+      "file": "nov6/nec-edo-chukwuemeka-p-ogbu.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "national",
+        "name": "QS Dr. Chukwuemeka Patrick Ogbu, MNIQS"
+      }
+    },
+    {
+      "file": "nov6/nec-anambra-donatus-c-oduenyi.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "national",
+        "name": "QS Donatus Chidi Oduenyi, MNIQS"
+      }
+    },
+    {
+      "file": "reedit/lagos-fausat-ajibade.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Fausat Ajibade, FNIQS"
+      }
+    },
+    {
+      "file": "reedit/zamfara-attahiru-m-maradun.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Attahiru Muhammad Maradun, FNIQS"
+      }
+    },
+    {
+      "file": "reedit/ebonyi-kalu-a-agha.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Agha Kalu Agwu, MNIQS"
+      }
+    },
+    {
+      "file": "reedit/ebonyi-nnaemeka-j-anikwe.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Anikwe Nnaemeka J., MNIQS"
+      }
+    },
+    {
+      "file": "reedit/fct-zemo-m-alexander.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Zemo Masha Alexander, FNIQS"
+      }
+    },
+    {
+      "file": "reedit/kano-salisu-a-baba.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Salisu Ahmad Baba, MNIQS"
+      }
+    },
+    {
+      "file": "reedit/plateau-samuel-dawam.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Samuel Dawam, MNIQS"
+      }
+    },
+    {
+      "file": "reedit/rivers-tochukwu-blessed.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Tochukwu Blessed, MNIQS"
+      }
+    },
+    {
+      "file": "reedit/sokoto-usman-shehu.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Usman Shehu, MNIQS"
+      }
+    },
+    {
+      "file": "reedit/yobe-adeniyi-s-olubummo.jpg",
+      "model": "Exco",
+      "filter": {
+        "scope": "chapter",
+        "name": "QS Olubummo Adeniyi Sola, MNIQS"
+      }
+    }
+  ],
+  "sources": {
+    "nasarawa/*": "Drive NASARAWA CHAPTER (1FwaKl1UECp4gK7BPcWh2vLUFIswTGEoo); file name = name - title",
+    "edo/*": "Drive EDO STATE CHAPTER (1orLGX0AjiaHFkl6-Xn0BWYBiymsqqAJL)",
+    "ekiti/*": "Drive EKITI CHAPTER (1KptylkuqgtHJrzCqIwnBDjeaVHPJvTBd); the sources are small (12-26 KB)",
+    "imo/*": "Drive IMO STATE CHAPTER (1WUzEqn3brtwbd5zP8qnXt7Y_fkeDchJT); five are .HEIC, convert before normalising",
+    "nov6/fct-abdulrafiu-abdullahi.jpg": "Drive file 1xsT8317nC9xr1M4nYMAKJbYpRPm5JPAv",
+    "nov6/katsina-sadiya-sani-yaradua.jpg": "Drive file 1mHN8YR4gb50c8RoAe4Z17QZDCD_7QW7c",
+    "nov6/katsina-maryam-muazu.jpg": "Drive file 1xML7vktePW_sefzev16dfj2n2x_g0jmI",
+    "nov6/bot-godson-o-moneke.jpg": "Drive file 16SHavxHHT_EyfdJ4FT5MwdDEKpHlQXIz",
+    "nov6/nec-edo-chukwuemeka-p-ogbu.jpg": "same source as edo/chukwuemeka-patrick-ogbu",
+    "nov6/nec-anambra-donatus-c-oduenyi.jpg": "Oct folder CHAPTERS/ANAMBRA STATE CHAPTER, 'QS ODUENYI DONATUS CHIDI, MNIQS - CHAIRMAN.png' (1CYl0ipfs-nRcJBljBl3e4Tuc2ek6ufKO)",
+    "reedit/*": "6 Nov item 10 'picture editing': re-normalise from each person's original upload in the chapter folders, not from the live image",
+    "pending": "QS Dikko (BOT): Gloria will upload a single portrait to the same folder; not there yet"
+  }
+}

@@ -22,7 +22,8 @@
  * display table so it can be read before --apply.
  *
  * Usage (from the server folder):
- *   node scripts/applyNov2026Pack.js [--only=names,rosters] [--portraits=<dir>] [--qsconnect=<dir>] [--apply]
+ *   node scripts/applyNov2026Pack.js [--pack=<file>] [--only=names,rosters] [--portraits=<dir>] [--qsconnect=<dir>] [--apply]
+ *   --pack       a later pack in the same shape (default data/nov2026Pack.json)
  *   --portraits  folder of <group>/<slug>.jpg (the normalised set)
  *   --qsconnect  folder of <year>/<file>.pdf plus covers/<file>.jpg
  *   --table=<f>  also write the full name table (every leader record) as TSV
@@ -46,7 +47,10 @@ const QSC_DIR = arg('qsconnect');
 const TABLE = arg('table');
 const want = (s) => !ONLY.length || ONLY.includes(s);
 
-const pack = require('./data/nov2026Pack.json');
+// --pack=<file> runs a later pack in the same shape (e.g. data/nov2026Pack6Nov.json,
+// the Secretariat's reply of 6 Nov); sections a pack does not carry are empty.
+const pack = { renames: [], addQS: [], displayOverrides: [], retitles: [], rosters: {}, portraits: [], chapterContacts: {},
+  ...require(arg('pack') ? path.resolve(arg('pack')) : './data/nov2026Pack.json') };
 const profiles = require('./data/chapterProfilesNov2026.json');
 const MODELS = { Exco, PastPresident };
 
@@ -116,6 +120,13 @@ async function names() {
       const n = next.get(String(r._id));
       if (!/^QS\b/.test(n.name)) n.name = `QS ${n.name.replace(/^(Mr|Mrs|Ms|Miss)\.?\s+/, '')}`;
     }
+  }
+  for (const f of pack.retitles) {
+    const hits = all.filter(r => r.scope === f.scope && (!f.state || r.state === f.state) && r.title === f.from);
+    if (!hits.length && all.some(r => r.scope === f.scope && (!f.state || r.state === f.state) && r.title === f.to)) continue;   // already applied
+    if (hits.length !== 1) { skip('names', `retitle "${f.from}" (${f.scope} ${f.state || ''}) matched ${hits.length}`); continue; }
+    console.log(`  title  ${(f.state || f.scope).padEnd(16)} ${f.from} -> ${f.to}`);
+    change(`exco ${hits[0]._id}: title ${f.to}`, () => Exco.updateOne({ _id: hits[0]._id }, { $set: { title: f.to } }));
   }
   for (const f of pack.displayOverrides) {
     const hits = all.filter(r => r.scope === f.scope && (!f.state || r.state === f.state) && next.get(String(r._id)).name === f.name);
